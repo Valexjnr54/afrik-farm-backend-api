@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/models"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id            Int       @id @default(autoincrement())
+  fullname      String    
+  email         String    @unique 
+  role          Role      @default(super_admin)
+  profile_image String?   
+  password      String    
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("admin")
+}
+
+model Users {
+  id            Int       @id @default(autoincrement())
+  fullname      String    
+  username      String    @unique 
+  email         String    @unique 
+  phone_number  String    @unique 
+  role          Role
+  country   Country? @relation(fields: [countryId], references: [id])
+  countryId Int?
+  state     State?   @relation(fields: [stateId], references: [id])
+  stateId   Int?
+  lga       Lga?     @relation(fields: [lgaId], references: [id])
+  lgaId     Int?
+  profile_image String? 
+  verification_code String? 
+  email_verified  Boolean              @default(false)  
+  status        Status    @default(Inactive)
+  password      String   
+  temporal_password  Boolean              @default(true) 
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Country {
+  id          Int      @id @default(autoincrement())
+  name        String
+  iso2        String?  @unique // e.g. US, NG
+  iso3        String?  @unique // e.g. USA, NGA
+  numericCode String?  @unique
+  phoneCode   String?  // e.g. +1, +234
+  states      State[]  @relation("CountryStates")
+  users       Users[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("countries")
+}
+
+model State {
+  id          Int      @id @default(autoincrement())
+  name        String
+  code        String?  // region/state code (optional)
+  country     Country  @relation(fields: [countryId], references: [id], name: "CountryStates")
+  countryId   Int
+  lgas        Lga[]    @relation("StateLgas")
+  users       Users[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([name, countryId]) // state name unique within a country
+  @@map("states")
+}
+
+model Lga {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String?  // optional administrative code
+  state     State    @relation(fields: [stateId], references: [id], name: "StateLgas")
+  stateId   Int
+  users     Users[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, stateId]) // LGA name unique within a state
+  @@map("lgas")
+}
+
+enum Role {
+  lga_admin
+  country_admin
+  state_admin
+  investor
+  super_admin
+}
+
+enum Status {
+  Available
+  Pending
+  Completed
+  Rejected
+  Approved
+  Inactive
+  Active
+  Suspend
+}
