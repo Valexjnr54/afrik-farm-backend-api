@@ -3,6 +3,8 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { adminAuthRouter } from "./routes/auth/adminAuthRoutes";
 import { adminRouter } from "./routes/admin/admin.routes";
+import { userAuthRouter } from "./routes/auth/userAuthRoutes";
+import { lgaRouter } from "./routes/lga/lga.routes";
 // import { Config } from "./config/config";
 
 
@@ -31,8 +33,10 @@ app.get(`${route}`, (_request: Request, response: Response) => {
 });
 
 app.use(`${route}/auth`, adminAuthRouter);
+app.use(`${route}/auth`, userAuthRouter);
 
 app.use(`${route}/admin`, adminRouter);
+app.use(`${route}/lga`, lgaRouter);
 
 
 app.use((error: any, request: Request, response: Response, next: NextFunction) => {

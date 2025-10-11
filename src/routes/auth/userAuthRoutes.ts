@@ -1,16 +1,17 @@
 import express from 'express';
 import { upload } from '../../middlewares/multerMiddleware';
-import { initiateLogin, logoutUser, registerUser, resendOtp, setPassword, setPhoneNumber, verifyOtp, verifyPassword } from '../../controllers/authControllers/userAuthController';
 import { userAuthenticateJWT } from '../../middlewares/userAuthenticationMiddleware';
+import { changeUserPassword, changeUserTemporalPassword, loginUser, logoutUser, profile, update_profile, verifyUserEmail } from '../../controllers/authentication/userAuthController';
+import { authenticateJWT } from '../../middlewares/authenticationMiddleware';
 
 
 export const userAuthRouter = express.Router();
 
-userAuthRouter.post('/register', upload.single('profile_image'), registerUser);
-userAuthRouter.post('/initiate-login', initiateLogin);
-userAuthRouter.post('/set-password', setPassword);
-userAuthRouter.post('/set-phone-number', setPhoneNumber);
-userAuthRouter.post('/verify-password', verifyPassword);
-userAuthRouter.post('/verify-otp', verifyOtp)
-userAuthRouter.post('/resend-otp', resendOtp)
-userAuthRouter.all('/logout', userAuthenticateJWT, logoutUser)
+userAuthRouter.post('/login', loginUser);
+// Secure the logout route with authentication middleware
+userAuthRouter.post('/logout', userAuthenticateJWT, logoutUser);
+userAuthRouter.post('/email-verification', userAuthenticateJWT, verifyUserEmail);
+userAuthRouter.post('/change-password', userAuthenticateJWT, changeUserPassword);
+userAuthRouter.post('/change-temp-password', userAuthenticateJWT, changeUserTemporalPassword);
+userAuthRouter.get('/profile', userAuthenticateJWT, profile)
+userAuthRouter.put('/update-profile', userAuthenticateJWT, update_profile)

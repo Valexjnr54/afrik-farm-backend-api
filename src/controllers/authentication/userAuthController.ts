@@ -9,6 +9,15 @@ import { body, validationResult } from 'express-validator';
 const prisma = new PrismaClient();
 
 export async function loginUser(request: Request, response: Response) {
+  // validate input
+  await body('login_id').notEmpty().withMessage('login_id is required').bail().isString().trim().run(request);
+  await body('password').notEmpty().withMessage('password is required').bail().isString().run(request);
+
+  const errors = validationResult(request);
+  if (!errors.isEmpty()) {
+    return response.status(422).json({ status: 'fail', errors: errors.array() });
+  }
+
   const { login_id, password } = request.body;
   try {
     const user = await prisma.users.findFirst({
@@ -96,6 +105,7 @@ export async function logoutUser(request: Request, response: Response) {
 export async function verifyUserEmail(request: Request, response: Response){
   // Validate request inputs
   const user_id = request.user.id;
+
   await body('verificationCode').notEmpty().withMessage('Verification code is required').run(request);
 
   // Check if user_id is not present or undefined
@@ -157,11 +167,8 @@ export async function changeUserTemporalPassword(request: Request, response: Res
 
   if (!user_id) {
     return response.status(403).json({ message: 'Unauthorized User' });
-  }
-
-  console.log(request.body);
+  };
   
-
   await body('newPassword')
     .isLength({ min: 8 }).withMessage('New password must be at least 8 characters')
     .matches(/[A-Z]/).withMessage('New password must contain at least one uppercase letter')

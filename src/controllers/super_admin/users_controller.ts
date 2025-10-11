@@ -17,7 +17,7 @@ function generateTempPassword(): string {
 }
 
 export async function createUser(request: Request, response: Response) {
-    const { fullname, username, email, phone_number } = request.body;
+    const { fullname, username, email, phone_number, role, country_id, state_id, lga_id } = request.body;
     const admin_id = request.admin.adminId;
 
     // Check if user_id is not present or undefined
@@ -45,10 +45,10 @@ export async function createUser(request: Request, response: Response) {
 
     // Retrieve the user by user_id
     const check_admin = await prisma.admin.findUnique({ where: { id: admin_id } });
-    const role = check_admin?.role;
+    const admin_role = check_admin?.role;
 
     // Check if the role is not 'User'
-    if (role !== 'super_admin') {
+    if (admin_role !== 'super_admin') {
         return response.status(403).json({ message: 'Unauthorized User' });
     }
 
@@ -62,26 +62,35 @@ export async function createUser(request: Request, response: Response) {
     const verificationCode = generateVerificationCode();
     const expiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
-    // const newAdmin = await prisma.users.create({
-    //   data: {
-        
-    //   },
-    // });
+    const newUser = await prisma.users.create({
+      data: {
+        fullname,
+        email,
+        username,
+        phone_number,
+        password: hashedPassword,
+        verification_code: verificationCode,
+        countryId: country_id,
+        stateId: state_id,
+        lgaId: lga_id,
+        role
+      },
+    });
 
-//     const message = `Hello ${fullname},
+    const message = `Hello ${fullname},
 
-// You have been added as a User on Legasi.
+You have been added as a User on Afrik Farm.
 
-// Temporary Password: ${tempPassword}
-// Email Verification Code: ${verificationCode} (expires in 10 mins)
+Temporary Password: ${tempPassword}
+Email Verification Code: ${verificationCode} (expires in 10 mins)
 
-// You will be required to change your password after first login.
-// `;
+You will be required to change your password after first login.
+`;
 
-    // await sendWelcomeEmail(email, 'Welcome to Legasi – Your Journey Starts Here! 🚀', newAdmin, tempPassword);
-    // await sendVerificationEmail(email, 'Your User Access & Email Verification', verificationCode, newAdmin);
+    await sendWelcomeEmail(email, 'Welcome to Afrik Farm – Your Journey Starts Here! 🚀', newUser, tempPassword);
+    await sendVerificationEmail(email, 'Your User Access & Email Verification', verificationCode, newUser);
 
-    // return response.status(201).json({ message: 'User created and verification email sent', newAdmin });
+    return response.status(201).json({ message: 'User created and verification email sent', newUser });
   } catch (error) {
     console.error(error);
     return response.status(500).json({ message: 'Internal Server Error' });

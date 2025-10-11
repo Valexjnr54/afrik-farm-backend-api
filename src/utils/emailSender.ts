@@ -20,7 +20,7 @@ export async function sendWelcomeEmail(email: string, subject: string, user:obje
 //   const template = await ejs.renderFile(templatePath, { fullname, email: email });
 
   const mailOptions = {
-    from: 'Enugu State Food Scheme <no-reply@enusfs.org>',
+    from: 'Afrik Farm <no-reply@afrikfarm.com>',
     to: email,
     subject: subject,
     html: ejs.render(template, { user, email, temp_password }),
@@ -41,7 +41,7 @@ export async function sendVerificationEmail(email:string, subject:string, verifi
   const template = fs.readFileSync(templatePath, 'utf-8');
 
   const mailOptions = {
-    from: 'LEGASI <no-reply@legasi.org>',
+    from: 'Afrik Farm <no-reply@afrikfarm.com>',
     to: email,
     subject: subject,
     html: ejs.render(template, { verification_code:verification_code, user:user, email:email }),
