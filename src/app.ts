@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from "express";
-// import rateLimiter from "./middlewares/rateLimitMiddleware";
+import rateLimiter from "./middlewares/rateLimitMiddleware";
 import cors from "cors";
 import { adminAuthRouter } from "./routes/auth/adminAuthRoutes";
 import { adminRouter } from "./routes/admin/admin.routes";
 import { userAuthRouter } from "./routes/auth/userAuthRoutes";
 import { lgaRouter } from "./routes/lga/lga.routes";
-// import { Config } from "./config/config";
+import { Config } from "./config/config";
 
 
 const app = express();
@@ -14,8 +14,8 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
-// app.use(rateLimiter);
-// app.use(cors({ origin: Config.corsAllowedOrigin }));
+app.use(rateLimiter);
+app.use(cors({ origin: Config.corsAllowedOrigin }));
 
 app.use((_request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*');
