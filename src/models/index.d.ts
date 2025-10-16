@@ -38,12 +38,75 @@ export type State = $Result.DefaultSelection<Prisma.$StatePayload>
  * 
  */
 export type Lga = $Result.DefaultSelection<Prisma.$LgaPayload>
+/**
+ * Model Farmer
+ * 
+ */
+export type Farmer = $Result.DefaultSelection<Prisma.$FarmerPayload>
+/**
+ * Model Bank
+ * 
+ */
+export type Bank = $Result.DefaultSelection<Prisma.$BankPayload>
+/**
+ * Model Invoice
+ * 
+ */
+export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
+/**
+ * Model Farm
+ * 
+ */
+export type Farm = $Result.DefaultSelection<Prisma.$FarmPayload>
+/**
+ * Model FarmMedia
+ * 
+ */
+export type FarmMedia = $Result.DefaultSelection<Prisma.$FarmMediaPayload>
+/**
+ * Model VerificationCode
+ * 
+ */
+export type VerificationCode = $Result.DefaultSelection<Prisma.$VerificationCodePayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const ProductionType: {
+  Crop: 'Crop',
+  Livestock: 'Livestock'
+};
+
+export type ProductionType = (typeof ProductionType)[keyof typeof ProductionType]
+
+
+export const SizeUnit: {
+  Hectare: 'Hectare',
+  Acre: 'Acre'
+};
+
+export type SizeUnit = (typeof SizeUnit)[keyof typeof SizeUnit]
+
+
+export const FarmStage: {
+  Cleared: 'Cleared',
+  Planted: 'Planted',
+  Harvesting: 'Harvesting'
+};
+
+export type FarmStage = (typeof FarmStage)[keyof typeof FarmStage]
+
+
+export const MediaType: {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+};
+
+export type MediaType = (typeof MediaType)[keyof typeof MediaType]
+
+
+export const Role: {
   lga_admin: 'lga_admin',
   country_admin: 'country_admin',
   state_admin: 'state_admin',
@@ -68,6 +131,22 @@ export const Status: {
 export type Status = (typeof Status)[keyof typeof Status]
 
 }
+
+export type ProductionType = $Enums.ProductionType
+
+export const ProductionType: typeof $Enums.ProductionType
+
+export type SizeUnit = $Enums.SizeUnit
+
+export const SizeUnit: typeof $Enums.SizeUnit
+
+export type FarmStage = $Enums.FarmStage
+
+export const FarmStage: typeof $Enums.FarmStage
+
+export type MediaType = $Enums.MediaType
+
+export const MediaType: typeof $Enums.MediaType
 
 export type Role = $Enums.Role
 
@@ -244,6 +323,66 @@ export class PrismaClient<
     * ```
     */
   get lga(): Prisma.LgaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.farmer`: Exposes CRUD operations for the **Farmer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Farmers
+    * const farmers = await prisma.farmer.findMany()
+    * ```
+    */
+  get farmer(): Prisma.FarmerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bank`: Exposes CRUD operations for the **Bank** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Banks
+    * const banks = await prisma.bank.findMany()
+    * ```
+    */
+  get bank(): Prisma.BankDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.invoice`: Exposes CRUD operations for the **Invoice** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Invoices
+    * const invoices = await prisma.invoice.findMany()
+    * ```
+    */
+  get invoice(): Prisma.InvoiceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.farm`: Exposes CRUD operations for the **Farm** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Farms
+    * const farms = await prisma.farm.findMany()
+    * ```
+    */
+  get farm(): Prisma.FarmDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.farmMedia`: Exposes CRUD operations for the **FarmMedia** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FarmMedias
+    * const farmMedias = await prisma.farmMedia.findMany()
+    * ```
+    */
+  get farmMedia(): Prisma.FarmMediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.verificationCode`: Exposes CRUD operations for the **VerificationCode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VerificationCodes
+    * const verificationCodes = await prisma.verificationCode.findMany()
+    * ```
+    */
+  get verificationCode(): Prisma.VerificationCodeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -688,7 +827,13 @@ export namespace Prisma {
     Users: 'Users',
     Country: 'Country',
     State: 'State',
-    Lga: 'Lga'
+    Lga: 'Lga',
+    Farmer: 'Farmer',
+    Bank: 'Bank',
+    Invoice: 'Invoice',
+    Farm: 'Farm',
+    FarmMedia: 'FarmMedia',
+    VerificationCode: 'VerificationCode'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -707,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "admin" | "users" | "country" | "state" | "lga"
+      modelProps: "admin" | "users" | "country" | "state" | "lga" | "farmer" | "bank" | "invoice" | "farm" | "farmMedia" | "verificationCode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1041,6 +1186,402 @@ export namespace Prisma {
           }
         }
       }
+      Farmer: {
+        payload: Prisma.$FarmerPayload<ExtArgs>
+        fields: Prisma.FarmerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FarmerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FarmerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>
+          }
+          findFirst: {
+            args: Prisma.FarmerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FarmerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>
+          }
+          findMany: {
+            args: Prisma.FarmerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>[]
+          }
+          create: {
+            args: Prisma.FarmerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>
+          }
+          createMany: {
+            args: Prisma.FarmerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.FarmerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>
+          }
+          update: {
+            args: Prisma.FarmerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>
+          }
+          deleteMany: {
+            args: Prisma.FarmerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FarmerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FarmerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmerPayload>
+          }
+          aggregate: {
+            args: Prisma.FarmerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFarmer>
+          }
+          groupBy: {
+            args: Prisma.FarmerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FarmerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FarmerCountArgs<ExtArgs>
+            result: $Utils.Optional<FarmerCountAggregateOutputType> | number
+          }
+        }
+      }
+      Bank: {
+        payload: Prisma.$BankPayload<ExtArgs>
+        fields: Prisma.BankFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BankFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BankFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          findFirst: {
+            args: Prisma.BankFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BankFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          findMany: {
+            args: Prisma.BankFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>[]
+          }
+          create: {
+            args: Prisma.BankCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          createMany: {
+            args: Prisma.BankCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.BankDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          update: {
+            args: Prisma.BankUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          deleteMany: {
+            args: Prisma.BankDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BankUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BankUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          aggregate: {
+            args: Prisma.BankAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBank>
+          }
+          groupBy: {
+            args: Prisma.BankGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BankGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BankCountArgs<ExtArgs>
+            result: $Utils.Optional<BankCountAggregateOutputType> | number
+          }
+        }
+      }
+      Invoice: {
+        payload: Prisma.$InvoicePayload<ExtArgs>
+        fields: Prisma.InvoiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InvoiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InvoiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          findFirst: {
+            args: Prisma.InvoiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InvoiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          findMany: {
+            args: Prisma.InvoiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
+          }
+          create: {
+            args: Prisma.InvoiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          createMany: {
+            args: Prisma.InvoiceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.InvoiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          update: {
+            args: Prisma.InvoiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          deleteMany: {
+            args: Prisma.InvoiceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InvoiceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.InvoiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
+          }
+          aggregate: {
+            args: Prisma.InvoiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInvoice>
+          }
+          groupBy: {
+            args: Prisma.InvoiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InvoiceCountArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Farm: {
+        payload: Prisma.$FarmPayload<ExtArgs>
+        fields: Prisma.FarmFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FarmFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FarmFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>
+          }
+          findFirst: {
+            args: Prisma.FarmFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FarmFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>
+          }
+          findMany: {
+            args: Prisma.FarmFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>[]
+          }
+          create: {
+            args: Prisma.FarmCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>
+          }
+          createMany: {
+            args: Prisma.FarmCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.FarmDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>
+          }
+          update: {
+            args: Prisma.FarmUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>
+          }
+          deleteMany: {
+            args: Prisma.FarmDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FarmUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FarmUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmPayload>
+          }
+          aggregate: {
+            args: Prisma.FarmAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFarm>
+          }
+          groupBy: {
+            args: Prisma.FarmGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FarmGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FarmCountArgs<ExtArgs>
+            result: $Utils.Optional<FarmCountAggregateOutputType> | number
+          }
+        }
+      }
+      FarmMedia: {
+        payload: Prisma.$FarmMediaPayload<ExtArgs>
+        fields: Prisma.FarmMediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FarmMediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FarmMediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>
+          }
+          findFirst: {
+            args: Prisma.FarmMediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FarmMediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>
+          }
+          findMany: {
+            args: Prisma.FarmMediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>[]
+          }
+          create: {
+            args: Prisma.FarmMediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>
+          }
+          createMany: {
+            args: Prisma.FarmMediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.FarmMediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>
+          }
+          update: {
+            args: Prisma.FarmMediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.FarmMediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FarmMediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FarmMediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FarmMediaPayload>
+          }
+          aggregate: {
+            args: Prisma.FarmMediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFarmMedia>
+          }
+          groupBy: {
+            args: Prisma.FarmMediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FarmMediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FarmMediaCountArgs<ExtArgs>
+            result: $Utils.Optional<FarmMediaCountAggregateOutputType> | number
+          }
+        }
+      }
+      VerificationCode: {
+        payload: Prisma.$VerificationCodePayload<ExtArgs>
+        fields: Prisma.VerificationCodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VerificationCodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VerificationCodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          findFirst: {
+            args: Prisma.VerificationCodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VerificationCodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          findMany: {
+            args: Prisma.VerificationCodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>[]
+          }
+          create: {
+            args: Prisma.VerificationCodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          createMany: {
+            args: Prisma.VerificationCodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.VerificationCodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          update: {
+            args: Prisma.VerificationCodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          deleteMany: {
+            args: Prisma.VerificationCodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VerificationCodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.VerificationCodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerificationCodePayload>
+          }
+          aggregate: {
+            args: Prisma.VerificationCodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVerificationCode>
+          }
+          groupBy: {
+            args: Prisma.VerificationCodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VerificationCodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VerificationCodeCountArgs<ExtArgs>
+            result: $Utils.Optional<VerificationCodeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1142,6 +1683,12 @@ export namespace Prisma {
     country?: CountryOmit
     state?: StateOmit
     lga?: LgaOmit
+    farmer?: FarmerOmit
+    bank?: BankOmit
+    invoice?: InvoiceOmit
+    farm?: FarmOmit
+    farmMedia?: FarmMediaOmit
+    verificationCode?: VerificationCodeOmit
   }
 
   /* Types for Logging */
@@ -1224,11 +1771,13 @@ export namespace Prisma {
   export type CountryCountOutputType = {
     states: number
     users: number
+    farmers: number
   }
 
   export type CountryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     states?: boolean | CountryCountOutputTypeCountStatesArgs
     users?: boolean | CountryCountOutputTypeCountUsersArgs
+    farmers?: boolean | CountryCountOutputTypeCountFarmersArgs
   }
 
   // Custom InputTypes
@@ -1256,6 +1805,13 @@ export namespace Prisma {
     where?: UsersWhereInput
   }
 
+  /**
+   * CountryCountOutputType without action
+   */
+  export type CountryCountOutputTypeCountFarmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmerWhereInput
+  }
+
 
   /**
    * Count Type StateCountOutputType
@@ -1264,11 +1820,13 @@ export namespace Prisma {
   export type StateCountOutputType = {
     lgas: number
     users: number
+    farmers: number
   }
 
   export type StateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lgas?: boolean | StateCountOutputTypeCountLgasArgs
     users?: boolean | StateCountOutputTypeCountUsersArgs
+    farmers?: boolean | StateCountOutputTypeCountFarmersArgs
   }
 
   // Custom InputTypes
@@ -1296,6 +1854,13 @@ export namespace Prisma {
     where?: UsersWhereInput
   }
 
+  /**
+   * StateCountOutputType without action
+   */
+  export type StateCountOutputTypeCountFarmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmerWhereInput
+  }
+
 
   /**
    * Count Type LgaCountOutputType
@@ -1303,10 +1868,12 @@ export namespace Prisma {
 
   export type LgaCountOutputType = {
     users: number
+    farmers: number
   }
 
   export type LgaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | LgaCountOutputTypeCountUsersArgs
+    farmers?: boolean | LgaCountOutputTypeCountFarmersArgs
   }
 
   // Custom InputTypes
@@ -1325,6 +1892,115 @@ export namespace Prisma {
    */
   export type LgaCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UsersWhereInput
+  }
+
+  /**
+   * LgaCountOutputType without action
+   */
+  export type LgaCountOutputTypeCountFarmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmerWhereInput
+  }
+
+
+  /**
+   * Count Type FarmerCountOutputType
+   */
+
+  export type FarmerCountOutputType = {
+    inovices: number
+    farms: number
+  }
+
+  export type FarmerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inovices?: boolean | FarmerCountOutputTypeCountInovicesArgs
+    farms?: boolean | FarmerCountOutputTypeCountFarmsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FarmerCountOutputType without action
+   */
+  export type FarmerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmerCountOutputType
+     */
+    select?: FarmerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FarmerCountOutputType without action
+   */
+  export type FarmerCountOutputTypeCountInovicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * FarmerCountOutputType without action
+   */
+  export type FarmerCountOutputTypeCountFarmsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmWhereInput
+  }
+
+
+  /**
+   * Count Type BankCountOutputType
+   */
+
+  export type BankCountOutputType = {
+    farmers: number
+  }
+
+  export type BankCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farmers?: boolean | BankCountOutputTypeCountFarmersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BankCountOutputType without action
+   */
+  export type BankCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankCountOutputType
+     */
+    select?: BankCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BankCountOutputType without action
+   */
+  export type BankCountOutputTypeCountFarmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmerWhereInput
+  }
+
+
+  /**
+   * Count Type FarmCountOutputType
+   */
+
+  export type FarmCountOutputType = {
+    media: number
+  }
+
+  export type FarmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    media?: boolean | FarmCountOutputTypeCountMediaArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmCountOutputType
+     */
+    select?: FarmCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FarmCountOutputType without action
+   */
+  export type FarmCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmMediaWhereInput
   }
 
 
@@ -3677,6 +4353,7 @@ export namespace Prisma {
     updatedAt?: boolean
     states?: boolean | Country$statesArgs<ExtArgs>
     users?: boolean | Country$usersArgs<ExtArgs>
+    farmers?: boolean | Country$farmersArgs<ExtArgs>
     _count?: boolean | CountryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["country"]>
 
@@ -3697,6 +4374,7 @@ export namespace Prisma {
   export type CountryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     states?: boolean | Country$statesArgs<ExtArgs>
     users?: boolean | Country$usersArgs<ExtArgs>
+    farmers?: boolean | Country$farmersArgs<ExtArgs>
     _count?: boolean | CountryCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3705,6 +4383,7 @@ export namespace Prisma {
     objects: {
       states: Prisma.$StatePayload<ExtArgs>[]
       users: Prisma.$UsersPayload<ExtArgs>[]
+      farmers: Prisma.$FarmerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4057,6 +4736,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     states<T extends Country$statesArgs<ExtArgs> = {}>(args?: Subset<T, Country$statesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends Country$usersArgs<ExtArgs> = {}>(args?: Subset<T, Country$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    farmers<T extends Country$farmersArgs<ExtArgs> = {}>(args?: Subset<T, Country$farmersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4485,6 +5165,30 @@ export namespace Prisma {
   }
 
   /**
+   * Country.farmers
+   */
+  export type Country$farmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    where?: FarmerWhereInput
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    cursor?: FarmerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
    * Country without action
    */
   export type CountryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4716,6 +5420,7 @@ export namespace Prisma {
     country?: boolean | CountryDefaultArgs<ExtArgs>
     lgas?: boolean | State$lgasArgs<ExtArgs>
     users?: boolean | State$usersArgs<ExtArgs>
+    farmers?: boolean | State$farmersArgs<ExtArgs>
     _count?: boolean | StateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["state"]>
 
@@ -4735,6 +5440,7 @@ export namespace Prisma {
     country?: boolean | CountryDefaultArgs<ExtArgs>
     lgas?: boolean | State$lgasArgs<ExtArgs>
     users?: boolean | State$usersArgs<ExtArgs>
+    farmers?: boolean | State$farmersArgs<ExtArgs>
     _count?: boolean | StateCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4744,6 +5450,7 @@ export namespace Prisma {
       country: Prisma.$CountryPayload<ExtArgs>
       lgas: Prisma.$LgaPayload<ExtArgs>[]
       users: Prisma.$UsersPayload<ExtArgs>[]
+      farmers: Prisma.$FarmerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5095,6 +5802,7 @@ export namespace Prisma {
     country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     lgas<T extends State$lgasArgs<ExtArgs> = {}>(args?: Subset<T, State$lgasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LgaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends State$usersArgs<ExtArgs> = {}>(args?: Subset<T, State$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    farmers<T extends State$farmersArgs<ExtArgs> = {}>(args?: Subset<T, State$farmersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5521,6 +6229,30 @@ export namespace Prisma {
   }
 
   /**
+   * State.farmers
+   */
+  export type State$farmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    where?: FarmerWhereInput
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    cursor?: FarmerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
    * State without action
    */
   export type StateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5751,6 +6483,7 @@ export namespace Prisma {
     updatedAt?: boolean
     state?: boolean | StateDefaultArgs<ExtArgs>
     users?: boolean | Lga$usersArgs<ExtArgs>
+    farmers?: boolean | Lga$farmersArgs<ExtArgs>
     _count?: boolean | LgaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lga"]>
 
@@ -5769,6 +6502,7 @@ export namespace Prisma {
   export type LgaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     state?: boolean | StateDefaultArgs<ExtArgs>
     users?: boolean | Lga$usersArgs<ExtArgs>
+    farmers?: boolean | Lga$farmersArgs<ExtArgs>
     _count?: boolean | LgaCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5777,6 +6511,7 @@ export namespace Prisma {
     objects: {
       state: Prisma.$StatePayload<ExtArgs>
       users: Prisma.$UsersPayload<ExtArgs>[]
+      farmers: Prisma.$FarmerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6127,6 +6862,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     state<T extends StateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StateDefaultArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     users<T extends Lga$usersArgs<ExtArgs> = {}>(args?: Subset<T, Lga$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    farmers<T extends Lga$farmersArgs<ExtArgs> = {}>(args?: Subset<T, Lga$farmersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6529,6 +7265,30 @@ export namespace Prisma {
   }
 
   /**
+   * Lga.farmers
+   */
+  export type Lga$farmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    where?: FarmerWhereInput
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    cursor?: FarmerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
    * Lga without action
    */
   export type LgaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6544,6 +7304,6219 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: LgaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Farmer
+   */
+
+  export type AggregateFarmer = {
+    _count: FarmerCountAggregateOutputType | null
+    _avg: FarmerAvgAggregateOutputType | null
+    _sum: FarmerSumAggregateOutputType | null
+    _min: FarmerMinAggregateOutputType | null
+    _max: FarmerMaxAggregateOutputType | null
+  }
+
+  export type FarmerAvgAggregateOutputType = {
+    id: number | null
+    bankId: number | null
+    countryId: number | null
+    stateId: number | null
+    lgaId: number | null
+    account_created_by: number | null
+  }
+
+  export type FarmerSumAggregateOutputType = {
+    id: number | null
+    bankId: number | null
+    countryId: number | null
+    stateId: number | null
+    lgaId: number | null
+    account_created_by: number | null
+  }
+
+  export type FarmerMinAggregateOutputType = {
+    id: number | null
+    fullname: string | null
+    email: string | null
+    phone_number: string | null
+    address: string | null
+    nin: string | null
+    profile_image: string | null
+    proof_of_address: string | null
+    bankId: number | null
+    account_number: string | null
+    account_name: string | null
+    countryId: number | null
+    stateId: number | null
+    lgaId: number | null
+    email_verified: boolean | null
+    phone_verified: boolean | null
+    nin_verified: boolean | null
+    has_subscribed: boolean | null
+    status: $Enums.Status | null
+    account_created_by: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FarmerMaxAggregateOutputType = {
+    id: number | null
+    fullname: string | null
+    email: string | null
+    phone_number: string | null
+    address: string | null
+    nin: string | null
+    profile_image: string | null
+    proof_of_address: string | null
+    bankId: number | null
+    account_number: string | null
+    account_name: string | null
+    countryId: number | null
+    stateId: number | null
+    lgaId: number | null
+    email_verified: boolean | null
+    phone_verified: boolean | null
+    nin_verified: boolean | null
+    has_subscribed: boolean | null
+    status: $Enums.Status | null
+    account_created_by: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FarmerCountAggregateOutputType = {
+    id: number
+    fullname: number
+    email: number
+    phone_number: number
+    address: number
+    nin: number
+    profile_image: number
+    proof_of_address: number
+    bankId: number
+    account_number: number
+    account_name: number
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified: number
+    phone_verified: number
+    nin_verified: number
+    has_subscribed: number
+    status: number
+    account_created_by: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FarmerAvgAggregateInputType = {
+    id?: true
+    bankId?: true
+    countryId?: true
+    stateId?: true
+    lgaId?: true
+    account_created_by?: true
+  }
+
+  export type FarmerSumAggregateInputType = {
+    id?: true
+    bankId?: true
+    countryId?: true
+    stateId?: true
+    lgaId?: true
+    account_created_by?: true
+  }
+
+  export type FarmerMinAggregateInputType = {
+    id?: true
+    fullname?: true
+    email?: true
+    phone_number?: true
+    address?: true
+    nin?: true
+    profile_image?: true
+    proof_of_address?: true
+    bankId?: true
+    account_number?: true
+    account_name?: true
+    countryId?: true
+    stateId?: true
+    lgaId?: true
+    email_verified?: true
+    phone_verified?: true
+    nin_verified?: true
+    has_subscribed?: true
+    status?: true
+    account_created_by?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FarmerMaxAggregateInputType = {
+    id?: true
+    fullname?: true
+    email?: true
+    phone_number?: true
+    address?: true
+    nin?: true
+    profile_image?: true
+    proof_of_address?: true
+    bankId?: true
+    account_number?: true
+    account_name?: true
+    countryId?: true
+    stateId?: true
+    lgaId?: true
+    email_verified?: true
+    phone_verified?: true
+    nin_verified?: true
+    has_subscribed?: true
+    status?: true
+    account_created_by?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FarmerCountAggregateInputType = {
+    id?: true
+    fullname?: true
+    email?: true
+    phone_number?: true
+    address?: true
+    nin?: true
+    profile_image?: true
+    proof_of_address?: true
+    bankId?: true
+    account_number?: true
+    account_name?: true
+    countryId?: true
+    stateId?: true
+    lgaId?: true
+    email_verified?: true
+    phone_verified?: true
+    nin_verified?: true
+    has_subscribed?: true
+    status?: true
+    account_created_by?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FarmerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Farmer to aggregate.
+     */
+    where?: FarmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farmers to fetch.
+     */
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FarmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farmers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Farmers
+    **/
+    _count?: true | FarmerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FarmerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FarmerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FarmerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FarmerMaxAggregateInputType
+  }
+
+  export type GetFarmerAggregateType<T extends FarmerAggregateArgs> = {
+        [P in keyof T & keyof AggregateFarmer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFarmer[P]>
+      : GetScalarType<T[P], AggregateFarmer[P]>
+  }
+
+
+
+
+  export type FarmerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmerWhereInput
+    orderBy?: FarmerOrderByWithAggregationInput | FarmerOrderByWithAggregationInput[]
+    by: FarmerScalarFieldEnum[] | FarmerScalarFieldEnum
+    having?: FarmerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FarmerCountAggregateInputType | true
+    _avg?: FarmerAvgAggregateInputType
+    _sum?: FarmerSumAggregateInputType
+    _min?: FarmerMinAggregateInputType
+    _max?: FarmerMaxAggregateInputType
+  }
+
+  export type FarmerGroupByOutputType = {
+    id: number
+    fullname: string
+    email: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image: string | null
+    proof_of_address: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified: boolean
+    phone_verified: boolean
+    nin_verified: boolean
+    has_subscribed: boolean
+    status: $Enums.Status
+    account_created_by: number
+    createdAt: Date
+    updatedAt: Date
+    _count: FarmerCountAggregateOutputType | null
+    _avg: FarmerAvgAggregateOutputType | null
+    _sum: FarmerSumAggregateOutputType | null
+    _min: FarmerMinAggregateOutputType | null
+    _max: FarmerMaxAggregateOutputType | null
+  }
+
+  type GetFarmerGroupByPayload<T extends FarmerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FarmerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FarmerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FarmerGroupByOutputType[P]>
+            : GetScalarType<T[P], FarmerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FarmerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullname?: boolean
+    email?: boolean
+    phone_number?: boolean
+    address?: boolean
+    nin?: boolean
+    profile_image?: boolean
+    proof_of_address?: boolean
+    bankId?: boolean
+    account_number?: boolean
+    account_name?: boolean
+    countryId?: boolean
+    stateId?: boolean
+    lgaId?: boolean
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: boolean
+    account_created_by?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    bank?: boolean | BankDefaultArgs<ExtArgs>
+    country?: boolean | CountryDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    lga?: boolean | LgaDefaultArgs<ExtArgs>
+    inovices?: boolean | Farmer$inovicesArgs<ExtArgs>
+    farms?: boolean | Farmer$farmsArgs<ExtArgs>
+    _count?: boolean | FarmerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["farmer"]>
+
+
+
+  export type FarmerSelectScalar = {
+    id?: boolean
+    fullname?: boolean
+    email?: boolean
+    phone_number?: boolean
+    address?: boolean
+    nin?: boolean
+    profile_image?: boolean
+    proof_of_address?: boolean
+    bankId?: boolean
+    account_number?: boolean
+    account_name?: boolean
+    countryId?: boolean
+    stateId?: boolean
+    lgaId?: boolean
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: boolean
+    account_created_by?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FarmerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "phone_number" | "address" | "nin" | "profile_image" | "proof_of_address" | "bankId" | "account_number" | "account_name" | "countryId" | "stateId" | "lgaId" | "email_verified" | "phone_verified" | "nin_verified" | "has_subscribed" | "status" | "account_created_by" | "createdAt" | "updatedAt", ExtArgs["result"]["farmer"]>
+  export type FarmerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bank?: boolean | BankDefaultArgs<ExtArgs>
+    country?: boolean | CountryDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    lga?: boolean | LgaDefaultArgs<ExtArgs>
+    inovices?: boolean | Farmer$inovicesArgs<ExtArgs>
+    farms?: boolean | Farmer$farmsArgs<ExtArgs>
+    _count?: boolean | FarmerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $FarmerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Farmer"
+    objects: {
+      bank: Prisma.$BankPayload<ExtArgs>
+      country: Prisma.$CountryPayload<ExtArgs>
+      state: Prisma.$StatePayload<ExtArgs>
+      lga: Prisma.$LgaPayload<ExtArgs>
+      inovices: Prisma.$InvoicePayload<ExtArgs>[]
+      farms: Prisma.$FarmPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      fullname: string
+      email: string | null
+      phone_number: string
+      address: string
+      nin: string
+      profile_image: string | null
+      proof_of_address: string | null
+      bankId: number
+      account_number: string
+      account_name: string
+      countryId: number
+      stateId: number
+      lgaId: number
+      email_verified: boolean
+      phone_verified: boolean
+      nin_verified: boolean
+      has_subscribed: boolean
+      status: $Enums.Status
+      account_created_by: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["farmer"]>
+    composites: {}
+  }
+
+  type FarmerGetPayload<S extends boolean | null | undefined | FarmerDefaultArgs> = $Result.GetResult<Prisma.$FarmerPayload, S>
+
+  type FarmerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FarmerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FarmerCountAggregateInputType | true
+    }
+
+  export interface FarmerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Farmer'], meta: { name: 'Farmer' } }
+    /**
+     * Find zero or one Farmer that matches the filter.
+     * @param {FarmerFindUniqueArgs} args - Arguments to find a Farmer
+     * @example
+     * // Get one Farmer
+     * const farmer = await prisma.farmer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FarmerFindUniqueArgs>(args: SelectSubset<T, FarmerFindUniqueArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Farmer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FarmerFindUniqueOrThrowArgs} args - Arguments to find a Farmer
+     * @example
+     * // Get one Farmer
+     * const farmer = await prisma.farmer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FarmerFindUniqueOrThrowArgs>(args: SelectSubset<T, FarmerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Farmer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerFindFirstArgs} args - Arguments to find a Farmer
+     * @example
+     * // Get one Farmer
+     * const farmer = await prisma.farmer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FarmerFindFirstArgs>(args?: SelectSubset<T, FarmerFindFirstArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Farmer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerFindFirstOrThrowArgs} args - Arguments to find a Farmer
+     * @example
+     * // Get one Farmer
+     * const farmer = await prisma.farmer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FarmerFindFirstOrThrowArgs>(args?: SelectSubset<T, FarmerFindFirstOrThrowArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Farmers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Farmers
+     * const farmers = await prisma.farmer.findMany()
+     * 
+     * // Get first 10 Farmers
+     * const farmers = await prisma.farmer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const farmerWithIdOnly = await prisma.farmer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FarmerFindManyArgs>(args?: SelectSubset<T, FarmerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Farmer.
+     * @param {FarmerCreateArgs} args - Arguments to create a Farmer.
+     * @example
+     * // Create one Farmer
+     * const Farmer = await prisma.farmer.create({
+     *   data: {
+     *     // ... data to create a Farmer
+     *   }
+     * })
+     * 
+     */
+    create<T extends FarmerCreateArgs>(args: SelectSubset<T, FarmerCreateArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Farmers.
+     * @param {FarmerCreateManyArgs} args - Arguments to create many Farmers.
+     * @example
+     * // Create many Farmers
+     * const farmer = await prisma.farmer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FarmerCreateManyArgs>(args?: SelectSubset<T, FarmerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Farmer.
+     * @param {FarmerDeleteArgs} args - Arguments to delete one Farmer.
+     * @example
+     * // Delete one Farmer
+     * const Farmer = await prisma.farmer.delete({
+     *   where: {
+     *     // ... filter to delete one Farmer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FarmerDeleteArgs>(args: SelectSubset<T, FarmerDeleteArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Farmer.
+     * @param {FarmerUpdateArgs} args - Arguments to update one Farmer.
+     * @example
+     * // Update one Farmer
+     * const farmer = await prisma.farmer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FarmerUpdateArgs>(args: SelectSubset<T, FarmerUpdateArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Farmers.
+     * @param {FarmerDeleteManyArgs} args - Arguments to filter Farmers to delete.
+     * @example
+     * // Delete a few Farmers
+     * const { count } = await prisma.farmer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FarmerDeleteManyArgs>(args?: SelectSubset<T, FarmerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Farmers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Farmers
+     * const farmer = await prisma.farmer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FarmerUpdateManyArgs>(args: SelectSubset<T, FarmerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Farmer.
+     * @param {FarmerUpsertArgs} args - Arguments to update or create a Farmer.
+     * @example
+     * // Update or create a Farmer
+     * const farmer = await prisma.farmer.upsert({
+     *   create: {
+     *     // ... data to create a Farmer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Farmer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FarmerUpsertArgs>(args: SelectSubset<T, FarmerUpsertArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Farmers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerCountArgs} args - Arguments to filter Farmers to count.
+     * @example
+     * // Count the number of Farmers
+     * const count = await prisma.farmer.count({
+     *   where: {
+     *     // ... the filter for the Farmers we want to count
+     *   }
+     * })
+    **/
+    count<T extends FarmerCountArgs>(
+      args?: Subset<T, FarmerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FarmerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Farmer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FarmerAggregateArgs>(args: Subset<T, FarmerAggregateArgs>): Prisma.PrismaPromise<GetFarmerAggregateType<T>>
+
+    /**
+     * Group by Farmer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FarmerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FarmerGroupByArgs['orderBy'] }
+        : { orderBy?: FarmerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FarmerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFarmerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Farmer model
+   */
+  readonly fields: FarmerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Farmer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FarmerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    bank<T extends BankDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BankDefaultArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    state<T extends StateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StateDefaultArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lga<T extends LgaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LgaDefaultArgs<ExtArgs>>): Prisma__LgaClient<$Result.GetResult<Prisma.$LgaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    inovices<T extends Farmer$inovicesArgs<ExtArgs> = {}>(args?: Subset<T, Farmer$inovicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    farms<T extends Farmer$farmsArgs<ExtArgs> = {}>(args?: Subset<T, Farmer$farmsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Farmer model
+   */
+  interface FarmerFieldRefs {
+    readonly id: FieldRef<"Farmer", 'Int'>
+    readonly fullname: FieldRef<"Farmer", 'String'>
+    readonly email: FieldRef<"Farmer", 'String'>
+    readonly phone_number: FieldRef<"Farmer", 'String'>
+    readonly address: FieldRef<"Farmer", 'String'>
+    readonly nin: FieldRef<"Farmer", 'String'>
+    readonly profile_image: FieldRef<"Farmer", 'String'>
+    readonly proof_of_address: FieldRef<"Farmer", 'String'>
+    readonly bankId: FieldRef<"Farmer", 'Int'>
+    readonly account_number: FieldRef<"Farmer", 'String'>
+    readonly account_name: FieldRef<"Farmer", 'String'>
+    readonly countryId: FieldRef<"Farmer", 'Int'>
+    readonly stateId: FieldRef<"Farmer", 'Int'>
+    readonly lgaId: FieldRef<"Farmer", 'Int'>
+    readonly email_verified: FieldRef<"Farmer", 'Boolean'>
+    readonly phone_verified: FieldRef<"Farmer", 'Boolean'>
+    readonly nin_verified: FieldRef<"Farmer", 'Boolean'>
+    readonly has_subscribed: FieldRef<"Farmer", 'Boolean'>
+    readonly status: FieldRef<"Farmer", 'Status'>
+    readonly account_created_by: FieldRef<"Farmer", 'Int'>
+    readonly createdAt: FieldRef<"Farmer", 'DateTime'>
+    readonly updatedAt: FieldRef<"Farmer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Farmer findUnique
+   */
+  export type FarmerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * Filter, which Farmer to fetch.
+     */
+    where: FarmerWhereUniqueInput
+  }
+
+  /**
+   * Farmer findUniqueOrThrow
+   */
+  export type FarmerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * Filter, which Farmer to fetch.
+     */
+    where: FarmerWhereUniqueInput
+  }
+
+  /**
+   * Farmer findFirst
+   */
+  export type FarmerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * Filter, which Farmer to fetch.
+     */
+    where?: FarmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farmers to fetch.
+     */
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Farmers.
+     */
+    cursor?: FarmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farmers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Farmers.
+     */
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
+   * Farmer findFirstOrThrow
+   */
+  export type FarmerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * Filter, which Farmer to fetch.
+     */
+    where?: FarmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farmers to fetch.
+     */
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Farmers.
+     */
+    cursor?: FarmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farmers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Farmers.
+     */
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
+   * Farmer findMany
+   */
+  export type FarmerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * Filter, which Farmers to fetch.
+     */
+    where?: FarmerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farmers to fetch.
+     */
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Farmers.
+     */
+    cursor?: FarmerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farmers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farmers.
+     */
+    skip?: number
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
+   * Farmer create
+   */
+  export type FarmerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Farmer.
+     */
+    data: XOR<FarmerCreateInput, FarmerUncheckedCreateInput>
+  }
+
+  /**
+   * Farmer createMany
+   */
+  export type FarmerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Farmers.
+     */
+    data: FarmerCreateManyInput | FarmerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Farmer update
+   */
+  export type FarmerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Farmer.
+     */
+    data: XOR<FarmerUpdateInput, FarmerUncheckedUpdateInput>
+    /**
+     * Choose, which Farmer to update.
+     */
+    where: FarmerWhereUniqueInput
+  }
+
+  /**
+   * Farmer updateMany
+   */
+  export type FarmerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Farmers.
+     */
+    data: XOR<FarmerUpdateManyMutationInput, FarmerUncheckedUpdateManyInput>
+    /**
+     * Filter which Farmers to update
+     */
+    where?: FarmerWhereInput
+    /**
+     * Limit how many Farmers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Farmer upsert
+   */
+  export type FarmerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Farmer to update in case it exists.
+     */
+    where: FarmerWhereUniqueInput
+    /**
+     * In case the Farmer found by the `where` argument doesn't exist, create a new Farmer with this data.
+     */
+    create: XOR<FarmerCreateInput, FarmerUncheckedCreateInput>
+    /**
+     * In case the Farmer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FarmerUpdateInput, FarmerUncheckedUpdateInput>
+  }
+
+  /**
+   * Farmer delete
+   */
+  export type FarmerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    /**
+     * Filter which Farmer to delete.
+     */
+    where: FarmerWhereUniqueInput
+  }
+
+  /**
+   * Farmer deleteMany
+   */
+  export type FarmerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Farmers to delete
+     */
+    where?: FarmerWhereInput
+    /**
+     * Limit how many Farmers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Farmer.inovices
+   */
+  export type Farmer$inovicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Farmer.farms
+   */
+  export type Farmer$farmsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    where?: FarmWhereInput
+    orderBy?: FarmOrderByWithRelationInput | FarmOrderByWithRelationInput[]
+    cursor?: FarmWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FarmScalarFieldEnum | FarmScalarFieldEnum[]
+  }
+
+  /**
+   * Farmer without action
+   */
+  export type FarmerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Bank
+   */
+
+  export type AggregateBank = {
+    _count: BankCountAggregateOutputType | null
+    _avg: BankAvgAggregateOutputType | null
+    _sum: BankSumAggregateOutputType | null
+    _min: BankMinAggregateOutputType | null
+    _max: BankMaxAggregateOutputType | null
+  }
+
+  export type BankAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type BankSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type BankMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    code: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BankMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    code: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BankCountAggregateOutputType = {
+    id: number
+    name: number
+    code: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BankAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type BankSumAggregateInputType = {
+    id?: true
+  }
+
+  export type BankMinAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BankMaxAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BankCountAggregateInputType = {
+    id?: true
+    name?: true
+    code?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BankAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bank to aggregate.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Banks
+    **/
+    _count?: true | BankCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BankAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BankSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BankMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BankMaxAggregateInputType
+  }
+
+  export type GetBankAggregateType<T extends BankAggregateArgs> = {
+        [P in keyof T & keyof AggregateBank]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBank[P]>
+      : GetScalarType<T[P], AggregateBank[P]>
+  }
+
+
+
+
+  export type BankGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankWhereInput
+    orderBy?: BankOrderByWithAggregationInput | BankOrderByWithAggregationInput[]
+    by: BankScalarFieldEnum[] | BankScalarFieldEnum
+    having?: BankScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BankCountAggregateInputType | true
+    _avg?: BankAvgAggregateInputType
+    _sum?: BankSumAggregateInputType
+    _min?: BankMinAggregateInputType
+    _max?: BankMaxAggregateInputType
+  }
+
+  export type BankGroupByOutputType = {
+    id: number
+    name: string
+    code: string
+    createdAt: Date
+    updatedAt: Date
+    _count: BankCountAggregateOutputType | null
+    _avg: BankAvgAggregateOutputType | null
+    _sum: BankSumAggregateOutputType | null
+    _min: BankMinAggregateOutputType | null
+    _max: BankMaxAggregateOutputType | null
+  }
+
+  type GetBankGroupByPayload<T extends BankGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BankGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BankGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BankGroupByOutputType[P]>
+            : GetScalarType<T[P], BankGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BankSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmers?: boolean | Bank$farmersArgs<ExtArgs>
+    _count?: boolean | BankCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bank"]>
+
+
+
+  export type BankSelectScalar = {
+    id?: boolean
+    name?: boolean
+    code?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BankOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "createdAt" | "updatedAt", ExtArgs["result"]["bank"]>
+  export type BankInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farmers?: boolean | Bank$farmersArgs<ExtArgs>
+    _count?: boolean | BankCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $BankPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Bank"
+    objects: {
+      farmers: Prisma.$FarmerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      code: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["bank"]>
+    composites: {}
+  }
+
+  type BankGetPayload<S extends boolean | null | undefined | BankDefaultArgs> = $Result.GetResult<Prisma.$BankPayload, S>
+
+  type BankCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BankFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BankCountAggregateInputType | true
+    }
+
+  export interface BankDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Bank'], meta: { name: 'Bank' } }
+    /**
+     * Find zero or one Bank that matches the filter.
+     * @param {BankFindUniqueArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BankFindUniqueArgs>(args: SelectSubset<T, BankFindUniqueArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Bank that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BankFindUniqueOrThrowArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BankFindUniqueOrThrowArgs>(args: SelectSubset<T, BankFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Bank that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankFindFirstArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BankFindFirstArgs>(args?: SelectSubset<T, BankFindFirstArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Bank that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankFindFirstOrThrowArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BankFindFirstOrThrowArgs>(args?: SelectSubset<T, BankFindFirstOrThrowArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Banks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Banks
+     * const banks = await prisma.bank.findMany()
+     * 
+     * // Get first 10 Banks
+     * const banks = await prisma.bank.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bankWithIdOnly = await prisma.bank.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BankFindManyArgs>(args?: SelectSubset<T, BankFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Bank.
+     * @param {BankCreateArgs} args - Arguments to create a Bank.
+     * @example
+     * // Create one Bank
+     * const Bank = await prisma.bank.create({
+     *   data: {
+     *     // ... data to create a Bank
+     *   }
+     * })
+     * 
+     */
+    create<T extends BankCreateArgs>(args: SelectSubset<T, BankCreateArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Banks.
+     * @param {BankCreateManyArgs} args - Arguments to create many Banks.
+     * @example
+     * // Create many Banks
+     * const bank = await prisma.bank.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BankCreateManyArgs>(args?: SelectSubset<T, BankCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Bank.
+     * @param {BankDeleteArgs} args - Arguments to delete one Bank.
+     * @example
+     * // Delete one Bank
+     * const Bank = await prisma.bank.delete({
+     *   where: {
+     *     // ... filter to delete one Bank
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BankDeleteArgs>(args: SelectSubset<T, BankDeleteArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Bank.
+     * @param {BankUpdateArgs} args - Arguments to update one Bank.
+     * @example
+     * // Update one Bank
+     * const bank = await prisma.bank.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BankUpdateArgs>(args: SelectSubset<T, BankUpdateArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Banks.
+     * @param {BankDeleteManyArgs} args - Arguments to filter Banks to delete.
+     * @example
+     * // Delete a few Banks
+     * const { count } = await prisma.bank.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BankDeleteManyArgs>(args?: SelectSubset<T, BankDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Banks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Banks
+     * const bank = await prisma.bank.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BankUpdateManyArgs>(args: SelectSubset<T, BankUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Bank.
+     * @param {BankUpsertArgs} args - Arguments to update or create a Bank.
+     * @example
+     * // Update or create a Bank
+     * const bank = await prisma.bank.upsert({
+     *   create: {
+     *     // ... data to create a Bank
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Bank we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BankUpsertArgs>(args: SelectSubset<T, BankUpsertArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Banks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankCountArgs} args - Arguments to filter Banks to count.
+     * @example
+     * // Count the number of Banks
+     * const count = await prisma.bank.count({
+     *   where: {
+     *     // ... the filter for the Banks we want to count
+     *   }
+     * })
+    **/
+    count<T extends BankCountArgs>(
+      args?: Subset<T, BankCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BankCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Bank.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BankAggregateArgs>(args: Subset<T, BankAggregateArgs>): Prisma.PrismaPromise<GetBankAggregateType<T>>
+
+    /**
+     * Group by Bank.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BankGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BankGroupByArgs['orderBy'] }
+        : { orderBy?: BankGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BankGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBankGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Bank model
+   */
+  readonly fields: BankFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Bank.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BankClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    farmers<T extends Bank$farmersArgs<ExtArgs> = {}>(args?: Subset<T, Bank$farmersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Bank model
+   */
+  interface BankFieldRefs {
+    readonly id: FieldRef<"Bank", 'Int'>
+    readonly name: FieldRef<"Bank", 'String'>
+    readonly code: FieldRef<"Bank", 'String'>
+    readonly createdAt: FieldRef<"Bank", 'DateTime'>
+    readonly updatedAt: FieldRef<"Bank", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Bank findUnique
+   */
+  export type BankFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank findUniqueOrThrow
+   */
+  export type BankFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank findFirst
+   */
+  export type BankFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Banks.
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Banks.
+     */
+    distinct?: BankScalarFieldEnum | BankScalarFieldEnum[]
+  }
+
+  /**
+   * Bank findFirstOrThrow
+   */
+  export type BankFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Banks.
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Banks.
+     */
+    distinct?: BankScalarFieldEnum | BankScalarFieldEnum[]
+  }
+
+  /**
+   * Bank findMany
+   */
+  export type BankFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Banks to fetch.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Banks.
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    distinct?: BankScalarFieldEnum | BankScalarFieldEnum[]
+  }
+
+  /**
+   * Bank create
+   */
+  export type BankCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Bank.
+     */
+    data: XOR<BankCreateInput, BankUncheckedCreateInput>
+  }
+
+  /**
+   * Bank createMany
+   */
+  export type BankCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Banks.
+     */
+    data: BankCreateManyInput | BankCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Bank update
+   */
+  export type BankUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Bank.
+     */
+    data: XOR<BankUpdateInput, BankUncheckedUpdateInput>
+    /**
+     * Choose, which Bank to update.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank updateMany
+   */
+  export type BankUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Banks.
+     */
+    data: XOR<BankUpdateManyMutationInput, BankUncheckedUpdateManyInput>
+    /**
+     * Filter which Banks to update
+     */
+    where?: BankWhereInput
+    /**
+     * Limit how many Banks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Bank upsert
+   */
+  export type BankUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Bank to update in case it exists.
+     */
+    where: BankWhereUniqueInput
+    /**
+     * In case the Bank found by the `where` argument doesn't exist, create a new Bank with this data.
+     */
+    create: XOR<BankCreateInput, BankUncheckedCreateInput>
+    /**
+     * In case the Bank was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BankUpdateInput, BankUncheckedUpdateInput>
+  }
+
+  /**
+   * Bank delete
+   */
+  export type BankDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter which Bank to delete.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank deleteMany
+   */
+  export type BankDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Banks to delete
+     */
+    where?: BankWhereInput
+    /**
+     * Limit how many Banks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Bank.farmers
+   */
+  export type Bank$farmersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farmer
+     */
+    select?: FarmerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farmer
+     */
+    omit?: FarmerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmerInclude<ExtArgs> | null
+    where?: FarmerWhereInput
+    orderBy?: FarmerOrderByWithRelationInput | FarmerOrderByWithRelationInput[]
+    cursor?: FarmerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FarmerScalarFieldEnum | FarmerScalarFieldEnum[]
+  }
+
+  /**
+   * Bank without action
+   */
+  export type BankDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Invoice
+   */
+
+  export type AggregateInvoice = {
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
+  }
+
+  export type InvoiceAvgAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    amount: number | null
+  }
+
+  export type InvoiceSumAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    amount: number | null
+  }
+
+  export type InvoiceMinAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    amount: number | null
+  }
+
+  export type InvoiceMaxAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    amount: number | null
+  }
+
+  export type InvoiceCountAggregateOutputType = {
+    id: number
+    farmerId: number
+    amount: number
+    _all: number
+  }
+
+
+  export type InvoiceAvgAggregateInputType = {
+    id?: true
+    farmerId?: true
+    amount?: true
+  }
+
+  export type InvoiceSumAggregateInputType = {
+    id?: true
+    farmerId?: true
+    amount?: true
+  }
+
+  export type InvoiceMinAggregateInputType = {
+    id?: true
+    farmerId?: true
+    amount?: true
+  }
+
+  export type InvoiceMaxAggregateInputType = {
+    id?: true
+    farmerId?: true
+    amount?: true
+  }
+
+  export type InvoiceCountAggregateInputType = {
+    id?: true
+    farmerId?: true
+    amount?: true
+    _all?: true
+  }
+
+  export type InvoiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invoice to aggregate.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Invoices
+    **/
+    _count?: true | InvoiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InvoiceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InvoiceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InvoiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InvoiceMaxAggregateInputType
+  }
+
+  export type GetInvoiceAggregateType<T extends InvoiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvoice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInvoice[P]>
+      : GetScalarType<T[P], AggregateInvoice[P]>
+  }
+
+
+
+
+  export type InvoiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithAggregationInput | InvoiceOrderByWithAggregationInput[]
+    by: InvoiceScalarFieldEnum[] | InvoiceScalarFieldEnum
+    having?: InvoiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InvoiceCountAggregateInputType | true
+    _avg?: InvoiceAvgAggregateInputType
+    _sum?: InvoiceSumAggregateInputType
+    _min?: InvoiceMinAggregateInputType
+    _max?: InvoiceMaxAggregateInputType
+  }
+
+  export type InvoiceGroupByOutputType = {
+    id: number
+    farmerId: number
+    amount: number
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
+  }
+
+  type GetInvoiceGroupByPayload<T extends InvoiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InvoiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InvoiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+            : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    farmerId?: boolean
+    amount?: boolean
+    farmer?: boolean | FarmerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["invoice"]>
+
+
+
+  export type InvoiceSelectScalar = {
+    id?: boolean
+    farmerId?: boolean
+    amount?: boolean
+  }
+
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "farmerId" | "amount", ExtArgs["result"]["invoice"]>
+  export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farmer?: boolean | FarmerDefaultArgs<ExtArgs>
+  }
+
+  export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Invoice"
+    objects: {
+      farmer: Prisma.$FarmerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      farmerId: number
+      amount: number
+    }, ExtArgs["result"]["invoice"]>
+    composites: {}
+  }
+
+  type InvoiceGetPayload<S extends boolean | null | undefined | InvoiceDefaultArgs> = $Result.GetResult<Prisma.$InvoicePayload, S>
+
+  type InvoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InvoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InvoiceCountAggregateInputType | true
+    }
+
+  export interface InvoiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Invoice'], meta: { name: 'Invoice' } }
+    /**
+     * Find zero or one Invoice that matches the filter.
+     * @param {InvoiceFindUniqueArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InvoiceFindUniqueArgs>(args: SelectSubset<T, InvoiceFindUniqueArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Invoice that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InvoiceFindUniqueOrThrowArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InvoiceFindUniqueOrThrowArgs>(args: SelectSubset<T, InvoiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Invoice that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindFirstArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InvoiceFindFirstArgs>(args?: SelectSubset<T, InvoiceFindFirstArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Invoice that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindFirstOrThrowArgs} args - Arguments to find a Invoice
+     * @example
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InvoiceFindFirstOrThrowArgs>(args?: SelectSubset<T, InvoiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Invoices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Invoices
+     * const invoices = await prisma.invoice.findMany()
+     * 
+     * // Get first 10 Invoices
+     * const invoices = await prisma.invoice.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InvoiceFindManyArgs>(args?: SelectSubset<T, InvoiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Invoice.
+     * @param {InvoiceCreateArgs} args - Arguments to create a Invoice.
+     * @example
+     * // Create one Invoice
+     * const Invoice = await prisma.invoice.create({
+     *   data: {
+     *     // ... data to create a Invoice
+     *   }
+     * })
+     * 
+     */
+    create<T extends InvoiceCreateArgs>(args: SelectSubset<T, InvoiceCreateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Invoices.
+     * @param {InvoiceCreateManyArgs} args - Arguments to create many Invoices.
+     * @example
+     * // Create many Invoices
+     * const invoice = await prisma.invoice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InvoiceCreateManyArgs>(args?: SelectSubset<T, InvoiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Invoice.
+     * @param {InvoiceDeleteArgs} args - Arguments to delete one Invoice.
+     * @example
+     * // Delete one Invoice
+     * const Invoice = await prisma.invoice.delete({
+     *   where: {
+     *     // ... filter to delete one Invoice
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InvoiceDeleteArgs>(args: SelectSubset<T, InvoiceDeleteArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Invoice.
+     * @param {InvoiceUpdateArgs} args - Arguments to update one Invoice.
+     * @example
+     * // Update one Invoice
+     * const invoice = await prisma.invoice.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InvoiceUpdateArgs>(args: SelectSubset<T, InvoiceUpdateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Invoices.
+     * @param {InvoiceDeleteManyArgs} args - Arguments to filter Invoices to delete.
+     * @example
+     * // Delete a few Invoices
+     * const { count } = await prisma.invoice.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InvoiceDeleteManyArgs>(args?: SelectSubset<T, InvoiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Invoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Invoices
+     * const invoice = await prisma.invoice.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InvoiceUpdateManyArgs>(args: SelectSubset<T, InvoiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Invoice.
+     * @param {InvoiceUpsertArgs} args - Arguments to update or create a Invoice.
+     * @example
+     * // Update or create a Invoice
+     * const invoice = await prisma.invoice.upsert({
+     *   create: {
+     *     // ... data to create a Invoice
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Invoice we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InvoiceUpsertArgs>(args: SelectSubset<T, InvoiceUpsertArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Invoices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceCountArgs} args - Arguments to filter Invoices to count.
+     * @example
+     * // Count the number of Invoices
+     * const count = await prisma.invoice.count({
+     *   where: {
+     *     // ... the filter for the Invoices we want to count
+     *   }
+     * })
+    **/
+    count<T extends InvoiceCountArgs>(
+      args?: Subset<T, InvoiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InvoiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Invoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InvoiceAggregateArgs>(args: Subset<T, InvoiceAggregateArgs>): Prisma.PrismaPromise<GetInvoiceAggregateType<T>>
+
+    /**
+     * Group by Invoice.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvoiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InvoiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InvoiceGroupByArgs['orderBy'] }
+        : { orderBy?: InvoiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InvoiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Invoice model
+   */
+  readonly fields: InvoiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Invoice.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    farmer<T extends FarmerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmerDefaultArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Invoice model
+   */
+  interface InvoiceFieldRefs {
+    readonly id: FieldRef<"Invoice", 'Int'>
+    readonly farmerId: FieldRef<"Invoice", 'Int'>
+    readonly amount: FieldRef<"Invoice", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Invoice findUnique
+   */
+  export type InvoiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice findUniqueOrThrow
+   */
+  export type InvoiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice findFirst
+   */
+  export type InvoiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invoices.
+     */
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice findFirstOrThrow
+   */
+  export type InvoiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoice to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invoices.
+     */
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice findMany
+   */
+  export type InvoiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which Invoices to fetch.
+     */
+    where?: InvoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invoices to fetch.
+     */
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Invoices.
+     */
+    cursor?: InvoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invoices.
+     */
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice create
+   */
+  export type InvoiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Invoice.
+     */
+    data: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
+  }
+
+  /**
+   * Invoice createMany
+   */
+  export type InvoiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Invoices.
+     */
+    data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Invoice update
+   */
+  export type InvoiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Invoice.
+     */
+    data: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
+    /**
+     * Choose, which Invoice to update.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice updateMany
+   */
+  export type InvoiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Invoices.
+     */
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyInput>
+    /**
+     * Filter which Invoices to update
+     */
+    where?: InvoiceWhereInput
+    /**
+     * Limit how many Invoices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Invoice upsert
+   */
+  export type InvoiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Invoice to update in case it exists.
+     */
+    where: InvoiceWhereUniqueInput
+    /**
+     * In case the Invoice found by the `where` argument doesn't exist, create a new Invoice with this data.
+     */
+    create: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
+    /**
+     * In case the Invoice was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
+  }
+
+  /**
+   * Invoice delete
+   */
+  export type InvoiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    /**
+     * Filter which Invoice to delete.
+     */
+    where: InvoiceWhereUniqueInput
+  }
+
+  /**
+   * Invoice deleteMany
+   */
+  export type InvoiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invoices to delete
+     */
+    where?: InvoiceWhereInput
+    /**
+     * Limit how many Invoices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Invoice without action
+   */
+  export type InvoiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Farm
+   */
+
+  export type AggregateFarm = {
+    _count: FarmCountAggregateOutputType | null
+    _avg: FarmAvgAggregateOutputType | null
+    _sum: FarmSumAggregateOutputType | null
+    _min: FarmMinAggregateOutputType | null
+    _max: FarmMaxAggregateOutputType | null
+  }
+
+  export type FarmAvgAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    size: number | null
+    number_of_workers: number | null
+  }
+
+  export type FarmSumAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    size: number | null
+    number_of_workers: number | null
+  }
+
+  export type FarmMinAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    name: string | null
+    location: string | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    type: $Enums.ProductionType | null
+    production_type: string | null
+    size: number | null
+    sizeUnit: $Enums.SizeUnit | null
+    stage: $Enums.FarmStage | null
+    ownershipDocument: string | null
+    number_of_workers: number | null
+    verified: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FarmMaxAggregateOutputType = {
+    id: number | null
+    farmerId: number | null
+    name: string | null
+    location: string | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    type: $Enums.ProductionType | null
+    production_type: string | null
+    size: number | null
+    sizeUnit: $Enums.SizeUnit | null
+    stage: $Enums.FarmStage | null
+    ownershipDocument: string | null
+    number_of_workers: number | null
+    verified: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FarmCountAggregateOutputType = {
+    id: number
+    farmerId: number
+    name: number
+    location: number
+    latitude: number
+    longitude: number
+    type: number
+    production_type: number
+    size: number
+    sizeUnit: number
+    stage: number
+    ownershipDocument: number
+    number_of_workers: number
+    verified: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FarmAvgAggregateInputType = {
+    id?: true
+    farmerId?: true
+    latitude?: true
+    longitude?: true
+    size?: true
+    number_of_workers?: true
+  }
+
+  export type FarmSumAggregateInputType = {
+    id?: true
+    farmerId?: true
+    latitude?: true
+    longitude?: true
+    size?: true
+    number_of_workers?: true
+  }
+
+  export type FarmMinAggregateInputType = {
+    id?: true
+    farmerId?: true
+    name?: true
+    location?: true
+    latitude?: true
+    longitude?: true
+    type?: true
+    production_type?: true
+    size?: true
+    sizeUnit?: true
+    stage?: true
+    ownershipDocument?: true
+    number_of_workers?: true
+    verified?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FarmMaxAggregateInputType = {
+    id?: true
+    farmerId?: true
+    name?: true
+    location?: true
+    latitude?: true
+    longitude?: true
+    type?: true
+    production_type?: true
+    size?: true
+    sizeUnit?: true
+    stage?: true
+    ownershipDocument?: true
+    number_of_workers?: true
+    verified?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FarmCountAggregateInputType = {
+    id?: true
+    farmerId?: true
+    name?: true
+    location?: true
+    latitude?: true
+    longitude?: true
+    type?: true
+    production_type?: true
+    size?: true
+    sizeUnit?: true
+    stage?: true
+    ownershipDocument?: true
+    number_of_workers?: true
+    verified?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FarmAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Farm to aggregate.
+     */
+    where?: FarmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farms to fetch.
+     */
+    orderBy?: FarmOrderByWithRelationInput | FarmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FarmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Farms
+    **/
+    _count?: true | FarmCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FarmAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FarmSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FarmMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FarmMaxAggregateInputType
+  }
+
+  export type GetFarmAggregateType<T extends FarmAggregateArgs> = {
+        [P in keyof T & keyof AggregateFarm]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFarm[P]>
+      : GetScalarType<T[P], AggregateFarm[P]>
+  }
+
+
+
+
+  export type FarmGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmWhereInput
+    orderBy?: FarmOrderByWithAggregationInput | FarmOrderByWithAggregationInput[]
+    by: FarmScalarFieldEnum[] | FarmScalarFieldEnum
+    having?: FarmScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FarmCountAggregateInputType | true
+    _avg?: FarmAvgAggregateInputType
+    _sum?: FarmSumAggregateInputType
+    _min?: FarmMinAggregateInputType
+    _max?: FarmMaxAggregateInputType
+  }
+
+  export type FarmGroupByOutputType = {
+    id: number
+    farmerId: number
+    name: string
+    location: string
+    latitude: Decimal | null
+    longitude: Decimal | null
+    type: $Enums.ProductionType
+    production_type: string | null
+    size: number | null
+    sizeUnit: $Enums.SizeUnit | null
+    stage: $Enums.FarmStage
+    ownershipDocument: string | null
+    number_of_workers: number | null
+    verified: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: FarmCountAggregateOutputType | null
+    _avg: FarmAvgAggregateOutputType | null
+    _sum: FarmSumAggregateOutputType | null
+    _min: FarmMinAggregateOutputType | null
+    _max: FarmMaxAggregateOutputType | null
+  }
+
+  type GetFarmGroupByPayload<T extends FarmGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FarmGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FarmGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FarmGroupByOutputType[P]>
+            : GetScalarType<T[P], FarmGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FarmSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    farmerId?: boolean
+    name?: boolean
+    location?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    type?: boolean
+    production_type?: boolean
+    size?: boolean
+    sizeUnit?: boolean
+    stage?: boolean
+    ownershipDocument?: boolean
+    number_of_workers?: boolean
+    verified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farmer?: boolean | FarmerDefaultArgs<ExtArgs>
+    media?: boolean | Farm$mediaArgs<ExtArgs>
+    _count?: boolean | FarmCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["farm"]>
+
+
+
+  export type FarmSelectScalar = {
+    id?: boolean
+    farmerId?: boolean
+    name?: boolean
+    location?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    type?: boolean
+    production_type?: boolean
+    size?: boolean
+    sizeUnit?: boolean
+    stage?: boolean
+    ownershipDocument?: boolean
+    number_of_workers?: boolean
+    verified?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FarmOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "farmerId" | "name" | "location" | "latitude" | "longitude" | "type" | "production_type" | "size" | "sizeUnit" | "stage" | "ownershipDocument" | "number_of_workers" | "verified" | "createdAt" | "updatedAt", ExtArgs["result"]["farm"]>
+  export type FarmInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farmer?: boolean | FarmerDefaultArgs<ExtArgs>
+    media?: boolean | Farm$mediaArgs<ExtArgs>
+    _count?: boolean | FarmCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $FarmPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Farm"
+    objects: {
+      farmer: Prisma.$FarmerPayload<ExtArgs>
+      media: Prisma.$FarmMediaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      farmerId: number
+      name: string
+      location: string
+      latitude: Prisma.Decimal | null
+      longitude: Prisma.Decimal | null
+      type: $Enums.ProductionType
+      production_type: string | null
+      size: number | null
+      sizeUnit: $Enums.SizeUnit | null
+      stage: $Enums.FarmStage
+      ownershipDocument: string | null
+      number_of_workers: number | null
+      verified: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["farm"]>
+    composites: {}
+  }
+
+  type FarmGetPayload<S extends boolean | null | undefined | FarmDefaultArgs> = $Result.GetResult<Prisma.$FarmPayload, S>
+
+  type FarmCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FarmFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FarmCountAggregateInputType | true
+    }
+
+  export interface FarmDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Farm'], meta: { name: 'Farm' } }
+    /**
+     * Find zero or one Farm that matches the filter.
+     * @param {FarmFindUniqueArgs} args - Arguments to find a Farm
+     * @example
+     * // Get one Farm
+     * const farm = await prisma.farm.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FarmFindUniqueArgs>(args: SelectSubset<T, FarmFindUniqueArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Farm that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FarmFindUniqueOrThrowArgs} args - Arguments to find a Farm
+     * @example
+     * // Get one Farm
+     * const farm = await prisma.farm.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FarmFindUniqueOrThrowArgs>(args: SelectSubset<T, FarmFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Farm that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmFindFirstArgs} args - Arguments to find a Farm
+     * @example
+     * // Get one Farm
+     * const farm = await prisma.farm.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FarmFindFirstArgs>(args?: SelectSubset<T, FarmFindFirstArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Farm that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmFindFirstOrThrowArgs} args - Arguments to find a Farm
+     * @example
+     * // Get one Farm
+     * const farm = await prisma.farm.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FarmFindFirstOrThrowArgs>(args?: SelectSubset<T, FarmFindFirstOrThrowArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Farms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Farms
+     * const farms = await prisma.farm.findMany()
+     * 
+     * // Get first 10 Farms
+     * const farms = await prisma.farm.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const farmWithIdOnly = await prisma.farm.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FarmFindManyArgs>(args?: SelectSubset<T, FarmFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Farm.
+     * @param {FarmCreateArgs} args - Arguments to create a Farm.
+     * @example
+     * // Create one Farm
+     * const Farm = await prisma.farm.create({
+     *   data: {
+     *     // ... data to create a Farm
+     *   }
+     * })
+     * 
+     */
+    create<T extends FarmCreateArgs>(args: SelectSubset<T, FarmCreateArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Farms.
+     * @param {FarmCreateManyArgs} args - Arguments to create many Farms.
+     * @example
+     * // Create many Farms
+     * const farm = await prisma.farm.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FarmCreateManyArgs>(args?: SelectSubset<T, FarmCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Farm.
+     * @param {FarmDeleteArgs} args - Arguments to delete one Farm.
+     * @example
+     * // Delete one Farm
+     * const Farm = await prisma.farm.delete({
+     *   where: {
+     *     // ... filter to delete one Farm
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FarmDeleteArgs>(args: SelectSubset<T, FarmDeleteArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Farm.
+     * @param {FarmUpdateArgs} args - Arguments to update one Farm.
+     * @example
+     * // Update one Farm
+     * const farm = await prisma.farm.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FarmUpdateArgs>(args: SelectSubset<T, FarmUpdateArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Farms.
+     * @param {FarmDeleteManyArgs} args - Arguments to filter Farms to delete.
+     * @example
+     * // Delete a few Farms
+     * const { count } = await prisma.farm.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FarmDeleteManyArgs>(args?: SelectSubset<T, FarmDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Farms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Farms
+     * const farm = await prisma.farm.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FarmUpdateManyArgs>(args: SelectSubset<T, FarmUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Farm.
+     * @param {FarmUpsertArgs} args - Arguments to update or create a Farm.
+     * @example
+     * // Update or create a Farm
+     * const farm = await prisma.farm.upsert({
+     *   create: {
+     *     // ... data to create a Farm
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Farm we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FarmUpsertArgs>(args: SelectSubset<T, FarmUpsertArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Farms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmCountArgs} args - Arguments to filter Farms to count.
+     * @example
+     * // Count the number of Farms
+     * const count = await prisma.farm.count({
+     *   where: {
+     *     // ... the filter for the Farms we want to count
+     *   }
+     * })
+    **/
+    count<T extends FarmCountArgs>(
+      args?: Subset<T, FarmCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FarmCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Farm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FarmAggregateArgs>(args: Subset<T, FarmAggregateArgs>): Prisma.PrismaPromise<GetFarmAggregateType<T>>
+
+    /**
+     * Group by Farm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FarmGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FarmGroupByArgs['orderBy'] }
+        : { orderBy?: FarmGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FarmGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFarmGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Farm model
+   */
+  readonly fields: FarmFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Farm.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FarmClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    farmer<T extends FarmerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmerDefaultArgs<ExtArgs>>): Prisma__FarmerClient<$Result.GetResult<Prisma.$FarmerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    media<T extends Farm$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Farm$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Farm model
+   */
+  interface FarmFieldRefs {
+    readonly id: FieldRef<"Farm", 'Int'>
+    readonly farmerId: FieldRef<"Farm", 'Int'>
+    readonly name: FieldRef<"Farm", 'String'>
+    readonly location: FieldRef<"Farm", 'String'>
+    readonly latitude: FieldRef<"Farm", 'Decimal'>
+    readonly longitude: FieldRef<"Farm", 'Decimal'>
+    readonly type: FieldRef<"Farm", 'ProductionType'>
+    readonly production_type: FieldRef<"Farm", 'String'>
+    readonly size: FieldRef<"Farm", 'Float'>
+    readonly sizeUnit: FieldRef<"Farm", 'SizeUnit'>
+    readonly stage: FieldRef<"Farm", 'FarmStage'>
+    readonly ownershipDocument: FieldRef<"Farm", 'String'>
+    readonly number_of_workers: FieldRef<"Farm", 'Int'>
+    readonly verified: FieldRef<"Farm", 'Boolean'>
+    readonly createdAt: FieldRef<"Farm", 'DateTime'>
+    readonly updatedAt: FieldRef<"Farm", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Farm findUnique
+   */
+  export type FarmFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * Filter, which Farm to fetch.
+     */
+    where: FarmWhereUniqueInput
+  }
+
+  /**
+   * Farm findUniqueOrThrow
+   */
+  export type FarmFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * Filter, which Farm to fetch.
+     */
+    where: FarmWhereUniqueInput
+  }
+
+  /**
+   * Farm findFirst
+   */
+  export type FarmFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * Filter, which Farm to fetch.
+     */
+    where?: FarmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farms to fetch.
+     */
+    orderBy?: FarmOrderByWithRelationInput | FarmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Farms.
+     */
+    cursor?: FarmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Farms.
+     */
+    distinct?: FarmScalarFieldEnum | FarmScalarFieldEnum[]
+  }
+
+  /**
+   * Farm findFirstOrThrow
+   */
+  export type FarmFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * Filter, which Farm to fetch.
+     */
+    where?: FarmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farms to fetch.
+     */
+    orderBy?: FarmOrderByWithRelationInput | FarmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Farms.
+     */
+    cursor?: FarmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Farms.
+     */
+    distinct?: FarmScalarFieldEnum | FarmScalarFieldEnum[]
+  }
+
+  /**
+   * Farm findMany
+   */
+  export type FarmFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * Filter, which Farms to fetch.
+     */
+    where?: FarmWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Farms to fetch.
+     */
+    orderBy?: FarmOrderByWithRelationInput | FarmOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Farms.
+     */
+    cursor?: FarmWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Farms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Farms.
+     */
+    skip?: number
+    distinct?: FarmScalarFieldEnum | FarmScalarFieldEnum[]
+  }
+
+  /**
+   * Farm create
+   */
+  export type FarmCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Farm.
+     */
+    data: XOR<FarmCreateInput, FarmUncheckedCreateInput>
+  }
+
+  /**
+   * Farm createMany
+   */
+  export type FarmCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Farms.
+     */
+    data: FarmCreateManyInput | FarmCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Farm update
+   */
+  export type FarmUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Farm.
+     */
+    data: XOR<FarmUpdateInput, FarmUncheckedUpdateInput>
+    /**
+     * Choose, which Farm to update.
+     */
+    where: FarmWhereUniqueInput
+  }
+
+  /**
+   * Farm updateMany
+   */
+  export type FarmUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Farms.
+     */
+    data: XOR<FarmUpdateManyMutationInput, FarmUncheckedUpdateManyInput>
+    /**
+     * Filter which Farms to update
+     */
+    where?: FarmWhereInput
+    /**
+     * Limit how many Farms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Farm upsert
+   */
+  export type FarmUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Farm to update in case it exists.
+     */
+    where: FarmWhereUniqueInput
+    /**
+     * In case the Farm found by the `where` argument doesn't exist, create a new Farm with this data.
+     */
+    create: XOR<FarmCreateInput, FarmUncheckedCreateInput>
+    /**
+     * In case the Farm was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FarmUpdateInput, FarmUncheckedUpdateInput>
+  }
+
+  /**
+   * Farm delete
+   */
+  export type FarmDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+    /**
+     * Filter which Farm to delete.
+     */
+    where: FarmWhereUniqueInput
+  }
+
+  /**
+   * Farm deleteMany
+   */
+  export type FarmDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Farms to delete
+     */
+    where?: FarmWhereInput
+    /**
+     * Limit how many Farms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Farm.media
+   */
+  export type Farm$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    where?: FarmMediaWhereInput
+    orderBy?: FarmMediaOrderByWithRelationInput | FarmMediaOrderByWithRelationInput[]
+    cursor?: FarmMediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FarmMediaScalarFieldEnum | FarmMediaScalarFieldEnum[]
+  }
+
+  /**
+   * Farm without action
+   */
+  export type FarmDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Farm
+     */
+    select?: FarmSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Farm
+     */
+    omit?: FarmOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FarmMedia
+   */
+
+  export type AggregateFarmMedia = {
+    _count: FarmMediaCountAggregateOutputType | null
+    _avg: FarmMediaAvgAggregateOutputType | null
+    _sum: FarmMediaSumAggregateOutputType | null
+    _min: FarmMediaMinAggregateOutputType | null
+    _max: FarmMediaMaxAggregateOutputType | null
+  }
+
+  export type FarmMediaAvgAggregateOutputType = {
+    id: number | null
+    farmId: number | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+  }
+
+  export type FarmMediaSumAggregateOutputType = {
+    id: number | null
+    farmId: number | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+  }
+
+  export type FarmMediaMinAggregateOutputType = {
+    id: number | null
+    farmId: number | null
+    url: string | null
+    mediaType: $Enums.MediaType | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    caption: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FarmMediaMaxAggregateOutputType = {
+    id: number | null
+    farmId: number | null
+    url: string | null
+    mediaType: $Enums.MediaType | null
+    latitude: Decimal | null
+    longitude: Decimal | null
+    caption: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FarmMediaCountAggregateOutputType = {
+    id: number
+    farmId: number
+    url: number
+    mediaType: number
+    latitude: number
+    longitude: number
+    caption: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FarmMediaAvgAggregateInputType = {
+    id?: true
+    farmId?: true
+    latitude?: true
+    longitude?: true
+  }
+
+  export type FarmMediaSumAggregateInputType = {
+    id?: true
+    farmId?: true
+    latitude?: true
+    longitude?: true
+  }
+
+  export type FarmMediaMinAggregateInputType = {
+    id?: true
+    farmId?: true
+    url?: true
+    mediaType?: true
+    latitude?: true
+    longitude?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FarmMediaMaxAggregateInputType = {
+    id?: true
+    farmId?: true
+    url?: true
+    mediaType?: true
+    latitude?: true
+    longitude?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FarmMediaCountAggregateInputType = {
+    id?: true
+    farmId?: true
+    url?: true
+    mediaType?: true
+    latitude?: true
+    longitude?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FarmMediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FarmMedia to aggregate.
+     */
+    where?: FarmMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FarmMedias to fetch.
+     */
+    orderBy?: FarmMediaOrderByWithRelationInput | FarmMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FarmMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FarmMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FarmMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FarmMedias
+    **/
+    _count?: true | FarmMediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FarmMediaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FarmMediaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FarmMediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FarmMediaMaxAggregateInputType
+  }
+
+  export type GetFarmMediaAggregateType<T extends FarmMediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateFarmMedia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFarmMedia[P]>
+      : GetScalarType<T[P], AggregateFarmMedia[P]>
+  }
+
+
+
+
+  export type FarmMediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FarmMediaWhereInput
+    orderBy?: FarmMediaOrderByWithAggregationInput | FarmMediaOrderByWithAggregationInput[]
+    by: FarmMediaScalarFieldEnum[] | FarmMediaScalarFieldEnum
+    having?: FarmMediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FarmMediaCountAggregateInputType | true
+    _avg?: FarmMediaAvgAggregateInputType
+    _sum?: FarmMediaSumAggregateInputType
+    _min?: FarmMediaMinAggregateInputType
+    _max?: FarmMediaMaxAggregateInputType
+  }
+
+  export type FarmMediaGroupByOutputType = {
+    id: number
+    farmId: number
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal
+    longitude: Decimal
+    caption: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FarmMediaCountAggregateOutputType | null
+    _avg: FarmMediaAvgAggregateOutputType | null
+    _sum: FarmMediaSumAggregateOutputType | null
+    _min: FarmMediaMinAggregateOutputType | null
+    _max: FarmMediaMaxAggregateOutputType | null
+  }
+
+  type GetFarmMediaGroupByPayload<T extends FarmMediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FarmMediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FarmMediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FarmMediaGroupByOutputType[P]>
+            : GetScalarType<T[P], FarmMediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FarmMediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    farmId?: boolean
+    url?: boolean
+    mediaType?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["farmMedia"]>
+
+
+
+  export type FarmMediaSelectScalar = {
+    id?: boolean
+    farmId?: boolean
+    url?: boolean
+    mediaType?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FarmMediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "farmId" | "url" | "mediaType" | "latitude" | "longitude" | "caption" | "createdAt" | "updatedAt", ExtArgs["result"]["farmMedia"]>
+  export type FarmMediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    farm?: boolean | FarmDefaultArgs<ExtArgs>
+  }
+
+  export type $FarmMediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FarmMedia"
+    objects: {
+      farm: Prisma.$FarmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      farmId: number
+      url: string
+      mediaType: $Enums.MediaType
+      latitude: Prisma.Decimal
+      longitude: Prisma.Decimal
+      caption: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["farmMedia"]>
+    composites: {}
+  }
+
+  type FarmMediaGetPayload<S extends boolean | null | undefined | FarmMediaDefaultArgs> = $Result.GetResult<Prisma.$FarmMediaPayload, S>
+
+  type FarmMediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FarmMediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FarmMediaCountAggregateInputType | true
+    }
+
+  export interface FarmMediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FarmMedia'], meta: { name: 'FarmMedia' } }
+    /**
+     * Find zero or one FarmMedia that matches the filter.
+     * @param {FarmMediaFindUniqueArgs} args - Arguments to find a FarmMedia
+     * @example
+     * // Get one FarmMedia
+     * const farmMedia = await prisma.farmMedia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FarmMediaFindUniqueArgs>(args: SelectSubset<T, FarmMediaFindUniqueArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FarmMedia that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FarmMediaFindUniqueOrThrowArgs} args - Arguments to find a FarmMedia
+     * @example
+     * // Get one FarmMedia
+     * const farmMedia = await prisma.farmMedia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FarmMediaFindUniqueOrThrowArgs>(args: SelectSubset<T, FarmMediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FarmMedia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaFindFirstArgs} args - Arguments to find a FarmMedia
+     * @example
+     * // Get one FarmMedia
+     * const farmMedia = await prisma.farmMedia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FarmMediaFindFirstArgs>(args?: SelectSubset<T, FarmMediaFindFirstArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FarmMedia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaFindFirstOrThrowArgs} args - Arguments to find a FarmMedia
+     * @example
+     * // Get one FarmMedia
+     * const farmMedia = await prisma.farmMedia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FarmMediaFindFirstOrThrowArgs>(args?: SelectSubset<T, FarmMediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FarmMedias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FarmMedias
+     * const farmMedias = await prisma.farmMedia.findMany()
+     * 
+     * // Get first 10 FarmMedias
+     * const farmMedias = await prisma.farmMedia.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const farmMediaWithIdOnly = await prisma.farmMedia.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FarmMediaFindManyArgs>(args?: SelectSubset<T, FarmMediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FarmMedia.
+     * @param {FarmMediaCreateArgs} args - Arguments to create a FarmMedia.
+     * @example
+     * // Create one FarmMedia
+     * const FarmMedia = await prisma.farmMedia.create({
+     *   data: {
+     *     // ... data to create a FarmMedia
+     *   }
+     * })
+     * 
+     */
+    create<T extends FarmMediaCreateArgs>(args: SelectSubset<T, FarmMediaCreateArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FarmMedias.
+     * @param {FarmMediaCreateManyArgs} args - Arguments to create many FarmMedias.
+     * @example
+     * // Create many FarmMedias
+     * const farmMedia = await prisma.farmMedia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FarmMediaCreateManyArgs>(args?: SelectSubset<T, FarmMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FarmMedia.
+     * @param {FarmMediaDeleteArgs} args - Arguments to delete one FarmMedia.
+     * @example
+     * // Delete one FarmMedia
+     * const FarmMedia = await prisma.farmMedia.delete({
+     *   where: {
+     *     // ... filter to delete one FarmMedia
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FarmMediaDeleteArgs>(args: SelectSubset<T, FarmMediaDeleteArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FarmMedia.
+     * @param {FarmMediaUpdateArgs} args - Arguments to update one FarmMedia.
+     * @example
+     * // Update one FarmMedia
+     * const farmMedia = await prisma.farmMedia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FarmMediaUpdateArgs>(args: SelectSubset<T, FarmMediaUpdateArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FarmMedias.
+     * @param {FarmMediaDeleteManyArgs} args - Arguments to filter FarmMedias to delete.
+     * @example
+     * // Delete a few FarmMedias
+     * const { count } = await prisma.farmMedia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FarmMediaDeleteManyArgs>(args?: SelectSubset<T, FarmMediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FarmMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FarmMedias
+     * const farmMedia = await prisma.farmMedia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FarmMediaUpdateManyArgs>(args: SelectSubset<T, FarmMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FarmMedia.
+     * @param {FarmMediaUpsertArgs} args - Arguments to update or create a FarmMedia.
+     * @example
+     * // Update or create a FarmMedia
+     * const farmMedia = await prisma.farmMedia.upsert({
+     *   create: {
+     *     // ... data to create a FarmMedia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FarmMedia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FarmMediaUpsertArgs>(args: SelectSubset<T, FarmMediaUpsertArgs<ExtArgs>>): Prisma__FarmMediaClient<$Result.GetResult<Prisma.$FarmMediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FarmMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaCountArgs} args - Arguments to filter FarmMedias to count.
+     * @example
+     * // Count the number of FarmMedias
+     * const count = await prisma.farmMedia.count({
+     *   where: {
+     *     // ... the filter for the FarmMedias we want to count
+     *   }
+     * })
+    **/
+    count<T extends FarmMediaCountArgs>(
+      args?: Subset<T, FarmMediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FarmMediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FarmMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FarmMediaAggregateArgs>(args: Subset<T, FarmMediaAggregateArgs>): Prisma.PrismaPromise<GetFarmMediaAggregateType<T>>
+
+    /**
+     * Group by FarmMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FarmMediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FarmMediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FarmMediaGroupByArgs['orderBy'] }
+        : { orderBy?: FarmMediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FarmMediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFarmMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FarmMedia model
+   */
+  readonly fields: FarmMediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FarmMedia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FarmMediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    farm<T extends FarmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FarmDefaultArgs<ExtArgs>>): Prisma__FarmClient<$Result.GetResult<Prisma.$FarmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FarmMedia model
+   */
+  interface FarmMediaFieldRefs {
+    readonly id: FieldRef<"FarmMedia", 'Int'>
+    readonly farmId: FieldRef<"FarmMedia", 'Int'>
+    readonly url: FieldRef<"FarmMedia", 'String'>
+    readonly mediaType: FieldRef<"FarmMedia", 'MediaType'>
+    readonly latitude: FieldRef<"FarmMedia", 'Decimal'>
+    readonly longitude: FieldRef<"FarmMedia", 'Decimal'>
+    readonly caption: FieldRef<"FarmMedia", 'String'>
+    readonly createdAt: FieldRef<"FarmMedia", 'DateTime'>
+    readonly updatedAt: FieldRef<"FarmMedia", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FarmMedia findUnique
+   */
+  export type FarmMediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which FarmMedia to fetch.
+     */
+    where: FarmMediaWhereUniqueInput
+  }
+
+  /**
+   * FarmMedia findUniqueOrThrow
+   */
+  export type FarmMediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which FarmMedia to fetch.
+     */
+    where: FarmMediaWhereUniqueInput
+  }
+
+  /**
+   * FarmMedia findFirst
+   */
+  export type FarmMediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which FarmMedia to fetch.
+     */
+    where?: FarmMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FarmMedias to fetch.
+     */
+    orderBy?: FarmMediaOrderByWithRelationInput | FarmMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FarmMedias.
+     */
+    cursor?: FarmMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FarmMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FarmMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FarmMedias.
+     */
+    distinct?: FarmMediaScalarFieldEnum | FarmMediaScalarFieldEnum[]
+  }
+
+  /**
+   * FarmMedia findFirstOrThrow
+   */
+  export type FarmMediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which FarmMedia to fetch.
+     */
+    where?: FarmMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FarmMedias to fetch.
+     */
+    orderBy?: FarmMediaOrderByWithRelationInput | FarmMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FarmMedias.
+     */
+    cursor?: FarmMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FarmMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FarmMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FarmMedias.
+     */
+    distinct?: FarmMediaScalarFieldEnum | FarmMediaScalarFieldEnum[]
+  }
+
+  /**
+   * FarmMedia findMany
+   */
+  export type FarmMediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which FarmMedias to fetch.
+     */
+    where?: FarmMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FarmMedias to fetch.
+     */
+    orderBy?: FarmMediaOrderByWithRelationInput | FarmMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FarmMedias.
+     */
+    cursor?: FarmMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FarmMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FarmMedias.
+     */
+    skip?: number
+    distinct?: FarmMediaScalarFieldEnum | FarmMediaScalarFieldEnum[]
+  }
+
+  /**
+   * FarmMedia create
+   */
+  export type FarmMediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FarmMedia.
+     */
+    data: XOR<FarmMediaCreateInput, FarmMediaUncheckedCreateInput>
+  }
+
+  /**
+   * FarmMedia createMany
+   */
+  export type FarmMediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FarmMedias.
+     */
+    data: FarmMediaCreateManyInput | FarmMediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FarmMedia update
+   */
+  export type FarmMediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FarmMedia.
+     */
+    data: XOR<FarmMediaUpdateInput, FarmMediaUncheckedUpdateInput>
+    /**
+     * Choose, which FarmMedia to update.
+     */
+    where: FarmMediaWhereUniqueInput
+  }
+
+  /**
+   * FarmMedia updateMany
+   */
+  export type FarmMediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FarmMedias.
+     */
+    data: XOR<FarmMediaUpdateManyMutationInput, FarmMediaUncheckedUpdateManyInput>
+    /**
+     * Filter which FarmMedias to update
+     */
+    where?: FarmMediaWhereInput
+    /**
+     * Limit how many FarmMedias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FarmMedia upsert
+   */
+  export type FarmMediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FarmMedia to update in case it exists.
+     */
+    where: FarmMediaWhereUniqueInput
+    /**
+     * In case the FarmMedia found by the `where` argument doesn't exist, create a new FarmMedia with this data.
+     */
+    create: XOR<FarmMediaCreateInput, FarmMediaUncheckedCreateInput>
+    /**
+     * In case the FarmMedia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FarmMediaUpdateInput, FarmMediaUncheckedUpdateInput>
+  }
+
+  /**
+   * FarmMedia delete
+   */
+  export type FarmMediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+    /**
+     * Filter which FarmMedia to delete.
+     */
+    where: FarmMediaWhereUniqueInput
+  }
+
+  /**
+   * FarmMedia deleteMany
+   */
+  export type FarmMediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FarmMedias to delete
+     */
+    where?: FarmMediaWhereInput
+    /**
+     * Limit how many FarmMedias to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FarmMedia without action
+   */
+  export type FarmMediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FarmMedia
+     */
+    select?: FarmMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FarmMedia
+     */
+    omit?: FarmMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FarmMediaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VerificationCode
+   */
+
+  export type AggregateVerificationCode = {
+    _count: VerificationCodeCountAggregateOutputType | null
+    _min: VerificationCodeMinAggregateOutputType | null
+    _max: VerificationCodeMaxAggregateOutputType | null
+  }
+
+  export type VerificationCodeMinAggregateOutputType = {
+    identifier: string | null
+    code: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VerificationCodeMaxAggregateOutputType = {
+    identifier: string | null
+    code: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VerificationCodeCountAggregateOutputType = {
+    identifier: number
+    code: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VerificationCodeMinAggregateInputType = {
+    identifier?: true
+    code?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VerificationCodeMaxAggregateInputType = {
+    identifier?: true
+    code?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VerificationCodeCountAggregateInputType = {
+    identifier?: true
+    code?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VerificationCodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerificationCode to aggregate.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VerificationCodes
+    **/
+    _count?: true | VerificationCodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VerificationCodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VerificationCodeMaxAggregateInputType
+  }
+
+  export type GetVerificationCodeAggregateType<T extends VerificationCodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateVerificationCode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVerificationCode[P]>
+      : GetScalarType<T[P], AggregateVerificationCode[P]>
+  }
+
+
+
+
+  export type VerificationCodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VerificationCodeWhereInput
+    orderBy?: VerificationCodeOrderByWithAggregationInput | VerificationCodeOrderByWithAggregationInput[]
+    by: VerificationCodeScalarFieldEnum[] | VerificationCodeScalarFieldEnum
+    having?: VerificationCodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VerificationCodeCountAggregateInputType | true
+    _min?: VerificationCodeMinAggregateInputType
+    _max?: VerificationCodeMaxAggregateInputType
+  }
+
+  export type VerificationCodeGroupByOutputType = {
+    identifier: string
+    code: string
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: VerificationCodeCountAggregateOutputType | null
+    _min: VerificationCodeMinAggregateOutputType | null
+    _max: VerificationCodeMaxAggregateOutputType | null
+  }
+
+  type GetVerificationCodeGroupByPayload<T extends VerificationCodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VerificationCodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VerificationCodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VerificationCodeGroupByOutputType[P]>
+            : GetScalarType<T[P], VerificationCodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VerificationCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    identifier?: boolean
+    code?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["verificationCode"]>
+
+
+
+  export type VerificationCodeSelectScalar = {
+    identifier?: boolean
+    code?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VerificationCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"identifier" | "code" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["verificationCode"]>
+
+  export type $VerificationCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VerificationCode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      identifier: string
+      code: string
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["verificationCode"]>
+    composites: {}
+  }
+
+  type VerificationCodeGetPayload<S extends boolean | null | undefined | VerificationCodeDefaultArgs> = $Result.GetResult<Prisma.$VerificationCodePayload, S>
+
+  type VerificationCodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VerificationCodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VerificationCodeCountAggregateInputType | true
+    }
+
+  export interface VerificationCodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VerificationCode'], meta: { name: 'VerificationCode' } }
+    /**
+     * Find zero or one VerificationCode that matches the filter.
+     * @param {VerificationCodeFindUniqueArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VerificationCodeFindUniqueArgs>(args: SelectSubset<T, VerificationCodeFindUniqueArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VerificationCode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VerificationCodeFindUniqueOrThrowArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VerificationCodeFindUniqueOrThrowArgs>(args: SelectSubset<T, VerificationCodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VerificationCode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeFindFirstArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VerificationCodeFindFirstArgs>(args?: SelectSubset<T, VerificationCodeFindFirstArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VerificationCode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeFindFirstOrThrowArgs} args - Arguments to find a VerificationCode
+     * @example
+     * // Get one VerificationCode
+     * const verificationCode = await prisma.verificationCode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VerificationCodeFindFirstOrThrowArgs>(args?: SelectSubset<T, VerificationCodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VerificationCodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VerificationCodes
+     * const verificationCodes = await prisma.verificationCode.findMany()
+     * 
+     * // Get first 10 VerificationCodes
+     * const verificationCodes = await prisma.verificationCode.findMany({ take: 10 })
+     * 
+     * // Only select the `identifier`
+     * const verificationCodeWithIdentifierOnly = await prisma.verificationCode.findMany({ select: { identifier: true } })
+     * 
+     */
+    findMany<T extends VerificationCodeFindManyArgs>(args?: SelectSubset<T, VerificationCodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VerificationCode.
+     * @param {VerificationCodeCreateArgs} args - Arguments to create a VerificationCode.
+     * @example
+     * // Create one VerificationCode
+     * const VerificationCode = await prisma.verificationCode.create({
+     *   data: {
+     *     // ... data to create a VerificationCode
+     *   }
+     * })
+     * 
+     */
+    create<T extends VerificationCodeCreateArgs>(args: SelectSubset<T, VerificationCodeCreateArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VerificationCodes.
+     * @param {VerificationCodeCreateManyArgs} args - Arguments to create many VerificationCodes.
+     * @example
+     * // Create many VerificationCodes
+     * const verificationCode = await prisma.verificationCode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VerificationCodeCreateManyArgs>(args?: SelectSubset<T, VerificationCodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a VerificationCode.
+     * @param {VerificationCodeDeleteArgs} args - Arguments to delete one VerificationCode.
+     * @example
+     * // Delete one VerificationCode
+     * const VerificationCode = await prisma.verificationCode.delete({
+     *   where: {
+     *     // ... filter to delete one VerificationCode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VerificationCodeDeleteArgs>(args: SelectSubset<T, VerificationCodeDeleteArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VerificationCode.
+     * @param {VerificationCodeUpdateArgs} args - Arguments to update one VerificationCode.
+     * @example
+     * // Update one VerificationCode
+     * const verificationCode = await prisma.verificationCode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VerificationCodeUpdateArgs>(args: SelectSubset<T, VerificationCodeUpdateArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VerificationCodes.
+     * @param {VerificationCodeDeleteManyArgs} args - Arguments to filter VerificationCodes to delete.
+     * @example
+     * // Delete a few VerificationCodes
+     * const { count } = await prisma.verificationCode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VerificationCodeDeleteManyArgs>(args?: SelectSubset<T, VerificationCodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VerificationCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VerificationCodes
+     * const verificationCode = await prisma.verificationCode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VerificationCodeUpdateManyArgs>(args: SelectSubset<T, VerificationCodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VerificationCode.
+     * @param {VerificationCodeUpsertArgs} args - Arguments to update or create a VerificationCode.
+     * @example
+     * // Update or create a VerificationCode
+     * const verificationCode = await prisma.verificationCode.upsert({
+     *   create: {
+     *     // ... data to create a VerificationCode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VerificationCode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VerificationCodeUpsertArgs>(args: SelectSubset<T, VerificationCodeUpsertArgs<ExtArgs>>): Prisma__VerificationCodeClient<$Result.GetResult<Prisma.$VerificationCodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VerificationCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeCountArgs} args - Arguments to filter VerificationCodes to count.
+     * @example
+     * // Count the number of VerificationCodes
+     * const count = await prisma.verificationCode.count({
+     *   where: {
+     *     // ... the filter for the VerificationCodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends VerificationCodeCountArgs>(
+      args?: Subset<T, VerificationCodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VerificationCodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VerificationCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VerificationCodeAggregateArgs>(args: Subset<T, VerificationCodeAggregateArgs>): Prisma.PrismaPromise<GetVerificationCodeAggregateType<T>>
+
+    /**
+     * Group by VerificationCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerificationCodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VerificationCodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VerificationCodeGroupByArgs['orderBy'] }
+        : { orderBy?: VerificationCodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VerificationCodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVerificationCodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VerificationCode model
+   */
+  readonly fields: VerificationCodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VerificationCode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VerificationCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VerificationCode model
+   */
+  interface VerificationCodeFieldRefs {
+    readonly identifier: FieldRef<"VerificationCode", 'String'>
+    readonly code: FieldRef<"VerificationCode", 'String'>
+    readonly expiresAt: FieldRef<"VerificationCode", 'DateTime'>
+    readonly createdAt: FieldRef<"VerificationCode", 'DateTime'>
+    readonly updatedAt: FieldRef<"VerificationCode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VerificationCode findUnique
+   */
+  export type VerificationCodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode findUniqueOrThrow
+   */
+  export type VerificationCodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode findFirst
+   */
+  export type VerificationCodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerificationCodes.
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerificationCodes.
+     */
+    distinct?: VerificationCodeScalarFieldEnum | VerificationCodeScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationCode findFirstOrThrow
+   */
+  export type VerificationCodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCode to fetch.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerificationCodes.
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerificationCodes.
+     */
+    distinct?: VerificationCodeScalarFieldEnum | VerificationCodeScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationCode findMany
+   */
+  export type VerificationCodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter, which VerificationCodes to fetch.
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerificationCodes to fetch.
+     */
+    orderBy?: VerificationCodeOrderByWithRelationInput | VerificationCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VerificationCodes.
+     */
+    cursor?: VerificationCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerificationCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerificationCodes.
+     */
+    skip?: number
+    distinct?: VerificationCodeScalarFieldEnum | VerificationCodeScalarFieldEnum[]
+  }
+
+  /**
+   * VerificationCode create
+   */
+  export type VerificationCodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a VerificationCode.
+     */
+    data: XOR<VerificationCodeCreateInput, VerificationCodeUncheckedCreateInput>
+  }
+
+  /**
+   * VerificationCode createMany
+   */
+  export type VerificationCodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VerificationCodes.
+     */
+    data: VerificationCodeCreateManyInput | VerificationCodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VerificationCode update
+   */
+  export type VerificationCodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a VerificationCode.
+     */
+    data: XOR<VerificationCodeUpdateInput, VerificationCodeUncheckedUpdateInput>
+    /**
+     * Choose, which VerificationCode to update.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode updateMany
+   */
+  export type VerificationCodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VerificationCodes.
+     */
+    data: XOR<VerificationCodeUpdateManyMutationInput, VerificationCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which VerificationCodes to update
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * Limit how many VerificationCodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VerificationCode upsert
+   */
+  export type VerificationCodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the VerificationCode to update in case it exists.
+     */
+    where: VerificationCodeWhereUniqueInput
+    /**
+     * In case the VerificationCode found by the `where` argument doesn't exist, create a new VerificationCode with this data.
+     */
+    create: XOR<VerificationCodeCreateInput, VerificationCodeUncheckedCreateInput>
+    /**
+     * In case the VerificationCode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VerificationCodeUpdateInput, VerificationCodeUncheckedUpdateInput>
+  }
+
+  /**
+   * VerificationCode delete
+   */
+  export type VerificationCodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
+    /**
+     * Filter which VerificationCode to delete.
+     */
+    where: VerificationCodeWhereUniqueInput
+  }
+
+  /**
+   * VerificationCode deleteMany
+   */
+  export type VerificationCodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerificationCodes to delete
+     */
+    where?: VerificationCodeWhereInput
+    /**
+     * Limit how many VerificationCodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VerificationCode without action
+   */
+  export type VerificationCodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerificationCode
+     */
+    select?: VerificationCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerificationCode
+     */
+    omit?: VerificationCodeOmit<ExtArgs> | null
   }
 
 
@@ -6636,6 +13609,102 @@ export namespace Prisma {
   export type LgaScalarFieldEnum = (typeof LgaScalarFieldEnum)[keyof typeof LgaScalarFieldEnum]
 
 
+  export const FarmerScalarFieldEnum: {
+    id: 'id',
+    fullname: 'fullname',
+    email: 'email',
+    phone_number: 'phone_number',
+    address: 'address',
+    nin: 'nin',
+    profile_image: 'profile_image',
+    proof_of_address: 'proof_of_address',
+    bankId: 'bankId',
+    account_number: 'account_number',
+    account_name: 'account_name',
+    countryId: 'countryId',
+    stateId: 'stateId',
+    lgaId: 'lgaId',
+    email_verified: 'email_verified',
+    phone_verified: 'phone_verified',
+    nin_verified: 'nin_verified',
+    has_subscribed: 'has_subscribed',
+    status: 'status',
+    account_created_by: 'account_created_by',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FarmerScalarFieldEnum = (typeof FarmerScalarFieldEnum)[keyof typeof FarmerScalarFieldEnum]
+
+
+  export const BankScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    code: 'code',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BankScalarFieldEnum = (typeof BankScalarFieldEnum)[keyof typeof BankScalarFieldEnum]
+
+
+  export const InvoiceScalarFieldEnum: {
+    id: 'id',
+    farmerId: 'farmerId',
+    amount: 'amount'
+  };
+
+  export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+  export const FarmScalarFieldEnum: {
+    id: 'id',
+    farmerId: 'farmerId',
+    name: 'name',
+    location: 'location',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    type: 'type',
+    production_type: 'production_type',
+    size: 'size',
+    sizeUnit: 'sizeUnit',
+    stage: 'stage',
+    ownershipDocument: 'ownershipDocument',
+    number_of_workers: 'number_of_workers',
+    verified: 'verified',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FarmScalarFieldEnum = (typeof FarmScalarFieldEnum)[keyof typeof FarmScalarFieldEnum]
+
+
+  export const FarmMediaScalarFieldEnum: {
+    id: 'id',
+    farmId: 'farmId',
+    url: 'url',
+    mediaType: 'mediaType',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    caption: 'caption',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FarmMediaScalarFieldEnum = (typeof FarmMediaScalarFieldEnum)[keyof typeof FarmMediaScalarFieldEnum]
+
+
+  export const VerificationCodeScalarFieldEnum: {
+    identifier: 'identifier',
+    code: 'code',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VerificationCodeScalarFieldEnum = (typeof VerificationCodeScalarFieldEnum)[keyof typeof VerificationCodeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6702,6 +13771,55 @@ export namespace Prisma {
   export type LgaOrderByRelevanceFieldEnum = (typeof LgaOrderByRelevanceFieldEnum)[keyof typeof LgaOrderByRelevanceFieldEnum]
 
 
+  export const FarmerOrderByRelevanceFieldEnum: {
+    fullname: 'fullname',
+    email: 'email',
+    phone_number: 'phone_number',
+    address: 'address',
+    nin: 'nin',
+    profile_image: 'profile_image',
+    proof_of_address: 'proof_of_address',
+    account_number: 'account_number',
+    account_name: 'account_name'
+  };
+
+  export type FarmerOrderByRelevanceFieldEnum = (typeof FarmerOrderByRelevanceFieldEnum)[keyof typeof FarmerOrderByRelevanceFieldEnum]
+
+
+  export const BankOrderByRelevanceFieldEnum: {
+    name: 'name',
+    code: 'code'
+  };
+
+  export type BankOrderByRelevanceFieldEnum = (typeof BankOrderByRelevanceFieldEnum)[keyof typeof BankOrderByRelevanceFieldEnum]
+
+
+  export const FarmOrderByRelevanceFieldEnum: {
+    name: 'name',
+    location: 'location',
+    production_type: 'production_type',
+    ownershipDocument: 'ownershipDocument'
+  };
+
+  export type FarmOrderByRelevanceFieldEnum = (typeof FarmOrderByRelevanceFieldEnum)[keyof typeof FarmOrderByRelevanceFieldEnum]
+
+
+  export const FarmMediaOrderByRelevanceFieldEnum: {
+    url: 'url',
+    caption: 'caption'
+  };
+
+  export type FarmMediaOrderByRelevanceFieldEnum = (typeof FarmMediaOrderByRelevanceFieldEnum)[keyof typeof FarmMediaOrderByRelevanceFieldEnum]
+
+
+  export const VerificationCodeOrderByRelevanceFieldEnum: {
+    identifier: 'identifier',
+    code: 'code'
+  };
+
+  export type VerificationCodeOrderByRelevanceFieldEnum = (typeof VerificationCodeOrderByRelevanceFieldEnum)[keyof typeof VerificationCodeOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -6753,6 +13871,41 @@ export namespace Prisma {
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProductionType'
+   */
+  export type EnumProductionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'SizeUnit'
+   */
+  export type EnumSizeUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SizeUnit'>
+    
+
+
+  /**
+   * Reference to a field of type 'FarmStage'
+   */
+  export type EnumFarmStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FarmStage'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaType'
+   */
+  export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
     
   /**
    * Deep Input Types
@@ -6967,6 +14120,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Country"> | Date | string
     states?: StateListRelationFilter
     users?: UsersListRelationFilter
+    farmers?: FarmerListRelationFilter
   }
 
   export type CountryOrderByWithRelationInput = {
@@ -6980,6 +14134,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     states?: StateOrderByRelationAggregateInput
     users?: UsersOrderByRelationAggregateInput
+    farmers?: FarmerOrderByRelationAggregateInput
     _relevance?: CountryOrderByRelevanceInput
   }
 
@@ -6997,6 +14152,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Country"> | Date | string
     states?: StateListRelationFilter
     users?: UsersListRelationFilter
+    farmers?: FarmerListRelationFilter
   }, "id" | "iso2" | "iso3" | "numericCode">
 
   export type CountryOrderByWithAggregationInput = {
@@ -7042,6 +14198,7 @@ export namespace Prisma {
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     lgas?: LgaListRelationFilter
     users?: UsersListRelationFilter
+    farmers?: FarmerListRelationFilter
   }
 
   export type StateOrderByWithRelationInput = {
@@ -7054,6 +14211,7 @@ export namespace Prisma {
     country?: CountryOrderByWithRelationInput
     lgas?: LgaOrderByRelationAggregateInput
     users?: UsersOrderByRelationAggregateInput
+    farmers?: FarmerOrderByRelationAggregateInput
     _relevance?: StateOrderByRelevanceInput
   }
 
@@ -7071,6 +14229,7 @@ export namespace Prisma {
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     lgas?: LgaListRelationFilter
     users?: UsersListRelationFilter
+    farmers?: FarmerListRelationFilter
   }, "id" | "name_countryId">
 
   export type StateOrderByWithAggregationInput = {
@@ -7111,6 +14270,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Lga"> | Date | string
     state?: XOR<StateScalarRelationFilter, StateWhereInput>
     users?: UsersListRelationFilter
+    farmers?: FarmerListRelationFilter
   }
 
   export type LgaOrderByWithRelationInput = {
@@ -7122,6 +14282,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     state?: StateOrderByWithRelationInput
     users?: UsersOrderByRelationAggregateInput
+    farmers?: FarmerOrderByRelationAggregateInput
     _relevance?: LgaOrderByRelevanceInput
   }
 
@@ -7138,6 +14299,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Lga"> | Date | string
     state?: XOR<StateScalarRelationFilter, StateWhereInput>
     users?: UsersListRelationFilter
+    farmers?: FarmerListRelationFilter
   }, "id" | "name_stateId">
 
   export type LgaOrderByWithAggregationInput = {
@@ -7164,6 +14326,516 @@ export namespace Prisma {
     stateId?: IntWithAggregatesFilter<"Lga"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Lga"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Lga"> | Date | string
+  }
+
+  export type FarmerWhereInput = {
+    AND?: FarmerWhereInput | FarmerWhereInput[]
+    OR?: FarmerWhereInput[]
+    NOT?: FarmerWhereInput | FarmerWhereInput[]
+    id?: IntFilter<"Farmer"> | number
+    fullname?: StringFilter<"Farmer"> | string
+    email?: StringNullableFilter<"Farmer"> | string | null
+    phone_number?: StringFilter<"Farmer"> | string
+    address?: StringFilter<"Farmer"> | string
+    nin?: StringFilter<"Farmer"> | string
+    profile_image?: StringNullableFilter<"Farmer"> | string | null
+    proof_of_address?: StringNullableFilter<"Farmer"> | string | null
+    bankId?: IntFilter<"Farmer"> | number
+    account_number?: StringFilter<"Farmer"> | string
+    account_name?: StringFilter<"Farmer"> | string
+    countryId?: IntFilter<"Farmer"> | number
+    stateId?: IntFilter<"Farmer"> | number
+    lgaId?: IntFilter<"Farmer"> | number
+    email_verified?: BoolFilter<"Farmer"> | boolean
+    phone_verified?: BoolFilter<"Farmer"> | boolean
+    nin_verified?: BoolFilter<"Farmer"> | boolean
+    has_subscribed?: BoolFilter<"Farmer"> | boolean
+    status?: EnumStatusFilter<"Farmer"> | $Enums.Status
+    account_created_by?: IntFilter<"Farmer"> | number
+    createdAt?: DateTimeFilter<"Farmer"> | Date | string
+    updatedAt?: DateTimeFilter<"Farmer"> | Date | string
+    bank?: XOR<BankScalarRelationFilter, BankWhereInput>
+    country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    lga?: XOR<LgaScalarRelationFilter, LgaWhereInput>
+    inovices?: InvoiceListRelationFilter
+    farms?: FarmListRelationFilter
+  }
+
+  export type FarmerOrderByWithRelationInput = {
+    id?: SortOrder
+    fullname?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone_number?: SortOrder
+    address?: SortOrder
+    nin?: SortOrder
+    profile_image?: SortOrderInput | SortOrder
+    proof_of_address?: SortOrderInput | SortOrder
+    bankId?: SortOrder
+    account_number?: SortOrder
+    account_name?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    email_verified?: SortOrder
+    phone_verified?: SortOrder
+    nin_verified?: SortOrder
+    has_subscribed?: SortOrder
+    status?: SortOrder
+    account_created_by?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    bank?: BankOrderByWithRelationInput
+    country?: CountryOrderByWithRelationInput
+    state?: StateOrderByWithRelationInput
+    lga?: LgaOrderByWithRelationInput
+    inovices?: InvoiceOrderByRelationAggregateInput
+    farms?: FarmOrderByRelationAggregateInput
+    _relevance?: FarmerOrderByRelevanceInput
+  }
+
+  export type FarmerWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    email?: string
+    phone_number?: string
+    nin?: string
+    account_number?: string
+    AND?: FarmerWhereInput | FarmerWhereInput[]
+    OR?: FarmerWhereInput[]
+    NOT?: FarmerWhereInput | FarmerWhereInput[]
+    fullname?: StringFilter<"Farmer"> | string
+    address?: StringFilter<"Farmer"> | string
+    profile_image?: StringNullableFilter<"Farmer"> | string | null
+    proof_of_address?: StringNullableFilter<"Farmer"> | string | null
+    bankId?: IntFilter<"Farmer"> | number
+    account_name?: StringFilter<"Farmer"> | string
+    countryId?: IntFilter<"Farmer"> | number
+    stateId?: IntFilter<"Farmer"> | number
+    lgaId?: IntFilter<"Farmer"> | number
+    email_verified?: BoolFilter<"Farmer"> | boolean
+    phone_verified?: BoolFilter<"Farmer"> | boolean
+    nin_verified?: BoolFilter<"Farmer"> | boolean
+    has_subscribed?: BoolFilter<"Farmer"> | boolean
+    status?: EnumStatusFilter<"Farmer"> | $Enums.Status
+    account_created_by?: IntFilter<"Farmer"> | number
+    createdAt?: DateTimeFilter<"Farmer"> | Date | string
+    updatedAt?: DateTimeFilter<"Farmer"> | Date | string
+    bank?: XOR<BankScalarRelationFilter, BankWhereInput>
+    country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    lga?: XOR<LgaScalarRelationFilter, LgaWhereInput>
+    inovices?: InvoiceListRelationFilter
+    farms?: FarmListRelationFilter
+  }, "id" | "email" | "phone_number" | "nin" | "account_number">
+
+  export type FarmerOrderByWithAggregationInput = {
+    id?: SortOrder
+    fullname?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone_number?: SortOrder
+    address?: SortOrder
+    nin?: SortOrder
+    profile_image?: SortOrderInput | SortOrder
+    proof_of_address?: SortOrderInput | SortOrder
+    bankId?: SortOrder
+    account_number?: SortOrder
+    account_name?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    email_verified?: SortOrder
+    phone_verified?: SortOrder
+    nin_verified?: SortOrder
+    has_subscribed?: SortOrder
+    status?: SortOrder
+    account_created_by?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FarmerCountOrderByAggregateInput
+    _avg?: FarmerAvgOrderByAggregateInput
+    _max?: FarmerMaxOrderByAggregateInput
+    _min?: FarmerMinOrderByAggregateInput
+    _sum?: FarmerSumOrderByAggregateInput
+  }
+
+  export type FarmerScalarWhereWithAggregatesInput = {
+    AND?: FarmerScalarWhereWithAggregatesInput | FarmerScalarWhereWithAggregatesInput[]
+    OR?: FarmerScalarWhereWithAggregatesInput[]
+    NOT?: FarmerScalarWhereWithAggregatesInput | FarmerScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Farmer"> | number
+    fullname?: StringWithAggregatesFilter<"Farmer"> | string
+    email?: StringNullableWithAggregatesFilter<"Farmer"> | string | null
+    phone_number?: StringWithAggregatesFilter<"Farmer"> | string
+    address?: StringWithAggregatesFilter<"Farmer"> | string
+    nin?: StringWithAggregatesFilter<"Farmer"> | string
+    profile_image?: StringNullableWithAggregatesFilter<"Farmer"> | string | null
+    proof_of_address?: StringNullableWithAggregatesFilter<"Farmer"> | string | null
+    bankId?: IntWithAggregatesFilter<"Farmer"> | number
+    account_number?: StringWithAggregatesFilter<"Farmer"> | string
+    account_name?: StringWithAggregatesFilter<"Farmer"> | string
+    countryId?: IntWithAggregatesFilter<"Farmer"> | number
+    stateId?: IntWithAggregatesFilter<"Farmer"> | number
+    lgaId?: IntWithAggregatesFilter<"Farmer"> | number
+    email_verified?: BoolWithAggregatesFilter<"Farmer"> | boolean
+    phone_verified?: BoolWithAggregatesFilter<"Farmer"> | boolean
+    nin_verified?: BoolWithAggregatesFilter<"Farmer"> | boolean
+    has_subscribed?: BoolWithAggregatesFilter<"Farmer"> | boolean
+    status?: EnumStatusWithAggregatesFilter<"Farmer"> | $Enums.Status
+    account_created_by?: IntWithAggregatesFilter<"Farmer"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Farmer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Farmer"> | Date | string
+  }
+
+  export type BankWhereInput = {
+    AND?: BankWhereInput | BankWhereInput[]
+    OR?: BankWhereInput[]
+    NOT?: BankWhereInput | BankWhereInput[]
+    id?: IntFilter<"Bank"> | number
+    name?: StringFilter<"Bank"> | string
+    code?: StringFilter<"Bank"> | string
+    createdAt?: DateTimeFilter<"Bank"> | Date | string
+    updatedAt?: DateTimeFilter<"Bank"> | Date | string
+    farmers?: FarmerListRelationFilter
+  }
+
+  export type BankOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    farmers?: FarmerOrderByRelationAggregateInput
+    _relevance?: BankOrderByRelevanceInput
+  }
+
+  export type BankWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    code?: string
+    AND?: BankWhereInput | BankWhereInput[]
+    OR?: BankWhereInput[]
+    NOT?: BankWhereInput | BankWhereInput[]
+    name?: StringFilter<"Bank"> | string
+    createdAt?: DateTimeFilter<"Bank"> | Date | string
+    updatedAt?: DateTimeFilter<"Bank"> | Date | string
+    farmers?: FarmerListRelationFilter
+  }, "id" | "code">
+
+  export type BankOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BankCountOrderByAggregateInput
+    _avg?: BankAvgOrderByAggregateInput
+    _max?: BankMaxOrderByAggregateInput
+    _min?: BankMinOrderByAggregateInput
+    _sum?: BankSumOrderByAggregateInput
+  }
+
+  export type BankScalarWhereWithAggregatesInput = {
+    AND?: BankScalarWhereWithAggregatesInput | BankScalarWhereWithAggregatesInput[]
+    OR?: BankScalarWhereWithAggregatesInput[]
+    NOT?: BankScalarWhereWithAggregatesInput | BankScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Bank"> | number
+    name?: StringWithAggregatesFilter<"Bank"> | string
+    code?: StringWithAggregatesFilter<"Bank"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Bank"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Bank"> | Date | string
+  }
+
+  export type InvoiceWhereInput = {
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    id?: IntFilter<"Invoice"> | number
+    farmerId?: IntFilter<"Invoice"> | number
+    amount?: FloatFilter<"Invoice"> | number
+    farmer?: XOR<FarmerScalarRelationFilter, FarmerWhereInput>
+  }
+
+  export type InvoiceOrderByWithRelationInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+    farmer?: FarmerOrderByWithRelationInput
+  }
+
+  export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    farmerId?: IntFilter<"Invoice"> | number
+    amount?: FloatFilter<"Invoice"> | number
+    farmer?: XOR<FarmerScalarRelationFilter, FarmerWhereInput>
+  }, "id">
+
+  export type InvoiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+    _count?: InvoiceCountOrderByAggregateInput
+    _avg?: InvoiceAvgOrderByAggregateInput
+    _max?: InvoiceMaxOrderByAggregateInput
+    _min?: InvoiceMinOrderByAggregateInput
+    _sum?: InvoiceSumOrderByAggregateInput
+  }
+
+  export type InvoiceScalarWhereWithAggregatesInput = {
+    AND?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    OR?: InvoiceScalarWhereWithAggregatesInput[]
+    NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Invoice"> | number
+    farmerId?: IntWithAggregatesFilter<"Invoice"> | number
+    amount?: FloatWithAggregatesFilter<"Invoice"> | number
+  }
+
+  export type FarmWhereInput = {
+    AND?: FarmWhereInput | FarmWhereInput[]
+    OR?: FarmWhereInput[]
+    NOT?: FarmWhereInput | FarmWhereInput[]
+    id?: IntFilter<"Farm"> | number
+    farmerId?: IntFilter<"Farm"> | number
+    name?: StringFilter<"Farm"> | string
+    location?: StringFilter<"Farm"> | string
+    latitude?: DecimalNullableFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFilter<"Farm"> | $Enums.ProductionType
+    production_type?: StringNullableFilter<"Farm"> | string | null
+    size?: FloatNullableFilter<"Farm"> | number | null
+    sizeUnit?: EnumSizeUnitNullableFilter<"Farm"> | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFilter<"Farm"> | $Enums.FarmStage
+    ownershipDocument?: StringNullableFilter<"Farm"> | string | null
+    number_of_workers?: IntNullableFilter<"Farm"> | number | null
+    verified?: BoolFilter<"Farm"> | boolean
+    createdAt?: DateTimeFilter<"Farm"> | Date | string
+    updatedAt?: DateTimeFilter<"Farm"> | Date | string
+    farmer?: XOR<FarmerScalarRelationFilter, FarmerWhereInput>
+    media?: FarmMediaListRelationFilter
+  }
+
+  export type FarmOrderByWithRelationInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    type?: SortOrder
+    production_type?: SortOrderInput | SortOrder
+    size?: SortOrderInput | SortOrder
+    sizeUnit?: SortOrderInput | SortOrder
+    stage?: SortOrder
+    ownershipDocument?: SortOrderInput | SortOrder
+    number_of_workers?: SortOrderInput | SortOrder
+    verified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    farmer?: FarmerOrderByWithRelationInput
+    media?: FarmMediaOrderByRelationAggregateInput
+    _relevance?: FarmOrderByRelevanceInput
+  }
+
+  export type FarmWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FarmWhereInput | FarmWhereInput[]
+    OR?: FarmWhereInput[]
+    NOT?: FarmWhereInput | FarmWhereInput[]
+    farmerId?: IntFilter<"Farm"> | number
+    name?: StringFilter<"Farm"> | string
+    location?: StringFilter<"Farm"> | string
+    latitude?: DecimalNullableFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFilter<"Farm"> | $Enums.ProductionType
+    production_type?: StringNullableFilter<"Farm"> | string | null
+    size?: FloatNullableFilter<"Farm"> | number | null
+    sizeUnit?: EnumSizeUnitNullableFilter<"Farm"> | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFilter<"Farm"> | $Enums.FarmStage
+    ownershipDocument?: StringNullableFilter<"Farm"> | string | null
+    number_of_workers?: IntNullableFilter<"Farm"> | number | null
+    verified?: BoolFilter<"Farm"> | boolean
+    createdAt?: DateTimeFilter<"Farm"> | Date | string
+    updatedAt?: DateTimeFilter<"Farm"> | Date | string
+    farmer?: XOR<FarmerScalarRelationFilter, FarmerWhereInput>
+    media?: FarmMediaListRelationFilter
+  }, "id">
+
+  export type FarmOrderByWithAggregationInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    type?: SortOrder
+    production_type?: SortOrderInput | SortOrder
+    size?: SortOrderInput | SortOrder
+    sizeUnit?: SortOrderInput | SortOrder
+    stage?: SortOrder
+    ownershipDocument?: SortOrderInput | SortOrder
+    number_of_workers?: SortOrderInput | SortOrder
+    verified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FarmCountOrderByAggregateInput
+    _avg?: FarmAvgOrderByAggregateInput
+    _max?: FarmMaxOrderByAggregateInput
+    _min?: FarmMinOrderByAggregateInput
+    _sum?: FarmSumOrderByAggregateInput
+  }
+
+  export type FarmScalarWhereWithAggregatesInput = {
+    AND?: FarmScalarWhereWithAggregatesInput | FarmScalarWhereWithAggregatesInput[]
+    OR?: FarmScalarWhereWithAggregatesInput[]
+    NOT?: FarmScalarWhereWithAggregatesInput | FarmScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Farm"> | number
+    farmerId?: IntWithAggregatesFilter<"Farm"> | number
+    name?: StringWithAggregatesFilter<"Farm"> | string
+    location?: StringWithAggregatesFilter<"Farm"> | string
+    latitude?: DecimalNullableWithAggregatesFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableWithAggregatesFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeWithAggregatesFilter<"Farm"> | $Enums.ProductionType
+    production_type?: StringNullableWithAggregatesFilter<"Farm"> | string | null
+    size?: FloatNullableWithAggregatesFilter<"Farm"> | number | null
+    sizeUnit?: EnumSizeUnitNullableWithAggregatesFilter<"Farm"> | $Enums.SizeUnit | null
+    stage?: EnumFarmStageWithAggregatesFilter<"Farm"> | $Enums.FarmStage
+    ownershipDocument?: StringNullableWithAggregatesFilter<"Farm"> | string | null
+    number_of_workers?: IntNullableWithAggregatesFilter<"Farm"> | number | null
+    verified?: BoolWithAggregatesFilter<"Farm"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Farm"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Farm"> | Date | string
+  }
+
+  export type FarmMediaWhereInput = {
+    AND?: FarmMediaWhereInput | FarmMediaWhereInput[]
+    OR?: FarmMediaWhereInput[]
+    NOT?: FarmMediaWhereInput | FarmMediaWhereInput[]
+    id?: IntFilter<"FarmMedia"> | number
+    farmId?: IntFilter<"FarmMedia"> | number
+    url?: StringFilter<"FarmMedia"> | string
+    mediaType?: EnumMediaTypeFilter<"FarmMedia"> | $Enums.MediaType
+    latitude?: DecimalFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    caption?: StringNullableFilter<"FarmMedia"> | string | null
+    createdAt?: DateTimeFilter<"FarmMedia"> | Date | string
+    updatedAt?: DateTimeFilter<"FarmMedia"> | Date | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+  }
+
+  export type FarmMediaOrderByWithRelationInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    url?: SortOrder
+    mediaType?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    farm?: FarmOrderByWithRelationInput
+    _relevance?: FarmMediaOrderByRelevanceInput
+  }
+
+  export type FarmMediaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FarmMediaWhereInput | FarmMediaWhereInput[]
+    OR?: FarmMediaWhereInput[]
+    NOT?: FarmMediaWhereInput | FarmMediaWhereInput[]
+    farmId?: IntFilter<"FarmMedia"> | number
+    url?: StringFilter<"FarmMedia"> | string
+    mediaType?: EnumMediaTypeFilter<"FarmMedia"> | $Enums.MediaType
+    latitude?: DecimalFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    caption?: StringNullableFilter<"FarmMedia"> | string | null
+    createdAt?: DateTimeFilter<"FarmMedia"> | Date | string
+    updatedAt?: DateTimeFilter<"FarmMedia"> | Date | string
+    farm?: XOR<FarmScalarRelationFilter, FarmWhereInput>
+  }, "id">
+
+  export type FarmMediaOrderByWithAggregationInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    url?: SortOrder
+    mediaType?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FarmMediaCountOrderByAggregateInput
+    _avg?: FarmMediaAvgOrderByAggregateInput
+    _max?: FarmMediaMaxOrderByAggregateInput
+    _min?: FarmMediaMinOrderByAggregateInput
+    _sum?: FarmMediaSumOrderByAggregateInput
+  }
+
+  export type FarmMediaScalarWhereWithAggregatesInput = {
+    AND?: FarmMediaScalarWhereWithAggregatesInput | FarmMediaScalarWhereWithAggregatesInput[]
+    OR?: FarmMediaScalarWhereWithAggregatesInput[]
+    NOT?: FarmMediaScalarWhereWithAggregatesInput | FarmMediaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FarmMedia"> | number
+    farmId?: IntWithAggregatesFilter<"FarmMedia"> | number
+    url?: StringWithAggregatesFilter<"FarmMedia"> | string
+    mediaType?: EnumMediaTypeWithAggregatesFilter<"FarmMedia"> | $Enums.MediaType
+    latitude?: DecimalWithAggregatesFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalWithAggregatesFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    caption?: StringNullableWithAggregatesFilter<"FarmMedia"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FarmMedia"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FarmMedia"> | Date | string
+  }
+
+  export type VerificationCodeWhereInput = {
+    AND?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    OR?: VerificationCodeWhereInput[]
+    NOT?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    identifier?: StringFilter<"VerificationCode"> | string
+    code?: StringFilter<"VerificationCode"> | string
+    expiresAt?: DateTimeFilter<"VerificationCode"> | Date | string
+    createdAt?: DateTimeFilter<"VerificationCode"> | Date | string
+    updatedAt?: DateTimeFilter<"VerificationCode"> | Date | string
+  }
+
+  export type VerificationCodeOrderByWithRelationInput = {
+    identifier?: SortOrder
+    code?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _relevance?: VerificationCodeOrderByRelevanceInput
+  }
+
+  export type VerificationCodeWhereUniqueInput = Prisma.AtLeast<{
+    code?: string
+    AND?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    OR?: VerificationCodeWhereInput[]
+    NOT?: VerificationCodeWhereInput | VerificationCodeWhereInput[]
+    identifier?: StringFilter<"VerificationCode"> | string
+    expiresAt?: DateTimeFilter<"VerificationCode"> | Date | string
+    createdAt?: DateTimeFilter<"VerificationCode"> | Date | string
+    updatedAt?: DateTimeFilter<"VerificationCode"> | Date | string
+  }, "code">
+
+  export type VerificationCodeOrderByWithAggregationInput = {
+    identifier?: SortOrder
+    code?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VerificationCodeCountOrderByAggregateInput
+    _max?: VerificationCodeMaxOrderByAggregateInput
+    _min?: VerificationCodeMinOrderByAggregateInput
+  }
+
+  export type VerificationCodeScalarWhereWithAggregatesInput = {
+    AND?: VerificationCodeScalarWhereWithAggregatesInput | VerificationCodeScalarWhereWithAggregatesInput[]
+    OR?: VerificationCodeScalarWhereWithAggregatesInput[]
+    NOT?: VerificationCodeScalarWhereWithAggregatesInput | VerificationCodeScalarWhereWithAggregatesInput[]
+    identifier?: StringWithAggregatesFilter<"VerificationCode"> | string
+    code?: StringWithAggregatesFilter<"VerificationCode"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
   }
 
   export type AdminCreateInput = {
@@ -7384,6 +15056,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     states?: StateCreateNestedManyWithoutCountryInput
     users?: UsersCreateNestedManyWithoutCountryInput
+    farmers?: FarmerCreateNestedManyWithoutCountryInput
   }
 
   export type CountryUncheckedCreateInput = {
@@ -7397,6 +15070,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     states?: StateUncheckedCreateNestedManyWithoutCountryInput
     users?: UsersUncheckedCreateNestedManyWithoutCountryInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutCountryInput
   }
 
   export type CountryUpdateInput = {
@@ -7409,6 +15083,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     states?: StateUpdateManyWithoutCountryNestedInput
     users?: UsersUpdateManyWithoutCountryNestedInput
+    farmers?: FarmerUpdateManyWithoutCountryNestedInput
   }
 
   export type CountryUncheckedUpdateInput = {
@@ -7422,6 +15097,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     states?: StateUncheckedUpdateManyWithoutCountryNestedInput
     users?: UsersUncheckedUpdateManyWithoutCountryNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutCountryNestedInput
   }
 
   export type CountryCreateManyInput = {
@@ -7464,6 +15140,7 @@ export namespace Prisma {
     country: CountryCreateNestedOneWithoutStatesInput
     lgas?: LgaCreateNestedManyWithoutStateInput
     users?: UsersCreateNestedManyWithoutStateInput
+    farmers?: FarmerCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateInput = {
@@ -7475,6 +15152,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lgas?: LgaUncheckedCreateNestedManyWithoutStateInput
     users?: UsersUncheckedCreateNestedManyWithoutStateInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateUpdateInput = {
@@ -7485,6 +15163,7 @@ export namespace Prisma {
     country?: CountryUpdateOneRequiredWithoutStatesNestedInput
     lgas?: LgaUpdateManyWithoutStateNestedInput
     users?: UsersUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateInput = {
@@ -7496,6 +15175,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lgas?: LgaUncheckedUpdateManyWithoutStateNestedInput
     users?: UsersUncheckedUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type StateCreateManyInput = {
@@ -7530,6 +15210,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     state: StateCreateNestedOneWithoutLgasInput
     users?: UsersCreateNestedManyWithoutLgaInput
+    farmers?: FarmerCreateNestedManyWithoutLgaInput
   }
 
   export type LgaUncheckedCreateInput = {
@@ -7540,6 +15221,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutLgaInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutLgaInput
   }
 
   export type LgaUpdateInput = {
@@ -7549,6 +15231,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     state?: StateUpdateOneRequiredWithoutLgasNestedInput
     users?: UsersUpdateManyWithoutLgaNestedInput
+    farmers?: FarmerUpdateManyWithoutLgaNestedInput
   }
 
   export type LgaUncheckedUpdateInput = {
@@ -7559,6 +15242,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutLgaNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutLgaNestedInput
   }
 
   export type LgaCreateManyInput = {
@@ -7582,6 +15266,546 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     code?: NullableStringFieldUpdateOperationsInput | string | null
     stateId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmerCreateInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bank: BankCreateNestedOneWithoutFarmersInput
+    country: CountryCreateNestedOneWithoutFarmersInput
+    state: StateCreateNestedOneWithoutFarmersInput
+    lga: LgaCreateNestedOneWithoutFarmersInput
+    inovices?: InvoiceCreateNestedManyWithoutFarmerInput
+    farms?: FarmCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inovices?: InvoiceUncheckedCreateNestedManyWithoutFarmerInput
+    farms?: FarmUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUpdateInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneRequiredWithoutFarmersNestedInput
+    country?: CountryUpdateOneRequiredWithoutFarmersNestedInput
+    state?: StateUpdateOneRequiredWithoutFarmersNestedInput
+    lga?: LgaUpdateOneRequiredWithoutFarmersNestedInput
+    inovices?: InvoiceUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inovices?: InvoiceUncheckedUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerCreateManyInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmerUpdateManyMutationInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmerUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankCreateInput = {
+    name: string
+    code: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmers?: FarmerCreateNestedManyWithoutBankInput
+  }
+
+  export type BankUncheckedCreateInput = {
+    id?: number
+    name: string
+    code: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmers?: FarmerUncheckedCreateNestedManyWithoutBankInput
+  }
+
+  export type BankUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmers?: FarmerUpdateManyWithoutBankNestedInput
+  }
+
+  export type BankUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmers?: FarmerUncheckedUpdateManyWithoutBankNestedInput
+  }
+
+  export type BankCreateManyInput = {
+    id?: number
+    name: string
+    code: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BankUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceCreateInput = {
+    amount: number
+    farmer: FarmerCreateNestedOneWithoutInovicesInput
+  }
+
+  export type InvoiceUncheckedCreateInput = {
+    id?: number
+    farmerId: number
+    amount: number
+  }
+
+  export type InvoiceUpdateInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    farmer?: FarmerUpdateOneRequiredWithoutInovicesNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmerId?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceCreateManyInput = {
+    id?: number
+    farmerId: number
+    amount: number
+  }
+
+  export type InvoiceUpdateManyMutationInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmerId?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type FarmCreateInput = {
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmer: FarmerCreateNestedOneWithoutFarmsInput
+    media?: FarmMediaCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateInput = {
+    id?: number
+    farmerId: number
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    media?: FarmMediaUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmer?: FarmerUpdateOneRequiredWithoutFarmsNestedInput
+    media?: FarmMediaUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmerId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: FarmMediaUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmCreateManyInput = {
+    id?: number
+    farmerId: number
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmerId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmMediaCreateInput = {
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farm: FarmCreateNestedOneWithoutMediaInput
+  }
+
+  export type FarmMediaUncheckedCreateInput = {
+    id?: number
+    farmId: number
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmMediaUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farm?: FarmUpdateOneRequiredWithoutMediaNestedInput
+  }
+
+  export type FarmMediaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmMediaCreateManyInput = {
+    id?: number
+    farmId: number
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmMediaUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmMediaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeCreateInput = {
+    identifier: string
+    code: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VerificationCodeUncheckedCreateInput = {
+    identifier: string
+    code: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VerificationCodeUpdateInput = {
+    identifier?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeUncheckedUpdateInput = {
+    identifier?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeCreateManyInput = {
+    identifier: string
+    code: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VerificationCodeUpdateManyMutationInput = {
+    identifier?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerificationCodeUncheckedUpdateManyInput = {
+    identifier?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7937,11 +16161,21 @@ export namespace Prisma {
     none?: UsersWhereInput
   }
 
+  export type FarmerListRelationFilter = {
+    every?: FarmerWhereInput
+    some?: FarmerWhereInput
+    none?: FarmerWhereInput
+  }
+
   export type StateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type UsersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FarmerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8108,6 +16342,566 @@ export namespace Prisma {
     stateId?: SortOrder
   }
 
+  export type BankScalarRelationFilter = {
+    is?: BankWhereInput
+    isNot?: BankWhereInput
+  }
+
+  export type LgaScalarRelationFilter = {
+    is?: LgaWhereInput
+    isNot?: LgaWhereInput
+  }
+
+  export type InvoiceListRelationFilter = {
+    every?: InvoiceWhereInput
+    some?: InvoiceWhereInput
+    none?: InvoiceWhereInput
+  }
+
+  export type FarmListRelationFilter = {
+    every?: FarmWhereInput
+    some?: FarmWhereInput
+    none?: FarmWhereInput
+  }
+
+  export type InvoiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FarmOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FarmerOrderByRelevanceInput = {
+    fields: FarmerOrderByRelevanceFieldEnum | FarmerOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type FarmerCountOrderByAggregateInput = {
+    id?: SortOrder
+    fullname?: SortOrder
+    email?: SortOrder
+    phone_number?: SortOrder
+    address?: SortOrder
+    nin?: SortOrder
+    profile_image?: SortOrder
+    proof_of_address?: SortOrder
+    bankId?: SortOrder
+    account_number?: SortOrder
+    account_name?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    email_verified?: SortOrder
+    phone_verified?: SortOrder
+    nin_verified?: SortOrder
+    has_subscribed?: SortOrder
+    status?: SortOrder
+    account_created_by?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmerAvgOrderByAggregateInput = {
+    id?: SortOrder
+    bankId?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    account_created_by?: SortOrder
+  }
+
+  export type FarmerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fullname?: SortOrder
+    email?: SortOrder
+    phone_number?: SortOrder
+    address?: SortOrder
+    nin?: SortOrder
+    profile_image?: SortOrder
+    proof_of_address?: SortOrder
+    bankId?: SortOrder
+    account_number?: SortOrder
+    account_name?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    email_verified?: SortOrder
+    phone_verified?: SortOrder
+    nin_verified?: SortOrder
+    has_subscribed?: SortOrder
+    status?: SortOrder
+    account_created_by?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmerMinOrderByAggregateInput = {
+    id?: SortOrder
+    fullname?: SortOrder
+    email?: SortOrder
+    phone_number?: SortOrder
+    address?: SortOrder
+    nin?: SortOrder
+    profile_image?: SortOrder
+    proof_of_address?: SortOrder
+    bankId?: SortOrder
+    account_number?: SortOrder
+    account_name?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    email_verified?: SortOrder
+    phone_verified?: SortOrder
+    nin_verified?: SortOrder
+    has_subscribed?: SortOrder
+    status?: SortOrder
+    account_created_by?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmerSumOrderByAggregateInput = {
+    id?: SortOrder
+    bankId?: SortOrder
+    countryId?: SortOrder
+    stateId?: SortOrder
+    lgaId?: SortOrder
+    account_created_by?: SortOrder
+  }
+
+  export type BankOrderByRelevanceInput = {
+    fields: BankOrderByRelevanceFieldEnum | BankOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type BankCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BankAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BankMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BankMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BankSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type FarmerScalarRelationFilter = {
+    is?: FarmerWhereInput
+    isNot?: FarmerWhereInput
+  }
+
+  export type InvoiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type InvoiceAvgOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type InvoiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type InvoiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type InvoiceSumOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type EnumProductionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductionType | EnumProductionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductionType[]
+    notIn?: $Enums.ProductionType[]
+    not?: NestedEnumProductionTypeFilter<$PrismaModel> | $Enums.ProductionType
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumSizeUnitNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | null
+    notIn?: $Enums.SizeUnit[] | null
+    not?: NestedEnumSizeUnitNullableFilter<$PrismaModel> | $Enums.SizeUnit | null
+  }
+
+  export type EnumFarmStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.FarmStage | EnumFarmStageFieldRefInput<$PrismaModel>
+    in?: $Enums.FarmStage[]
+    notIn?: $Enums.FarmStage[]
+    not?: NestedEnumFarmStageFilter<$PrismaModel> | $Enums.FarmStage
+  }
+
+  export type FarmMediaListRelationFilter = {
+    every?: FarmMediaWhereInput
+    some?: FarmMediaWhereInput
+    none?: FarmMediaWhereInput
+  }
+
+  export type FarmMediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FarmOrderByRelevanceInput = {
+    fields: FarmOrderByRelevanceFieldEnum | FarmOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type FarmCountOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    type?: SortOrder
+    production_type?: SortOrder
+    size?: SortOrder
+    sizeUnit?: SortOrder
+    stage?: SortOrder
+    ownershipDocument?: SortOrder
+    number_of_workers?: SortOrder
+    verified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmAvgOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    size?: SortOrder
+    number_of_workers?: SortOrder
+  }
+
+  export type FarmMaxOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    type?: SortOrder
+    production_type?: SortOrder
+    size?: SortOrder
+    sizeUnit?: SortOrder
+    stage?: SortOrder
+    ownershipDocument?: SortOrder
+    number_of_workers?: SortOrder
+    verified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmMinOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    type?: SortOrder
+    production_type?: SortOrder
+    size?: SortOrder
+    sizeUnit?: SortOrder
+    stage?: SortOrder
+    ownershipDocument?: SortOrder
+    number_of_workers?: SortOrder
+    verified?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmSumOrderByAggregateInput = {
+    id?: SortOrder
+    farmerId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    size?: SortOrder
+    number_of_workers?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type EnumProductionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductionType | EnumProductionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductionType[]
+    notIn?: $Enums.ProductionType[]
+    not?: NestedEnumProductionTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProductionTypeFilter<$PrismaModel>
+    _max?: NestedEnumProductionTypeFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSizeUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | null
+    notIn?: $Enums.SizeUnit[] | null
+    not?: NestedEnumSizeUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.SizeUnit | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+    _max?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+  }
+
+  export type EnumFarmStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FarmStage | EnumFarmStageFieldRefInput<$PrismaModel>
+    in?: $Enums.FarmStage[]
+    notIn?: $Enums.FarmStage[]
+    not?: NestedEnumFarmStageWithAggregatesFilter<$PrismaModel> | $Enums.FarmStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFarmStageFilter<$PrismaModel>
+    _max?: NestedEnumFarmStageFilter<$PrismaModel>
+  }
+
+  export type EnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[]
+    notIn?: $Enums.MediaType[]
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type FarmScalarRelationFilter = {
+    is?: FarmWhereInput
+    isNot?: FarmWhereInput
+  }
+
+  export type FarmMediaOrderByRelevanceInput = {
+    fields: FarmMediaOrderByRelevanceFieldEnum | FarmMediaOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type FarmMediaCountOrderByAggregateInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    url?: SortOrder
+    mediaType?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmMediaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type FarmMediaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    url?: SortOrder
+    mediaType?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmMediaMinOrderByAggregateInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    url?: SortOrder
+    mediaType?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FarmMediaSumOrderByAggregateInput = {
+    id?: SortOrder
+    farmId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type EnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[]
+    notIn?: $Enums.MediaType[]
+    not?: NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel> | $Enums.MediaType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type VerificationCodeOrderByRelevanceInput = {
+    fields: VerificationCodeOrderByRelevanceFieldEnum | VerificationCodeOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type VerificationCodeCountOrderByAggregateInput = {
+    identifier?: SortOrder
+    code?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VerificationCodeMaxOrderByAggregateInput = {
+    identifier?: SortOrder
+    code?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VerificationCodeMinOrderByAggregateInput = {
+    identifier?: SortOrder
+    code?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -8210,6 +17004,13 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
   }
 
+  export type FarmerCreateNestedManyWithoutCountryInput = {
+    create?: XOR<FarmerCreateWithoutCountryInput, FarmerUncheckedCreateWithoutCountryInput> | FarmerCreateWithoutCountryInput[] | FarmerUncheckedCreateWithoutCountryInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutCountryInput | FarmerCreateOrConnectWithoutCountryInput[]
+    createMany?: FarmerCreateManyCountryInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+  }
+
   export type StateUncheckedCreateNestedManyWithoutCountryInput = {
     create?: XOR<StateCreateWithoutCountryInput, StateUncheckedCreateWithoutCountryInput> | StateCreateWithoutCountryInput[] | StateUncheckedCreateWithoutCountryInput[]
     connectOrCreate?: StateCreateOrConnectWithoutCountryInput | StateCreateOrConnectWithoutCountryInput[]
@@ -8222,6 +17023,13 @@ export namespace Prisma {
     connectOrCreate?: UsersCreateOrConnectWithoutCountryInput | UsersCreateOrConnectWithoutCountryInput[]
     createMany?: UsersCreateManyCountryInputEnvelope
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type FarmerUncheckedCreateNestedManyWithoutCountryInput = {
+    create?: XOR<FarmerCreateWithoutCountryInput, FarmerUncheckedCreateWithoutCountryInput> | FarmerCreateWithoutCountryInput[] | FarmerUncheckedCreateWithoutCountryInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutCountryInput | FarmerCreateOrConnectWithoutCountryInput[]
+    createMany?: FarmerCreateManyCountryInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
   }
 
   export type StateUpdateManyWithoutCountryNestedInput = {
@@ -8252,6 +17060,20 @@ export namespace Prisma {
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
+  export type FarmerUpdateManyWithoutCountryNestedInput = {
+    create?: XOR<FarmerCreateWithoutCountryInput, FarmerUncheckedCreateWithoutCountryInput> | FarmerCreateWithoutCountryInput[] | FarmerUncheckedCreateWithoutCountryInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutCountryInput | FarmerCreateOrConnectWithoutCountryInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutCountryInput | FarmerUpsertWithWhereUniqueWithoutCountryInput[]
+    createMany?: FarmerCreateManyCountryInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutCountryInput | FarmerUpdateWithWhereUniqueWithoutCountryInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutCountryInput | FarmerUpdateManyWithWhereWithoutCountryInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
   export type StateUncheckedUpdateManyWithoutCountryNestedInput = {
     create?: XOR<StateCreateWithoutCountryInput, StateUncheckedCreateWithoutCountryInput> | StateCreateWithoutCountryInput[] | StateUncheckedCreateWithoutCountryInput[]
     connectOrCreate?: StateCreateOrConnectWithoutCountryInput | StateCreateOrConnectWithoutCountryInput[]
@@ -8280,6 +17102,20 @@ export namespace Prisma {
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
+  export type FarmerUncheckedUpdateManyWithoutCountryNestedInput = {
+    create?: XOR<FarmerCreateWithoutCountryInput, FarmerUncheckedCreateWithoutCountryInput> | FarmerCreateWithoutCountryInput[] | FarmerUncheckedCreateWithoutCountryInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutCountryInput | FarmerCreateOrConnectWithoutCountryInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutCountryInput | FarmerUpsertWithWhereUniqueWithoutCountryInput[]
+    createMany?: FarmerCreateManyCountryInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutCountryInput | FarmerUpdateWithWhereUniqueWithoutCountryInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutCountryInput | FarmerUpdateManyWithWhereWithoutCountryInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
   export type CountryCreateNestedOneWithoutStatesInput = {
     create?: XOR<CountryCreateWithoutStatesInput, CountryUncheckedCreateWithoutStatesInput>
     connectOrCreate?: CountryCreateOrConnectWithoutStatesInput
@@ -8300,6 +17136,13 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
   }
 
+  export type FarmerCreateNestedManyWithoutStateInput = {
+    create?: XOR<FarmerCreateWithoutStateInput, FarmerUncheckedCreateWithoutStateInput> | FarmerCreateWithoutStateInput[] | FarmerUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutStateInput | FarmerCreateOrConnectWithoutStateInput[]
+    createMany?: FarmerCreateManyStateInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+  }
+
   export type LgaUncheckedCreateNestedManyWithoutStateInput = {
     create?: XOR<LgaCreateWithoutStateInput, LgaUncheckedCreateWithoutStateInput> | LgaCreateWithoutStateInput[] | LgaUncheckedCreateWithoutStateInput[]
     connectOrCreate?: LgaCreateOrConnectWithoutStateInput | LgaCreateOrConnectWithoutStateInput[]
@@ -8312,6 +17155,13 @@ export namespace Prisma {
     connectOrCreate?: UsersCreateOrConnectWithoutStateInput | UsersCreateOrConnectWithoutStateInput[]
     createMany?: UsersCreateManyStateInputEnvelope
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type FarmerUncheckedCreateNestedManyWithoutStateInput = {
+    create?: XOR<FarmerCreateWithoutStateInput, FarmerUncheckedCreateWithoutStateInput> | FarmerCreateWithoutStateInput[] | FarmerUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutStateInput | FarmerCreateOrConnectWithoutStateInput[]
+    createMany?: FarmerCreateManyStateInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
   }
 
   export type CountryUpdateOneRequiredWithoutStatesNestedInput = {
@@ -8350,6 +17200,20 @@ export namespace Prisma {
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
+  export type FarmerUpdateManyWithoutStateNestedInput = {
+    create?: XOR<FarmerCreateWithoutStateInput, FarmerUncheckedCreateWithoutStateInput> | FarmerCreateWithoutStateInput[] | FarmerUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutStateInput | FarmerCreateOrConnectWithoutStateInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutStateInput | FarmerUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: FarmerCreateManyStateInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutStateInput | FarmerUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutStateInput | FarmerUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
   export type LgaUncheckedUpdateManyWithoutStateNestedInput = {
     create?: XOR<LgaCreateWithoutStateInput, LgaUncheckedCreateWithoutStateInput> | LgaCreateWithoutStateInput[] | LgaUncheckedCreateWithoutStateInput[]
     connectOrCreate?: LgaCreateOrConnectWithoutStateInput | LgaCreateOrConnectWithoutStateInput[]
@@ -8378,6 +17242,20 @@ export namespace Prisma {
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
+  export type FarmerUncheckedUpdateManyWithoutStateNestedInput = {
+    create?: XOR<FarmerCreateWithoutStateInput, FarmerUncheckedCreateWithoutStateInput> | FarmerCreateWithoutStateInput[] | FarmerUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutStateInput | FarmerCreateOrConnectWithoutStateInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutStateInput | FarmerUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: FarmerCreateManyStateInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutStateInput | FarmerUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutStateInput | FarmerUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
   export type StateCreateNestedOneWithoutLgasInput = {
     create?: XOR<StateCreateWithoutLgasInput, StateUncheckedCreateWithoutLgasInput>
     connectOrCreate?: StateCreateOrConnectWithoutLgasInput
@@ -8391,11 +17269,25 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
   }
 
+  export type FarmerCreateNestedManyWithoutLgaInput = {
+    create?: XOR<FarmerCreateWithoutLgaInput, FarmerUncheckedCreateWithoutLgaInput> | FarmerCreateWithoutLgaInput[] | FarmerUncheckedCreateWithoutLgaInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutLgaInput | FarmerCreateOrConnectWithoutLgaInput[]
+    createMany?: FarmerCreateManyLgaInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+  }
+
   export type UsersUncheckedCreateNestedManyWithoutLgaInput = {
     create?: XOR<UsersCreateWithoutLgaInput, UsersUncheckedCreateWithoutLgaInput> | UsersCreateWithoutLgaInput[] | UsersUncheckedCreateWithoutLgaInput[]
     connectOrCreate?: UsersCreateOrConnectWithoutLgaInput | UsersCreateOrConnectWithoutLgaInput[]
     createMany?: UsersCreateManyLgaInputEnvelope
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type FarmerUncheckedCreateNestedManyWithoutLgaInput = {
+    create?: XOR<FarmerCreateWithoutLgaInput, FarmerUncheckedCreateWithoutLgaInput> | FarmerCreateWithoutLgaInput[] | FarmerUncheckedCreateWithoutLgaInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutLgaInput | FarmerCreateOrConnectWithoutLgaInput[]
+    createMany?: FarmerCreateManyLgaInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
   }
 
   export type StateUpdateOneRequiredWithoutLgasNestedInput = {
@@ -8420,6 +17312,20 @@ export namespace Prisma {
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
+  export type FarmerUpdateManyWithoutLgaNestedInput = {
+    create?: XOR<FarmerCreateWithoutLgaInput, FarmerUncheckedCreateWithoutLgaInput> | FarmerCreateWithoutLgaInput[] | FarmerUncheckedCreateWithoutLgaInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutLgaInput | FarmerCreateOrConnectWithoutLgaInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutLgaInput | FarmerUpsertWithWhereUniqueWithoutLgaInput[]
+    createMany?: FarmerCreateManyLgaInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutLgaInput | FarmerUpdateWithWhereUniqueWithoutLgaInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutLgaInput | FarmerUpdateManyWithWhereWithoutLgaInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
   export type UsersUncheckedUpdateManyWithoutLgaNestedInput = {
     create?: XOR<UsersCreateWithoutLgaInput, UsersUncheckedCreateWithoutLgaInput> | UsersCreateWithoutLgaInput[] | UsersUncheckedCreateWithoutLgaInput[]
     connectOrCreate?: UsersCreateOrConnectWithoutLgaInput | UsersCreateOrConnectWithoutLgaInput[]
@@ -8432,6 +17338,334 @@ export namespace Prisma {
     update?: UsersUpdateWithWhereUniqueWithoutLgaInput | UsersUpdateWithWhereUniqueWithoutLgaInput[]
     updateMany?: UsersUpdateManyWithWhereWithoutLgaInput | UsersUpdateManyWithWhereWithoutLgaInput[]
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
+  }
+
+  export type FarmerUncheckedUpdateManyWithoutLgaNestedInput = {
+    create?: XOR<FarmerCreateWithoutLgaInput, FarmerUncheckedCreateWithoutLgaInput> | FarmerCreateWithoutLgaInput[] | FarmerUncheckedCreateWithoutLgaInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutLgaInput | FarmerCreateOrConnectWithoutLgaInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutLgaInput | FarmerUpsertWithWhereUniqueWithoutLgaInput[]
+    createMany?: FarmerCreateManyLgaInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutLgaInput | FarmerUpdateWithWhereUniqueWithoutLgaInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutLgaInput | FarmerUpdateManyWithWhereWithoutLgaInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
+  export type BankCreateNestedOneWithoutFarmersInput = {
+    create?: XOR<BankCreateWithoutFarmersInput, BankUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: BankCreateOrConnectWithoutFarmersInput
+    connect?: BankWhereUniqueInput
+  }
+
+  export type CountryCreateNestedOneWithoutFarmersInput = {
+    create?: XOR<CountryCreateWithoutFarmersInput, CountryUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: CountryCreateOrConnectWithoutFarmersInput
+    connect?: CountryWhereUniqueInput
+  }
+
+  export type StateCreateNestedOneWithoutFarmersInput = {
+    create?: XOR<StateCreateWithoutFarmersInput, StateUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: StateCreateOrConnectWithoutFarmersInput
+    connect?: StateWhereUniqueInput
+  }
+
+  export type LgaCreateNestedOneWithoutFarmersInput = {
+    create?: XOR<LgaCreateWithoutFarmersInput, LgaUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: LgaCreateOrConnectWithoutFarmersInput
+    connect?: LgaWhereUniqueInput
+  }
+
+  export type InvoiceCreateNestedManyWithoutFarmerInput = {
+    create?: XOR<InvoiceCreateWithoutFarmerInput, InvoiceUncheckedCreateWithoutFarmerInput> | InvoiceCreateWithoutFarmerInput[] | InvoiceUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFarmerInput | InvoiceCreateOrConnectWithoutFarmerInput[]
+    createMany?: InvoiceCreateManyFarmerInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type FarmCreateNestedManyWithoutFarmerInput = {
+    create?: XOR<FarmCreateWithoutFarmerInput, FarmUncheckedCreateWithoutFarmerInput> | FarmCreateWithoutFarmerInput[] | FarmUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: FarmCreateOrConnectWithoutFarmerInput | FarmCreateOrConnectWithoutFarmerInput[]
+    createMany?: FarmCreateManyFarmerInputEnvelope
+    connect?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutFarmerInput = {
+    create?: XOR<InvoiceCreateWithoutFarmerInput, InvoiceUncheckedCreateWithoutFarmerInput> | InvoiceCreateWithoutFarmerInput[] | InvoiceUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFarmerInput | InvoiceCreateOrConnectWithoutFarmerInput[]
+    createMany?: InvoiceCreateManyFarmerInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type FarmUncheckedCreateNestedManyWithoutFarmerInput = {
+    create?: XOR<FarmCreateWithoutFarmerInput, FarmUncheckedCreateWithoutFarmerInput> | FarmCreateWithoutFarmerInput[] | FarmUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: FarmCreateOrConnectWithoutFarmerInput | FarmCreateOrConnectWithoutFarmerInput[]
+    createMany?: FarmCreateManyFarmerInputEnvelope
+    connect?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+  }
+
+  export type BankUpdateOneRequiredWithoutFarmersNestedInput = {
+    create?: XOR<BankCreateWithoutFarmersInput, BankUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: BankCreateOrConnectWithoutFarmersInput
+    upsert?: BankUpsertWithoutFarmersInput
+    connect?: BankWhereUniqueInput
+    update?: XOR<XOR<BankUpdateToOneWithWhereWithoutFarmersInput, BankUpdateWithoutFarmersInput>, BankUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type CountryUpdateOneRequiredWithoutFarmersNestedInput = {
+    create?: XOR<CountryCreateWithoutFarmersInput, CountryUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: CountryCreateOrConnectWithoutFarmersInput
+    upsert?: CountryUpsertWithoutFarmersInput
+    connect?: CountryWhereUniqueInput
+    update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutFarmersInput, CountryUpdateWithoutFarmersInput>, CountryUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type StateUpdateOneRequiredWithoutFarmersNestedInput = {
+    create?: XOR<StateCreateWithoutFarmersInput, StateUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: StateCreateOrConnectWithoutFarmersInput
+    upsert?: StateUpsertWithoutFarmersInput
+    connect?: StateWhereUniqueInput
+    update?: XOR<XOR<StateUpdateToOneWithWhereWithoutFarmersInput, StateUpdateWithoutFarmersInput>, StateUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type LgaUpdateOneRequiredWithoutFarmersNestedInput = {
+    create?: XOR<LgaCreateWithoutFarmersInput, LgaUncheckedCreateWithoutFarmersInput>
+    connectOrCreate?: LgaCreateOrConnectWithoutFarmersInput
+    upsert?: LgaUpsertWithoutFarmersInput
+    connect?: LgaWhereUniqueInput
+    update?: XOR<XOR<LgaUpdateToOneWithWhereWithoutFarmersInput, LgaUpdateWithoutFarmersInput>, LgaUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type InvoiceUpdateManyWithoutFarmerNestedInput = {
+    create?: XOR<InvoiceCreateWithoutFarmerInput, InvoiceUncheckedCreateWithoutFarmerInput> | InvoiceCreateWithoutFarmerInput[] | InvoiceUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFarmerInput | InvoiceCreateOrConnectWithoutFarmerInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutFarmerInput | InvoiceUpsertWithWhereUniqueWithoutFarmerInput[]
+    createMany?: InvoiceCreateManyFarmerInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutFarmerInput | InvoiceUpdateWithWhereUniqueWithoutFarmerInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutFarmerInput | InvoiceUpdateManyWithWhereWithoutFarmerInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type FarmUpdateManyWithoutFarmerNestedInput = {
+    create?: XOR<FarmCreateWithoutFarmerInput, FarmUncheckedCreateWithoutFarmerInput> | FarmCreateWithoutFarmerInput[] | FarmUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: FarmCreateOrConnectWithoutFarmerInput | FarmCreateOrConnectWithoutFarmerInput[]
+    upsert?: FarmUpsertWithWhereUniqueWithoutFarmerInput | FarmUpsertWithWhereUniqueWithoutFarmerInput[]
+    createMany?: FarmCreateManyFarmerInputEnvelope
+    set?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    disconnect?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    delete?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    connect?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    update?: FarmUpdateWithWhereUniqueWithoutFarmerInput | FarmUpdateWithWhereUniqueWithoutFarmerInput[]
+    updateMany?: FarmUpdateManyWithWhereWithoutFarmerInput | FarmUpdateManyWithWhereWithoutFarmerInput[]
+    deleteMany?: FarmScalarWhereInput | FarmScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutFarmerNestedInput = {
+    create?: XOR<InvoiceCreateWithoutFarmerInput, InvoiceUncheckedCreateWithoutFarmerInput> | InvoiceCreateWithoutFarmerInput[] | InvoiceUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutFarmerInput | InvoiceCreateOrConnectWithoutFarmerInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutFarmerInput | InvoiceUpsertWithWhereUniqueWithoutFarmerInput[]
+    createMany?: InvoiceCreateManyFarmerInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutFarmerInput | InvoiceUpdateWithWhereUniqueWithoutFarmerInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutFarmerInput | InvoiceUpdateManyWithWhereWithoutFarmerInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type FarmUncheckedUpdateManyWithoutFarmerNestedInput = {
+    create?: XOR<FarmCreateWithoutFarmerInput, FarmUncheckedCreateWithoutFarmerInput> | FarmCreateWithoutFarmerInput[] | FarmUncheckedCreateWithoutFarmerInput[]
+    connectOrCreate?: FarmCreateOrConnectWithoutFarmerInput | FarmCreateOrConnectWithoutFarmerInput[]
+    upsert?: FarmUpsertWithWhereUniqueWithoutFarmerInput | FarmUpsertWithWhereUniqueWithoutFarmerInput[]
+    createMany?: FarmCreateManyFarmerInputEnvelope
+    set?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    disconnect?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    delete?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    connect?: FarmWhereUniqueInput | FarmWhereUniqueInput[]
+    update?: FarmUpdateWithWhereUniqueWithoutFarmerInput | FarmUpdateWithWhereUniqueWithoutFarmerInput[]
+    updateMany?: FarmUpdateManyWithWhereWithoutFarmerInput | FarmUpdateManyWithWhereWithoutFarmerInput[]
+    deleteMany?: FarmScalarWhereInput | FarmScalarWhereInput[]
+  }
+
+  export type FarmerCreateNestedManyWithoutBankInput = {
+    create?: XOR<FarmerCreateWithoutBankInput, FarmerUncheckedCreateWithoutBankInput> | FarmerCreateWithoutBankInput[] | FarmerUncheckedCreateWithoutBankInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutBankInput | FarmerCreateOrConnectWithoutBankInput[]
+    createMany?: FarmerCreateManyBankInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+  }
+
+  export type FarmerUncheckedCreateNestedManyWithoutBankInput = {
+    create?: XOR<FarmerCreateWithoutBankInput, FarmerUncheckedCreateWithoutBankInput> | FarmerCreateWithoutBankInput[] | FarmerUncheckedCreateWithoutBankInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutBankInput | FarmerCreateOrConnectWithoutBankInput[]
+    createMany?: FarmerCreateManyBankInputEnvelope
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+  }
+
+  export type FarmerUpdateManyWithoutBankNestedInput = {
+    create?: XOR<FarmerCreateWithoutBankInput, FarmerUncheckedCreateWithoutBankInput> | FarmerCreateWithoutBankInput[] | FarmerUncheckedCreateWithoutBankInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutBankInput | FarmerCreateOrConnectWithoutBankInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutBankInput | FarmerUpsertWithWhereUniqueWithoutBankInput[]
+    createMany?: FarmerCreateManyBankInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutBankInput | FarmerUpdateWithWhereUniqueWithoutBankInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutBankInput | FarmerUpdateManyWithWhereWithoutBankInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
+  export type FarmerUncheckedUpdateManyWithoutBankNestedInput = {
+    create?: XOR<FarmerCreateWithoutBankInput, FarmerUncheckedCreateWithoutBankInput> | FarmerCreateWithoutBankInput[] | FarmerUncheckedCreateWithoutBankInput[]
+    connectOrCreate?: FarmerCreateOrConnectWithoutBankInput | FarmerCreateOrConnectWithoutBankInput[]
+    upsert?: FarmerUpsertWithWhereUniqueWithoutBankInput | FarmerUpsertWithWhereUniqueWithoutBankInput[]
+    createMany?: FarmerCreateManyBankInputEnvelope
+    set?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    disconnect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    delete?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    connect?: FarmerWhereUniqueInput | FarmerWhereUniqueInput[]
+    update?: FarmerUpdateWithWhereUniqueWithoutBankInput | FarmerUpdateWithWhereUniqueWithoutBankInput[]
+    updateMany?: FarmerUpdateManyWithWhereWithoutBankInput | FarmerUpdateManyWithWhereWithoutBankInput[]
+    deleteMany?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+  }
+
+  export type FarmerCreateNestedOneWithoutInovicesInput = {
+    create?: XOR<FarmerCreateWithoutInovicesInput, FarmerUncheckedCreateWithoutInovicesInput>
+    connectOrCreate?: FarmerCreateOrConnectWithoutInovicesInput
+    connect?: FarmerWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type FarmerUpdateOneRequiredWithoutInovicesNestedInput = {
+    create?: XOR<FarmerCreateWithoutInovicesInput, FarmerUncheckedCreateWithoutInovicesInput>
+    connectOrCreate?: FarmerCreateOrConnectWithoutInovicesInput
+    upsert?: FarmerUpsertWithoutInovicesInput
+    connect?: FarmerWhereUniqueInput
+    update?: XOR<XOR<FarmerUpdateToOneWithWhereWithoutInovicesInput, FarmerUpdateWithoutInovicesInput>, FarmerUncheckedUpdateWithoutInovicesInput>
+  }
+
+  export type FarmerCreateNestedOneWithoutFarmsInput = {
+    create?: XOR<FarmerCreateWithoutFarmsInput, FarmerUncheckedCreateWithoutFarmsInput>
+    connectOrCreate?: FarmerCreateOrConnectWithoutFarmsInput
+    connect?: FarmerWhereUniqueInput
+  }
+
+  export type FarmMediaCreateNestedManyWithoutFarmInput = {
+    create?: XOR<FarmMediaCreateWithoutFarmInput, FarmMediaUncheckedCreateWithoutFarmInput> | FarmMediaCreateWithoutFarmInput[] | FarmMediaUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: FarmMediaCreateOrConnectWithoutFarmInput | FarmMediaCreateOrConnectWithoutFarmInput[]
+    createMany?: FarmMediaCreateManyFarmInputEnvelope
+    connect?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+  }
+
+  export type FarmMediaUncheckedCreateNestedManyWithoutFarmInput = {
+    create?: XOR<FarmMediaCreateWithoutFarmInput, FarmMediaUncheckedCreateWithoutFarmInput> | FarmMediaCreateWithoutFarmInput[] | FarmMediaUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: FarmMediaCreateOrConnectWithoutFarmInput | FarmMediaCreateOrConnectWithoutFarmInput[]
+    createMany?: FarmMediaCreateManyFarmInputEnvelope
+    connect?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumProductionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProductionType
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableEnumSizeUnitFieldUpdateOperationsInput = {
+    set?: $Enums.SizeUnit | null
+  }
+
+  export type EnumFarmStageFieldUpdateOperationsInput = {
+    set?: $Enums.FarmStage
+  }
+
+  export type FarmerUpdateOneRequiredWithoutFarmsNestedInput = {
+    create?: XOR<FarmerCreateWithoutFarmsInput, FarmerUncheckedCreateWithoutFarmsInput>
+    connectOrCreate?: FarmerCreateOrConnectWithoutFarmsInput
+    upsert?: FarmerUpsertWithoutFarmsInput
+    connect?: FarmerWhereUniqueInput
+    update?: XOR<XOR<FarmerUpdateToOneWithWhereWithoutFarmsInput, FarmerUpdateWithoutFarmsInput>, FarmerUncheckedUpdateWithoutFarmsInput>
+  }
+
+  export type FarmMediaUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<FarmMediaCreateWithoutFarmInput, FarmMediaUncheckedCreateWithoutFarmInput> | FarmMediaCreateWithoutFarmInput[] | FarmMediaUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: FarmMediaCreateOrConnectWithoutFarmInput | FarmMediaCreateOrConnectWithoutFarmInput[]
+    upsert?: FarmMediaUpsertWithWhereUniqueWithoutFarmInput | FarmMediaUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: FarmMediaCreateManyFarmInputEnvelope
+    set?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    disconnect?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    delete?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    connect?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    update?: FarmMediaUpdateWithWhereUniqueWithoutFarmInput | FarmMediaUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: FarmMediaUpdateManyWithWhereWithoutFarmInput | FarmMediaUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: FarmMediaScalarWhereInput | FarmMediaScalarWhereInput[]
+  }
+
+  export type FarmMediaUncheckedUpdateManyWithoutFarmNestedInput = {
+    create?: XOR<FarmMediaCreateWithoutFarmInput, FarmMediaUncheckedCreateWithoutFarmInput> | FarmMediaCreateWithoutFarmInput[] | FarmMediaUncheckedCreateWithoutFarmInput[]
+    connectOrCreate?: FarmMediaCreateOrConnectWithoutFarmInput | FarmMediaCreateOrConnectWithoutFarmInput[]
+    upsert?: FarmMediaUpsertWithWhereUniqueWithoutFarmInput | FarmMediaUpsertWithWhereUniqueWithoutFarmInput[]
+    createMany?: FarmMediaCreateManyFarmInputEnvelope
+    set?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    disconnect?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    delete?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    connect?: FarmMediaWhereUniqueInput | FarmMediaWhereUniqueInput[]
+    update?: FarmMediaUpdateWithWhereUniqueWithoutFarmInput | FarmMediaUpdateWithWhereUniqueWithoutFarmInput[]
+    updateMany?: FarmMediaUpdateManyWithWhereWithoutFarmInput | FarmMediaUpdateManyWithWhereWithoutFarmInput[]
+    deleteMany?: FarmMediaScalarWhereInput | FarmMediaScalarWhereInput[]
+  }
+
+  export type FarmCreateNestedOneWithoutMediaInput = {
+    create?: XOR<FarmCreateWithoutMediaInput, FarmUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutMediaInput
+    connect?: FarmWhereUniqueInput
+  }
+
+  export type EnumMediaTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MediaType
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type FarmUpdateOneRequiredWithoutMediaNestedInput = {
+    create?: XOR<FarmCreateWithoutMediaInput, FarmUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: FarmCreateOrConnectWithoutMediaInput
+    upsert?: FarmUpsertWithoutMediaInput
+    connect?: FarmWhereUniqueInput
+    update?: XOR<XOR<FarmUpdateToOneWithWhereWithoutMediaInput, FarmUpdateWithoutMediaInput>, FarmUncheckedUpdateWithoutMediaInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8648,6 +17882,160 @@ export namespace Prisma {
     _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedEnumProductionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductionType | EnumProductionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductionType[]
+    notIn?: $Enums.ProductionType[]
+    not?: NestedEnumProductionTypeFilter<$PrismaModel> | $Enums.ProductionType
+  }
+
+  export type NestedEnumSizeUnitNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | null
+    notIn?: $Enums.SizeUnit[] | null
+    not?: NestedEnumSizeUnitNullableFilter<$PrismaModel> | $Enums.SizeUnit | null
+  }
+
+  export type NestedEnumFarmStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.FarmStage | EnumFarmStageFieldRefInput<$PrismaModel>
+    in?: $Enums.FarmStage[]
+    notIn?: $Enums.FarmStage[]
+    not?: NestedEnumFarmStageFilter<$PrismaModel> | $Enums.FarmStage
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumProductionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductionType | EnumProductionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProductionType[]
+    notIn?: $Enums.ProductionType[]
+    not?: NestedEnumProductionTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProductionTypeFilter<$PrismaModel>
+    _max?: NestedEnumProductionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSizeUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | null
+    notIn?: $Enums.SizeUnit[] | null
+    not?: NestedEnumSizeUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.SizeUnit | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+    _max?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFarmStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FarmStage | EnumFarmStageFieldRefInput<$PrismaModel>
+    in?: $Enums.FarmStage[]
+    notIn?: $Enums.FarmStage[]
+    not?: NestedEnumFarmStageWithAggregatesFilter<$PrismaModel> | $Enums.FarmStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFarmStageFilter<$PrismaModel>
+    _max?: NestedEnumFarmStageFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[]
+    notIn?: $Enums.MediaType[]
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[]
+    notIn?: $Enums.MediaType[]
+    not?: NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel> | $Enums.MediaType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type CountryCreateWithoutUsersInput = {
     name: string
     iso2?: string | null
@@ -8657,6 +18045,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     states?: StateCreateNestedManyWithoutCountryInput
+    farmers?: FarmerCreateNestedManyWithoutCountryInput
   }
 
   export type CountryUncheckedCreateWithoutUsersInput = {
@@ -8669,6 +18058,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     states?: StateUncheckedCreateNestedManyWithoutCountryInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutCountryInput
   }
 
   export type CountryCreateOrConnectWithoutUsersInput = {
@@ -8683,6 +18073,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     country: CountryCreateNestedOneWithoutStatesInput
     lgas?: LgaCreateNestedManyWithoutStateInput
+    farmers?: FarmerCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateWithoutUsersInput = {
@@ -8693,6 +18084,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lgas?: LgaUncheckedCreateNestedManyWithoutStateInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateCreateOrConnectWithoutUsersInput = {
@@ -8706,6 +18098,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     state: StateCreateNestedOneWithoutLgasInput
+    farmers?: FarmerCreateNestedManyWithoutLgaInput
   }
 
   export type LgaUncheckedCreateWithoutUsersInput = {
@@ -8715,6 +18108,7 @@ export namespace Prisma {
     stateId: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    farmers?: FarmerUncheckedCreateNestedManyWithoutLgaInput
   }
 
   export type LgaCreateOrConnectWithoutUsersInput = {
@@ -8742,6 +18136,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     states?: StateUpdateManyWithoutCountryNestedInput
+    farmers?: FarmerUpdateManyWithoutCountryNestedInput
   }
 
   export type CountryUncheckedUpdateWithoutUsersInput = {
@@ -8754,6 +18149,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     states?: StateUncheckedUpdateManyWithoutCountryNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutCountryNestedInput
   }
 
   export type StateUpsertWithoutUsersInput = {
@@ -8774,6 +18170,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     country?: CountryUpdateOneRequiredWithoutStatesNestedInput
     lgas?: LgaUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateWithoutUsersInput = {
@@ -8784,6 +18181,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lgas?: LgaUncheckedUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type LgaUpsertWithoutUsersInput = {
@@ -8803,6 +18201,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     state?: StateUpdateOneRequiredWithoutLgasNestedInput
+    farmers?: FarmerUpdateManyWithoutLgaNestedInput
   }
 
   export type LgaUncheckedUpdateWithoutUsersInput = {
@@ -8812,6 +18211,7 @@ export namespace Prisma {
     stateId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmers?: FarmerUncheckedUpdateManyWithoutLgaNestedInput
   }
 
   export type StateCreateWithoutCountryInput = {
@@ -8821,6 +18221,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lgas?: LgaCreateNestedManyWithoutStateInput
     users?: UsersCreateNestedManyWithoutStateInput
+    farmers?: FarmerCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateWithoutCountryInput = {
@@ -8831,6 +18232,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lgas?: LgaUncheckedCreateNestedManyWithoutStateInput
     users?: UsersUncheckedCreateNestedManyWithoutStateInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateCreateOrConnectWithoutCountryInput = {
@@ -8887,6 +18289,67 @@ export namespace Prisma {
 
   export type UsersCreateManyCountryInputEnvelope = {
     data: UsersCreateManyCountryInput | UsersCreateManyCountryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FarmerCreateWithoutCountryInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bank: BankCreateNestedOneWithoutFarmersInput
+    state: StateCreateNestedOneWithoutFarmersInput
+    lga: LgaCreateNestedOneWithoutFarmersInput
+    inovices?: InvoiceCreateNestedManyWithoutFarmerInput
+    farms?: FarmCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateWithoutCountryInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inovices?: InvoiceUncheckedCreateNestedManyWithoutFarmerInput
+    farms?: FarmUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerCreateOrConnectWithoutCountryInput = {
+    where: FarmerWhereUniqueInput
+    create: XOR<FarmerCreateWithoutCountryInput, FarmerUncheckedCreateWithoutCountryInput>
+  }
+
+  export type FarmerCreateManyCountryInputEnvelope = {
+    data: FarmerCreateManyCountryInput | FarmerCreateManyCountryInput[]
     skipDuplicates?: boolean
   }
 
@@ -8957,6 +18420,50 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Users"> | Date | string
   }
 
+  export type FarmerUpsertWithWhereUniqueWithoutCountryInput = {
+    where: FarmerWhereUniqueInput
+    update: XOR<FarmerUpdateWithoutCountryInput, FarmerUncheckedUpdateWithoutCountryInput>
+    create: XOR<FarmerCreateWithoutCountryInput, FarmerUncheckedCreateWithoutCountryInput>
+  }
+
+  export type FarmerUpdateWithWhereUniqueWithoutCountryInput = {
+    where: FarmerWhereUniqueInput
+    data: XOR<FarmerUpdateWithoutCountryInput, FarmerUncheckedUpdateWithoutCountryInput>
+  }
+
+  export type FarmerUpdateManyWithWhereWithoutCountryInput = {
+    where: FarmerScalarWhereInput
+    data: XOR<FarmerUpdateManyMutationInput, FarmerUncheckedUpdateManyWithoutCountryInput>
+  }
+
+  export type FarmerScalarWhereInput = {
+    AND?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+    OR?: FarmerScalarWhereInput[]
+    NOT?: FarmerScalarWhereInput | FarmerScalarWhereInput[]
+    id?: IntFilter<"Farmer"> | number
+    fullname?: StringFilter<"Farmer"> | string
+    email?: StringNullableFilter<"Farmer"> | string | null
+    phone_number?: StringFilter<"Farmer"> | string
+    address?: StringFilter<"Farmer"> | string
+    nin?: StringFilter<"Farmer"> | string
+    profile_image?: StringNullableFilter<"Farmer"> | string | null
+    proof_of_address?: StringNullableFilter<"Farmer"> | string | null
+    bankId?: IntFilter<"Farmer"> | number
+    account_number?: StringFilter<"Farmer"> | string
+    account_name?: StringFilter<"Farmer"> | string
+    countryId?: IntFilter<"Farmer"> | number
+    stateId?: IntFilter<"Farmer"> | number
+    lgaId?: IntFilter<"Farmer"> | number
+    email_verified?: BoolFilter<"Farmer"> | boolean
+    phone_verified?: BoolFilter<"Farmer"> | boolean
+    nin_verified?: BoolFilter<"Farmer"> | boolean
+    has_subscribed?: BoolFilter<"Farmer"> | boolean
+    status?: EnumStatusFilter<"Farmer"> | $Enums.Status
+    account_created_by?: IntFilter<"Farmer"> | number
+    createdAt?: DateTimeFilter<"Farmer"> | Date | string
+    updatedAt?: DateTimeFilter<"Farmer"> | Date | string
+  }
+
   export type CountryCreateWithoutStatesInput = {
     name: string
     iso2?: string | null
@@ -8966,6 +18473,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UsersCreateNestedManyWithoutCountryInput
+    farmers?: FarmerCreateNestedManyWithoutCountryInput
   }
 
   export type CountryUncheckedCreateWithoutStatesInput = {
@@ -8978,6 +18486,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutCountryInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutCountryInput
   }
 
   export type CountryCreateOrConnectWithoutStatesInput = {
@@ -8991,6 +18500,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UsersCreateNestedManyWithoutLgaInput
+    farmers?: FarmerCreateNestedManyWithoutLgaInput
   }
 
   export type LgaUncheckedCreateWithoutStateInput = {
@@ -9000,6 +18510,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutLgaInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutLgaInput
   }
 
   export type LgaCreateOrConnectWithoutStateInput = {
@@ -9059,6 +18570,67 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FarmerCreateWithoutStateInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bank: BankCreateNestedOneWithoutFarmersInput
+    country: CountryCreateNestedOneWithoutFarmersInput
+    lga: LgaCreateNestedOneWithoutFarmersInput
+    inovices?: InvoiceCreateNestedManyWithoutFarmerInput
+    farms?: FarmCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateWithoutStateInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inovices?: InvoiceUncheckedCreateNestedManyWithoutFarmerInput
+    farms?: FarmUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerCreateOrConnectWithoutStateInput = {
+    where: FarmerWhereUniqueInput
+    create: XOR<FarmerCreateWithoutStateInput, FarmerUncheckedCreateWithoutStateInput>
+  }
+
+  export type FarmerCreateManyStateInputEnvelope = {
+    data: FarmerCreateManyStateInput | FarmerCreateManyStateInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CountryUpsertWithoutStatesInput = {
     update: XOR<CountryUpdateWithoutStatesInput, CountryUncheckedUpdateWithoutStatesInput>
     create: XOR<CountryCreateWithoutStatesInput, CountryUncheckedCreateWithoutStatesInput>
@@ -9079,6 +18651,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUpdateManyWithoutCountryNestedInput
+    farmers?: FarmerUpdateManyWithoutCountryNestedInput
   }
 
   export type CountryUncheckedUpdateWithoutStatesInput = {
@@ -9091,6 +18664,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutCountryNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutCountryNestedInput
   }
 
   export type LgaUpsertWithWhereUniqueWithoutStateInput = {
@@ -9137,6 +18711,22 @@ export namespace Prisma {
     data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutStateInput>
   }
 
+  export type FarmerUpsertWithWhereUniqueWithoutStateInput = {
+    where: FarmerWhereUniqueInput
+    update: XOR<FarmerUpdateWithoutStateInput, FarmerUncheckedUpdateWithoutStateInput>
+    create: XOR<FarmerCreateWithoutStateInput, FarmerUncheckedCreateWithoutStateInput>
+  }
+
+  export type FarmerUpdateWithWhereUniqueWithoutStateInput = {
+    where: FarmerWhereUniqueInput
+    data: XOR<FarmerUpdateWithoutStateInput, FarmerUncheckedUpdateWithoutStateInput>
+  }
+
+  export type FarmerUpdateManyWithWhereWithoutStateInput = {
+    where: FarmerScalarWhereInput
+    data: XOR<FarmerUpdateManyMutationInput, FarmerUncheckedUpdateManyWithoutStateInput>
+  }
+
   export type StateCreateWithoutLgasInput = {
     name: string
     code?: string | null
@@ -9144,6 +18734,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     country: CountryCreateNestedOneWithoutStatesInput
     users?: UsersCreateNestedManyWithoutStateInput
+    farmers?: FarmerCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateWithoutLgasInput = {
@@ -9154,6 +18745,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutStateInput
+    farmers?: FarmerUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateCreateOrConnectWithoutLgasInput = {
@@ -9208,6 +18800,67 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FarmerCreateWithoutLgaInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bank: BankCreateNestedOneWithoutFarmersInput
+    country: CountryCreateNestedOneWithoutFarmersInput
+    state: StateCreateNestedOneWithoutFarmersInput
+    inovices?: InvoiceCreateNestedManyWithoutFarmerInput
+    farms?: FarmCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateWithoutLgaInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inovices?: InvoiceUncheckedCreateNestedManyWithoutFarmerInput
+    farms?: FarmUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerCreateOrConnectWithoutLgaInput = {
+    where: FarmerWhereUniqueInput
+    create: XOR<FarmerCreateWithoutLgaInput, FarmerUncheckedCreateWithoutLgaInput>
+  }
+
+  export type FarmerCreateManyLgaInputEnvelope = {
+    data: FarmerCreateManyLgaInput | FarmerCreateManyLgaInput[]
+    skipDuplicates?: boolean
+  }
+
   export type StateUpsertWithoutLgasInput = {
     update: XOR<StateUpdateWithoutLgasInput, StateUncheckedUpdateWithoutLgasInput>
     create: XOR<StateCreateWithoutLgasInput, StateUncheckedCreateWithoutLgasInput>
@@ -9226,6 +18879,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     country?: CountryUpdateOneRequiredWithoutStatesNestedInput
     users?: UsersUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateWithoutLgasInput = {
@@ -9236,6 +18890,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type UsersUpsertWithWhereUniqueWithoutLgaInput = {
@@ -9252,6 +18907,840 @@ export namespace Prisma {
   export type UsersUpdateManyWithWhereWithoutLgaInput = {
     where: UsersScalarWhereInput
     data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutLgaInput>
+  }
+
+  export type FarmerUpsertWithWhereUniqueWithoutLgaInput = {
+    where: FarmerWhereUniqueInput
+    update: XOR<FarmerUpdateWithoutLgaInput, FarmerUncheckedUpdateWithoutLgaInput>
+    create: XOR<FarmerCreateWithoutLgaInput, FarmerUncheckedCreateWithoutLgaInput>
+  }
+
+  export type FarmerUpdateWithWhereUniqueWithoutLgaInput = {
+    where: FarmerWhereUniqueInput
+    data: XOR<FarmerUpdateWithoutLgaInput, FarmerUncheckedUpdateWithoutLgaInput>
+  }
+
+  export type FarmerUpdateManyWithWhereWithoutLgaInput = {
+    where: FarmerScalarWhereInput
+    data: XOR<FarmerUpdateManyMutationInput, FarmerUncheckedUpdateManyWithoutLgaInput>
+  }
+
+  export type BankCreateWithoutFarmersInput = {
+    name: string
+    code: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BankUncheckedCreateWithoutFarmersInput = {
+    id?: number
+    name: string
+    code: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BankCreateOrConnectWithoutFarmersInput = {
+    where: BankWhereUniqueInput
+    create: XOR<BankCreateWithoutFarmersInput, BankUncheckedCreateWithoutFarmersInput>
+  }
+
+  export type CountryCreateWithoutFarmersInput = {
+    name: string
+    iso2?: string | null
+    iso3?: string | null
+    numericCode?: string | null
+    phoneCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    states?: StateCreateNestedManyWithoutCountryInput
+    users?: UsersCreateNestedManyWithoutCountryInput
+  }
+
+  export type CountryUncheckedCreateWithoutFarmersInput = {
+    id?: number
+    name: string
+    iso2?: string | null
+    iso3?: string | null
+    numericCode?: string | null
+    phoneCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    states?: StateUncheckedCreateNestedManyWithoutCountryInput
+    users?: UsersUncheckedCreateNestedManyWithoutCountryInput
+  }
+
+  export type CountryCreateOrConnectWithoutFarmersInput = {
+    where: CountryWhereUniqueInput
+    create: XOR<CountryCreateWithoutFarmersInput, CountryUncheckedCreateWithoutFarmersInput>
+  }
+
+  export type StateCreateWithoutFarmersInput = {
+    name: string
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    country: CountryCreateNestedOneWithoutStatesInput
+    lgas?: LgaCreateNestedManyWithoutStateInput
+    users?: UsersCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUncheckedCreateWithoutFarmersInput = {
+    id?: number
+    name: string
+    code?: string | null
+    countryId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lgas?: LgaUncheckedCreateNestedManyWithoutStateInput
+    users?: UsersUncheckedCreateNestedManyWithoutStateInput
+  }
+
+  export type StateCreateOrConnectWithoutFarmersInput = {
+    where: StateWhereUniqueInput
+    create: XOR<StateCreateWithoutFarmersInput, StateUncheckedCreateWithoutFarmersInput>
+  }
+
+  export type LgaCreateWithoutFarmersInput = {
+    name: string
+    code?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    state: StateCreateNestedOneWithoutLgasInput
+    users?: UsersCreateNestedManyWithoutLgaInput
+  }
+
+  export type LgaUncheckedCreateWithoutFarmersInput = {
+    id?: number
+    name: string
+    code?: string | null
+    stateId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    users?: UsersUncheckedCreateNestedManyWithoutLgaInput
+  }
+
+  export type LgaCreateOrConnectWithoutFarmersInput = {
+    where: LgaWhereUniqueInput
+    create: XOR<LgaCreateWithoutFarmersInput, LgaUncheckedCreateWithoutFarmersInput>
+  }
+
+  export type InvoiceCreateWithoutFarmerInput = {
+    amount: number
+  }
+
+  export type InvoiceUncheckedCreateWithoutFarmerInput = {
+    id?: number
+    amount: number
+  }
+
+  export type InvoiceCreateOrConnectWithoutFarmerInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutFarmerInput, InvoiceUncheckedCreateWithoutFarmerInput>
+  }
+
+  export type InvoiceCreateManyFarmerInputEnvelope = {
+    data: InvoiceCreateManyFarmerInput | InvoiceCreateManyFarmerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FarmCreateWithoutFarmerInput = {
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    media?: FarmMediaCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmUncheckedCreateWithoutFarmerInput = {
+    id?: number
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    media?: FarmMediaUncheckedCreateNestedManyWithoutFarmInput
+  }
+
+  export type FarmCreateOrConnectWithoutFarmerInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutFarmerInput, FarmUncheckedCreateWithoutFarmerInput>
+  }
+
+  export type FarmCreateManyFarmerInputEnvelope = {
+    data: FarmCreateManyFarmerInput | FarmCreateManyFarmerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BankUpsertWithoutFarmersInput = {
+    update: XOR<BankUpdateWithoutFarmersInput, BankUncheckedUpdateWithoutFarmersInput>
+    create: XOR<BankCreateWithoutFarmersInput, BankUncheckedCreateWithoutFarmersInput>
+    where?: BankWhereInput
+  }
+
+  export type BankUpdateToOneWithWhereWithoutFarmersInput = {
+    where?: BankWhereInput
+    data: XOR<BankUpdateWithoutFarmersInput, BankUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type BankUpdateWithoutFarmersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankUncheckedUpdateWithoutFarmersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CountryUpsertWithoutFarmersInput = {
+    update: XOR<CountryUpdateWithoutFarmersInput, CountryUncheckedUpdateWithoutFarmersInput>
+    create: XOR<CountryCreateWithoutFarmersInput, CountryUncheckedCreateWithoutFarmersInput>
+    where?: CountryWhereInput
+  }
+
+  export type CountryUpdateToOneWithWhereWithoutFarmersInput = {
+    where?: CountryWhereInput
+    data: XOR<CountryUpdateWithoutFarmersInput, CountryUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type CountryUpdateWithoutFarmersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    iso2?: NullableStringFieldUpdateOperationsInput | string | null
+    iso3?: NullableStringFieldUpdateOperationsInput | string | null
+    numericCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    states?: StateUpdateManyWithoutCountryNestedInput
+    users?: UsersUpdateManyWithoutCountryNestedInput
+  }
+
+  export type CountryUncheckedUpdateWithoutFarmersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    iso2?: NullableStringFieldUpdateOperationsInput | string | null
+    iso3?: NullableStringFieldUpdateOperationsInput | string | null
+    numericCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    states?: StateUncheckedUpdateManyWithoutCountryNestedInput
+    users?: UsersUncheckedUpdateManyWithoutCountryNestedInput
+  }
+
+  export type StateUpsertWithoutFarmersInput = {
+    update: XOR<StateUpdateWithoutFarmersInput, StateUncheckedUpdateWithoutFarmersInput>
+    create: XOR<StateCreateWithoutFarmersInput, StateUncheckedCreateWithoutFarmersInput>
+    where?: StateWhereInput
+  }
+
+  export type StateUpdateToOneWithWhereWithoutFarmersInput = {
+    where?: StateWhereInput
+    data: XOR<StateUpdateWithoutFarmersInput, StateUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type StateUpdateWithoutFarmersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    country?: CountryUpdateOneRequiredWithoutStatesNestedInput
+    lgas?: LgaUpdateManyWithoutStateNestedInput
+    users?: UsersUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateUncheckedUpdateWithoutFarmersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    countryId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lgas?: LgaUncheckedUpdateManyWithoutStateNestedInput
+    users?: UsersUncheckedUpdateManyWithoutStateNestedInput
+  }
+
+  export type LgaUpsertWithoutFarmersInput = {
+    update: XOR<LgaUpdateWithoutFarmersInput, LgaUncheckedUpdateWithoutFarmersInput>
+    create: XOR<LgaCreateWithoutFarmersInput, LgaUncheckedCreateWithoutFarmersInput>
+    where?: LgaWhereInput
+  }
+
+  export type LgaUpdateToOneWithWhereWithoutFarmersInput = {
+    where?: LgaWhereInput
+    data: XOR<LgaUpdateWithoutFarmersInput, LgaUncheckedUpdateWithoutFarmersInput>
+  }
+
+  export type LgaUpdateWithoutFarmersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    state?: StateUpdateOneRequiredWithoutLgasNestedInput
+    users?: UsersUpdateManyWithoutLgaNestedInput
+  }
+
+  export type LgaUncheckedUpdateWithoutFarmersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    stateId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUncheckedUpdateManyWithoutLgaNestedInput
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutFarmerInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutFarmerInput, InvoiceUncheckedUpdateWithoutFarmerInput>
+    create: XOR<InvoiceCreateWithoutFarmerInput, InvoiceUncheckedCreateWithoutFarmerInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutFarmerInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutFarmerInput, InvoiceUncheckedUpdateWithoutFarmerInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutFarmerInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutFarmerInput>
+  }
+
+  export type InvoiceScalarWhereInput = {
+    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    OR?: InvoiceScalarWhereInput[]
+    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    id?: IntFilter<"Invoice"> | number
+    farmerId?: IntFilter<"Invoice"> | number
+    amount?: FloatFilter<"Invoice"> | number
+  }
+
+  export type FarmUpsertWithWhereUniqueWithoutFarmerInput = {
+    where: FarmWhereUniqueInput
+    update: XOR<FarmUpdateWithoutFarmerInput, FarmUncheckedUpdateWithoutFarmerInput>
+    create: XOR<FarmCreateWithoutFarmerInput, FarmUncheckedCreateWithoutFarmerInput>
+  }
+
+  export type FarmUpdateWithWhereUniqueWithoutFarmerInput = {
+    where: FarmWhereUniqueInput
+    data: XOR<FarmUpdateWithoutFarmerInput, FarmUncheckedUpdateWithoutFarmerInput>
+  }
+
+  export type FarmUpdateManyWithWhereWithoutFarmerInput = {
+    where: FarmScalarWhereInput
+    data: XOR<FarmUpdateManyMutationInput, FarmUncheckedUpdateManyWithoutFarmerInput>
+  }
+
+  export type FarmScalarWhereInput = {
+    AND?: FarmScalarWhereInput | FarmScalarWhereInput[]
+    OR?: FarmScalarWhereInput[]
+    NOT?: FarmScalarWhereInput | FarmScalarWhereInput[]
+    id?: IntFilter<"Farm"> | number
+    farmerId?: IntFilter<"Farm"> | number
+    name?: StringFilter<"Farm"> | string
+    location?: StringFilter<"Farm"> | string
+    latitude?: DecimalNullableFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    longitude?: DecimalNullableFilter<"Farm"> | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFilter<"Farm"> | $Enums.ProductionType
+    production_type?: StringNullableFilter<"Farm"> | string | null
+    size?: FloatNullableFilter<"Farm"> | number | null
+    sizeUnit?: EnumSizeUnitNullableFilter<"Farm"> | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFilter<"Farm"> | $Enums.FarmStage
+    ownershipDocument?: StringNullableFilter<"Farm"> | string | null
+    number_of_workers?: IntNullableFilter<"Farm"> | number | null
+    verified?: BoolFilter<"Farm"> | boolean
+    createdAt?: DateTimeFilter<"Farm"> | Date | string
+    updatedAt?: DateTimeFilter<"Farm"> | Date | string
+  }
+
+  export type FarmerCreateWithoutBankInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    country: CountryCreateNestedOneWithoutFarmersInput
+    state: StateCreateNestedOneWithoutFarmersInput
+    lga: LgaCreateNestedOneWithoutFarmersInput
+    inovices?: InvoiceCreateNestedManyWithoutFarmerInput
+    farms?: FarmCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateWithoutBankInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inovices?: InvoiceUncheckedCreateNestedManyWithoutFarmerInput
+    farms?: FarmUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerCreateOrConnectWithoutBankInput = {
+    where: FarmerWhereUniqueInput
+    create: XOR<FarmerCreateWithoutBankInput, FarmerUncheckedCreateWithoutBankInput>
+  }
+
+  export type FarmerCreateManyBankInputEnvelope = {
+    data: FarmerCreateManyBankInput | FarmerCreateManyBankInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FarmerUpsertWithWhereUniqueWithoutBankInput = {
+    where: FarmerWhereUniqueInput
+    update: XOR<FarmerUpdateWithoutBankInput, FarmerUncheckedUpdateWithoutBankInput>
+    create: XOR<FarmerCreateWithoutBankInput, FarmerUncheckedCreateWithoutBankInput>
+  }
+
+  export type FarmerUpdateWithWhereUniqueWithoutBankInput = {
+    where: FarmerWhereUniqueInput
+    data: XOR<FarmerUpdateWithoutBankInput, FarmerUncheckedUpdateWithoutBankInput>
+  }
+
+  export type FarmerUpdateManyWithWhereWithoutBankInput = {
+    where: FarmerScalarWhereInput
+    data: XOR<FarmerUpdateManyMutationInput, FarmerUncheckedUpdateManyWithoutBankInput>
+  }
+
+  export type FarmerCreateWithoutInovicesInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bank: BankCreateNestedOneWithoutFarmersInput
+    country: CountryCreateNestedOneWithoutFarmersInput
+    state: StateCreateNestedOneWithoutFarmersInput
+    lga: LgaCreateNestedOneWithoutFarmersInput
+    farms?: FarmCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateWithoutInovicesInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farms?: FarmUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerCreateOrConnectWithoutInovicesInput = {
+    where: FarmerWhereUniqueInput
+    create: XOR<FarmerCreateWithoutInovicesInput, FarmerUncheckedCreateWithoutInovicesInput>
+  }
+
+  export type FarmerUpsertWithoutInovicesInput = {
+    update: XOR<FarmerUpdateWithoutInovicesInput, FarmerUncheckedUpdateWithoutInovicesInput>
+    create: XOR<FarmerCreateWithoutInovicesInput, FarmerUncheckedCreateWithoutInovicesInput>
+    where?: FarmerWhereInput
+  }
+
+  export type FarmerUpdateToOneWithWhereWithoutInovicesInput = {
+    where?: FarmerWhereInput
+    data: XOR<FarmerUpdateWithoutInovicesInput, FarmerUncheckedUpdateWithoutInovicesInput>
+  }
+
+  export type FarmerUpdateWithoutInovicesInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneRequiredWithoutFarmersNestedInput
+    country?: CountryUpdateOneRequiredWithoutFarmersNestedInput
+    state?: StateUpdateOneRequiredWithoutFarmersNestedInput
+    lga?: LgaUpdateOneRequiredWithoutFarmersNestedInput
+    farms?: FarmUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateWithoutInovicesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farms?: FarmUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerCreateWithoutFarmsInput = {
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bank: BankCreateNestedOneWithoutFarmersInput
+    country: CountryCreateNestedOneWithoutFarmersInput
+    state: StateCreateNestedOneWithoutFarmersInput
+    lga: LgaCreateNestedOneWithoutFarmersInput
+    inovices?: InvoiceCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerUncheckedCreateWithoutFarmsInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    inovices?: InvoiceUncheckedCreateNestedManyWithoutFarmerInput
+  }
+
+  export type FarmerCreateOrConnectWithoutFarmsInput = {
+    where: FarmerWhereUniqueInput
+    create: XOR<FarmerCreateWithoutFarmsInput, FarmerUncheckedCreateWithoutFarmsInput>
+  }
+
+  export type FarmMediaCreateWithoutFarmInput = {
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmMediaUncheckedCreateWithoutFarmInput = {
+    id?: number
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmMediaCreateOrConnectWithoutFarmInput = {
+    where: FarmMediaWhereUniqueInput
+    create: XOR<FarmMediaCreateWithoutFarmInput, FarmMediaUncheckedCreateWithoutFarmInput>
+  }
+
+  export type FarmMediaCreateManyFarmInputEnvelope = {
+    data: FarmMediaCreateManyFarmInput | FarmMediaCreateManyFarmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FarmerUpsertWithoutFarmsInput = {
+    update: XOR<FarmerUpdateWithoutFarmsInput, FarmerUncheckedUpdateWithoutFarmsInput>
+    create: XOR<FarmerCreateWithoutFarmsInput, FarmerUncheckedCreateWithoutFarmsInput>
+    where?: FarmerWhereInput
+  }
+
+  export type FarmerUpdateToOneWithWhereWithoutFarmsInput = {
+    where?: FarmerWhereInput
+    data: XOR<FarmerUpdateWithoutFarmsInput, FarmerUncheckedUpdateWithoutFarmsInput>
+  }
+
+  export type FarmerUpdateWithoutFarmsInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneRequiredWithoutFarmersNestedInput
+    country?: CountryUpdateOneRequiredWithoutFarmersNestedInput
+    state?: StateUpdateOneRequiredWithoutFarmersNestedInput
+    lga?: LgaUpdateOneRequiredWithoutFarmersNestedInput
+    inovices?: InvoiceUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateWithoutFarmsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inovices?: InvoiceUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmMediaUpsertWithWhereUniqueWithoutFarmInput = {
+    where: FarmMediaWhereUniqueInput
+    update: XOR<FarmMediaUpdateWithoutFarmInput, FarmMediaUncheckedUpdateWithoutFarmInput>
+    create: XOR<FarmMediaCreateWithoutFarmInput, FarmMediaUncheckedCreateWithoutFarmInput>
+  }
+
+  export type FarmMediaUpdateWithWhereUniqueWithoutFarmInput = {
+    where: FarmMediaWhereUniqueInput
+    data: XOR<FarmMediaUpdateWithoutFarmInput, FarmMediaUncheckedUpdateWithoutFarmInput>
+  }
+
+  export type FarmMediaUpdateManyWithWhereWithoutFarmInput = {
+    where: FarmMediaScalarWhereInput
+    data: XOR<FarmMediaUpdateManyMutationInput, FarmMediaUncheckedUpdateManyWithoutFarmInput>
+  }
+
+  export type FarmMediaScalarWhereInput = {
+    AND?: FarmMediaScalarWhereInput | FarmMediaScalarWhereInput[]
+    OR?: FarmMediaScalarWhereInput[]
+    NOT?: FarmMediaScalarWhereInput | FarmMediaScalarWhereInput[]
+    id?: IntFilter<"FarmMedia"> | number
+    farmId?: IntFilter<"FarmMedia"> | number
+    url?: StringFilter<"FarmMedia"> | string
+    mediaType?: EnumMediaTypeFilter<"FarmMedia"> | $Enums.MediaType
+    latitude?: DecimalFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFilter<"FarmMedia"> | Decimal | DecimalJsLike | number | string
+    caption?: StringNullableFilter<"FarmMedia"> | string | null
+    createdAt?: DateTimeFilter<"FarmMedia"> | Date | string
+    updatedAt?: DateTimeFilter<"FarmMedia"> | Date | string
+  }
+
+  export type FarmCreateWithoutMediaInput = {
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    farmer: FarmerCreateNestedOneWithoutFarmsInput
+  }
+
+  export type FarmUncheckedCreateWithoutMediaInput = {
+    id?: number
+    farmerId: number
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmCreateOrConnectWithoutMediaInput = {
+    where: FarmWhereUniqueInput
+    create: XOR<FarmCreateWithoutMediaInput, FarmUncheckedCreateWithoutMediaInput>
+  }
+
+  export type FarmUpsertWithoutMediaInput = {
+    update: XOR<FarmUpdateWithoutMediaInput, FarmUncheckedUpdateWithoutMediaInput>
+    create: XOR<FarmCreateWithoutMediaInput, FarmUncheckedCreateWithoutMediaInput>
+    where?: FarmWhereInput
+  }
+
+  export type FarmUpdateToOneWithWhereWithoutMediaInput = {
+    where?: FarmWhereInput
+    data: XOR<FarmUpdateWithoutMediaInput, FarmUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type FarmUpdateWithoutMediaInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    farmer?: FarmerUpdateOneRequiredWithoutFarmsNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutMediaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    farmerId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StateCreateManyCountryInput = {
@@ -9281,6 +19770,30 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type FarmerCreateManyCountryInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type StateUpdateWithoutCountryInput = {
     name?: StringFieldUpdateOperationsInput | string
     code?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9288,6 +19801,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lgas?: LgaUpdateManyWithoutStateNestedInput
     users?: UsersUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateWithoutCountryInput = {
@@ -9298,6 +19812,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lgas?: LgaUncheckedUpdateManyWithoutStateNestedInput
     users?: UsersUncheckedUpdateManyWithoutStateNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateManyWithoutCountryInput = {
@@ -9364,6 +19879,81 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FarmerUpdateWithoutCountryInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneRequiredWithoutFarmersNestedInput
+    state?: StateUpdateOneRequiredWithoutFarmersNestedInput
+    lga?: LgaUpdateOneRequiredWithoutFarmersNestedInput
+    inovices?: InvoiceUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateWithoutCountryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inovices?: InvoiceUncheckedUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateManyWithoutCountryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LgaCreateManyStateInput = {
     id?: number
     name: string
@@ -9391,12 +19981,37 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type FarmerCreateManyStateInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type LgaUpdateWithoutStateInput = {
     name?: StringFieldUpdateOperationsInput | string
     code?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUpdateManyWithoutLgaNestedInput
+    farmers?: FarmerUpdateManyWithoutLgaNestedInput
   }
 
   export type LgaUncheckedUpdateWithoutStateInput = {
@@ -9406,6 +20021,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutLgaNestedInput
+    farmers?: FarmerUncheckedUpdateManyWithoutLgaNestedInput
   }
 
   export type LgaUncheckedUpdateManyWithoutStateInput = {
@@ -9472,6 +20088,81 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FarmerUpdateWithoutStateInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneRequiredWithoutFarmersNestedInput
+    country?: CountryUpdateOneRequiredWithoutFarmersNestedInput
+    lga?: LgaUpdateOneRequiredWithoutFarmersNestedInput
+    inovices?: InvoiceUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateWithoutStateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inovices?: InvoiceUncheckedUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateManyWithoutStateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UsersCreateManyLgaInput = {
     id?: number
     fullname: string
@@ -9487,6 +20178,30 @@ export namespace Prisma {
     status?: $Enums.Status
     password: string
     temporal_password?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmerCreateManyLgaInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    bankId: number
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9543,6 +20258,315 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     password?: StringFieldUpdateOperationsInput | string
     temporal_password?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmerUpdateWithoutLgaInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneRequiredWithoutFarmersNestedInput
+    country?: CountryUpdateOneRequiredWithoutFarmersNestedInput
+    state?: StateUpdateOneRequiredWithoutFarmersNestedInput
+    inovices?: InvoiceUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateWithoutLgaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inovices?: InvoiceUncheckedUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateManyWithoutLgaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    bankId?: IntFieldUpdateOperationsInput | number
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceCreateManyFarmerInput = {
+    id?: number
+    amount: number
+  }
+
+  export type FarmCreateManyFarmerInput = {
+    id?: number
+    name: string
+    location: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    type: $Enums.ProductionType
+    production_type?: string | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    stage?: $Enums.FarmStage
+    ownershipDocument?: string | null
+    number_of_workers?: number | null
+    verified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InvoiceUpdateWithoutFarmerInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceUncheckedUpdateWithoutFarmerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutFarmerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type FarmUpdateWithoutFarmerInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: FarmMediaUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateWithoutFarmerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: FarmMediaUncheckedUpdateManyWithoutFarmNestedInput
+  }
+
+  export type FarmUncheckedUpdateManyWithoutFarmerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    type?: EnumProductionTypeFieldUpdateOperationsInput | $Enums.ProductionType
+    production_type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    stage?: EnumFarmStageFieldUpdateOperationsInput | $Enums.FarmStage
+    ownershipDocument?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_workers?: NullableIntFieldUpdateOperationsInput | number | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmerCreateManyBankInput = {
+    id?: number
+    fullname: string
+    email?: string | null
+    phone_number: string
+    address: string
+    nin: string
+    profile_image?: string | null
+    proof_of_address?: string | null
+    account_number: string
+    account_name: string
+    countryId: number
+    stateId: number
+    lgaId: number
+    email_verified?: boolean
+    phone_verified?: boolean
+    nin_verified?: boolean
+    has_subscribed?: boolean
+    status?: $Enums.Status
+    account_created_by: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmerUpdateWithoutBankInput = {
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    country?: CountryUpdateOneRequiredWithoutFarmersNestedInput
+    state?: StateUpdateOneRequiredWithoutFarmersNestedInput
+    lga?: LgaUpdateOneRequiredWithoutFarmersNestedInput
+    inovices?: InvoiceUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateWithoutBankInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inovices?: InvoiceUncheckedUpdateManyWithoutFarmerNestedInput
+    farms?: FarmUncheckedUpdateManyWithoutFarmerNestedInput
+  }
+
+  export type FarmerUncheckedUpdateManyWithoutBankInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_number?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    nin?: StringFieldUpdateOperationsInput | string
+    profile_image?: NullableStringFieldUpdateOperationsInput | string | null
+    proof_of_address?: NullableStringFieldUpdateOperationsInput | string | null
+    account_number?: StringFieldUpdateOperationsInput | string
+    account_name?: StringFieldUpdateOperationsInput | string
+    countryId?: IntFieldUpdateOperationsInput | number
+    stateId?: IntFieldUpdateOperationsInput | number
+    lgaId?: IntFieldUpdateOperationsInput | number
+    email_verified?: BoolFieldUpdateOperationsInput | boolean
+    phone_verified?: BoolFieldUpdateOperationsInput | boolean
+    nin_verified?: BoolFieldUpdateOperationsInput | boolean
+    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    account_created_by?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmMediaCreateManyFarmInput = {
+    id?: number
+    url: string
+    mediaType: $Enums.MediaType
+    latitude: Decimal | DecimalJsLike | number | string
+    longitude: Decimal | DecimalJsLike | number | string
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FarmMediaUpdateWithoutFarmInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmMediaUncheckedUpdateWithoutFarmInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FarmMediaUncheckedUpdateManyWithoutFarmInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    mediaType?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    latitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitude?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

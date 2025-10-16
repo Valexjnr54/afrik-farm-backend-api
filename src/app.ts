@@ -6,6 +6,7 @@ import { adminRouter } from "./routes/admin/admin.routes";
 import { userAuthRouter } from "./routes/auth/userAuthRoutes";
 import { lgaRouter } from "./routes/lga/lga.routes";
 import { Config } from "./config/config";
+import { miscRouter } from "./routes/misc/misc.routes";
 
 
 const app = express();
@@ -37,6 +38,8 @@ app.use(`${route}/auth`, userAuthRouter);
 
 app.use(`${route}/admin`, adminRouter);
 app.use(`${route}/lga`, lgaRouter);
+
+app.use(`${route}`, miscRouter);
 
 
 app.use((error: any, request: Request, response: Response, next: NextFunction) => {

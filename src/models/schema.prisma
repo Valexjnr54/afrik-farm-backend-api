@@ -61,6 +61,7 @@ model Country {
   phoneCode   String? // e.g. +1, +234
   states      State[]  @relation("CountryStates")
   users       Users[]
+  farmers     Farmer[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -75,6 +76,7 @@ model State {
   countryId Int
   lgas      Lga[]    @relation("StateLgas")
   users     Users[]
+  farmers   Farmer[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -89,11 +91,137 @@ model Lga {
   state     State    @relation(fields: [stateId], references: [id], name: "StateLgas")
   stateId   Int
   users     Users[]
+  farmers   Farmer[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([name, stateId]) // LGA name unique within a state
   @@map("lgas")
+}
+
+model Farmer {
+  id                 Int       @id @default(autoincrement())
+  fullname           String
+  email              String?   @unique
+  phone_number       String    @unique
+  address            String
+  nin                String    @unique
+  profile_image      String?
+  proof_of_address   String?
+  bank               Bank      @relation(fields: [bankId], references: [id])
+  bankId             Int
+  account_number     String    @unique
+  account_name       String
+  country            Country   @relation(fields: [countryId], references: [id])
+  countryId          Int
+  state              State     @relation(fields: [stateId], references: [id])
+  stateId            Int
+  lga                Lga       @relation(fields: [lgaId], references: [id])
+  lgaId              Int
+  email_verified     Boolean   @default(false)
+  phone_verified     Boolean   @default(false)
+  nin_verified       Boolean   @default(false)
+  has_subscribed     Boolean   @default(false)
+  status             Status    @default(Active)
+  account_created_by Int
+  inovices           Invoice[]
+  farms              Farm[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@map("farmers")
+}
+
+model Bank {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String   @unique // e.g. bank code
+  farmers   Farmer[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("banks")
+}
+
+model Invoice {
+  id       Int    @id @default(autoincrement())
+  farmer   Farmer @relation(fields: [farmerId], references: [id])
+  farmerId Int
+  amount   Float
+
+  @@map("invoices")
+}
+
+model Farm {
+  id                Int            @id @default(autoincrement())
+  farmer            Farmer         @relation(fields: [farmerId], references: [id])
+  farmerId          Int
+  name              String
+  location          String
+  latitude          Decimal?       @db.Decimal(10, 7)
+  longitude         Decimal?       @db.Decimal(10, 7)
+  type              ProductionType
+  production_type   String?
+  size              Float?
+  sizeUnit          SizeUnit?
+  stage             FarmStage      @default(Cleared)
+  ownershipDocument String?
+  media             FarmMedia[]
+  number_of_workers Int?
+  verified          Boolean        @default(false)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@map("farms")
+}
+
+model FarmMedia {
+  id        Int       @id @default(autoincrement())
+  farm      Farm      @relation(fields: [farmId], references: [id])
+  farmId    Int
+  // file path or URL
+  url       String
+  // media type: IMAGE or VIDEO
+  mediaType MediaType
+  // GPS coordinates where the media was captured (mandatory for authenticity)
+  latitude  Decimal   @db.Decimal(10, 7)
+  longitude Decimal   @db.Decimal(10, 7)
+  caption   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("farm_media")
+}
+
+model VerificationCode {
+  identifier String // email or phone number
+  code       String   @unique
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification_codes")
+}
+
+enum ProductionType {
+  Crop
+  Livestock
+}
+
+enum SizeUnit {
+  Hectare
+  Acre
+}
+
+enum FarmStage {
+  Cleared
+  Planted
+  Harvesting
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
 }
 
 enum Role {

@@ -180,6 +180,84 @@ exports.Prisma.LgaScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FarmerScalarFieldEnum = {
+  id: 'id',
+  fullname: 'fullname',
+  email: 'email',
+  phone_number: 'phone_number',
+  address: 'address',
+  nin: 'nin',
+  profile_image: 'profile_image',
+  proof_of_address: 'proof_of_address',
+  bankId: 'bankId',
+  account_number: 'account_number',
+  account_name: 'account_name',
+  countryId: 'countryId',
+  stateId: 'stateId',
+  lgaId: 'lgaId',
+  email_verified: 'email_verified',
+  phone_verified: 'phone_verified',
+  nin_verified: 'nin_verified',
+  has_subscribed: 'has_subscribed',
+  status: 'status',
+  account_created_by: 'account_created_by',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BankScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  farmerId: 'farmerId',
+  amount: 'amount'
+};
+
+exports.Prisma.FarmScalarFieldEnum = {
+  id: 'id',
+  farmerId: 'farmerId',
+  name: 'name',
+  location: 'location',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  type: 'type',
+  production_type: 'production_type',
+  size: 'size',
+  sizeUnit: 'sizeUnit',
+  stage: 'stage',
+  ownershipDocument: 'ownershipDocument',
+  number_of_workers: 'number_of_workers',
+  verified: 'verified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FarmMediaScalarFieldEnum = {
+  id: 'id',
+  farmId: 'farmId',
+  url: 'url',
+  mediaType: 'mediaType',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  caption: 'caption',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VerificationCodeScalarFieldEnum = {
+  identifier: 'identifier',
+  code: 'code',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -224,6 +302,40 @@ exports.Prisma.LgaOrderByRelevanceFieldEnum = {
   name: 'name',
   code: 'code'
 };
+
+exports.Prisma.FarmerOrderByRelevanceFieldEnum = {
+  fullname: 'fullname',
+  email: 'email',
+  phone_number: 'phone_number',
+  address: 'address',
+  nin: 'nin',
+  profile_image: 'profile_image',
+  proof_of_address: 'proof_of_address',
+  account_number: 'account_number',
+  account_name: 'account_name'
+};
+
+exports.Prisma.BankOrderByRelevanceFieldEnum = {
+  name: 'name',
+  code: 'code'
+};
+
+exports.Prisma.FarmOrderByRelevanceFieldEnum = {
+  name: 'name',
+  location: 'location',
+  production_type: 'production_type',
+  ownershipDocument: 'ownershipDocument'
+};
+
+exports.Prisma.FarmMediaOrderByRelevanceFieldEnum = {
+  url: 'url',
+  caption: 'caption'
+};
+
+exports.Prisma.VerificationCodeOrderByRelevanceFieldEnum = {
+  identifier: 'identifier',
+  code: 'code'
+};
 exports.Role = exports.$Enums.Role = {
   lga_admin: 'lga_admin',
   country_admin: 'country_admin',
@@ -243,12 +355,39 @@ exports.Status = exports.$Enums.Status = {
   Suspend: 'Suspend'
 };
 
+exports.ProductionType = exports.$Enums.ProductionType = {
+  Crop: 'Crop',
+  Livestock: 'Livestock'
+};
+
+exports.SizeUnit = exports.$Enums.SizeUnit = {
+  Hectare: 'Hectare',
+  Acre: 'Acre'
+};
+
+exports.FarmStage = exports.$Enums.FarmStage = {
+  Cleared: 'Cleared',
+  Planted: 'Planted',
+  Harvesting: 'Harvesting'
+};
+
+exports.MediaType = exports.$Enums.MediaType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+};
+
 exports.Prisma.ModelName = {
   Admin: 'Admin',
   Users: 'Users',
   Country: 'Country',
   State: 'State',
-  Lga: 'Lga'
+  Lga: 'Lga',
+  Farmer: 'Farmer',
+  Bank: 'Bank',
+  Invoice: 'Invoice',
+  Farm: 'Farm',
+  FarmMedia: 'FarmMedia',
+  VerificationCode: 'VerificationCode'
 };
 
 /**
