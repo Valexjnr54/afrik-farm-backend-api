@@ -5,13 +5,16 @@ const ejs = require('ejs');
 const MAIL_DEBUG = process.env.MAIL_DEBUG === 'true';
 
 // Helper: Send via SendGrid HTTP API when configured
-async function sendViaSendGrid(from: { email: string; name?: string }, to: string, subject: string, html: string) {
+const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'no-reply@@eyzmo.com';
+const SENDGRID_FROM_NAME = process.env.SENDGRID_FROM_NAME || 'Afrik Farm';
+
+async function sendViaSendGrid(_from: { email: string; name?: string } | null, to: string, subject: string, html: string) {
   const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
   if (!SENDGRID_API_KEY) throw new Error('SendGrid API key not configured');
 
   const body = {
     personalizations: [{ to: [{ email: to }] }],
-    from: { email: from.email, name: from.name ?? undefined },
+    from: { email: SENDGRID_FROM_EMAIL, name: SENDGRID_FROM_NAME },
     subject,
     content: [{ type: 'text/html', value: html }]
   };
@@ -28,6 +31,7 @@ async function sendViaSendGrid(from: { email: string; name?: string }, to: strin
 
   if (!res.ok) {
     const text = await res.text().catch(() => 'unable to read body');
+    // include details from SendGrid for easier debugging
     throw new Error(`SendGrid send failed: ${res.status} ${res.statusText} - ${text}`);
   }
 
@@ -68,7 +72,7 @@ export async function sendWelcomeEmail(email: string, subject: string, user:obje
 //   const template = await ejs.renderFile(templatePath, { fullname, email: email });
 
   const mailOptions = {
-    from: 'Afrik Farm <no-reply@afrikfarm.com>',
+    from: `${SENDGRID_FROM_NAME} <${SENDGRID_FROM_EMAIL}>`,
     to: email,
     subject: subject,
     html: ejs.render(template, { user, email, temp_password }),
@@ -92,7 +96,7 @@ export async function sendVerificationEmail(email:string, subject:string, verifi
   const template = fs.readFileSync(templatePath, 'utf-8');
 
   const mailOptions = {
-    from: 'Afrik Farm <no-reply@afrikfarm.com>',
+    from: `${SENDGRID_FROM_NAME} <${SENDGRID_FROM_EMAIL}>`,
     to: email,
     subject: subject,
     html: ejs.render(template, { verification_code:verification_code, user:user, email:email }),
