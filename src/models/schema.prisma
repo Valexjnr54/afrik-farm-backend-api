@@ -121,7 +121,7 @@ model Farmer {
   email_verified     Boolean   @default(false)
   phone_verified     Boolean   @default(false)
   nin_verified       Boolean   @default(false)
-  has_subscribed     Boolean   @default(false)
+  has_paid           Boolean   @default(false)
   status             Status    @default(Active)
   account_created_by Int
   inovices           Invoice[]

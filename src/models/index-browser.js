@@ -198,7 +198,7 @@ exports.Prisma.FarmerScalarFieldEnum = {
   email_verified: 'email_verified',
   phone_verified: 'phone_verified',
   nin_verified: 'nin_verified',
-  has_subscribed: 'has_subscribed',
+  has_paid: 'has_paid',
   status: 'status',
   account_created_by: 'account_created_by',
   createdAt: 'createdAt',

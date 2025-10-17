@@ -7355,7 +7355,7 @@ export namespace Prisma {
     email_verified: boolean | null
     phone_verified: boolean | null
     nin_verified: boolean | null
-    has_subscribed: boolean | null
+    has_paid: boolean | null
     status: $Enums.Status | null
     account_created_by: number | null
     createdAt: Date | null
@@ -7380,7 +7380,7 @@ export namespace Prisma {
     email_verified: boolean | null
     phone_verified: boolean | null
     nin_verified: boolean | null
-    has_subscribed: boolean | null
+    has_paid: boolean | null
     status: $Enums.Status | null
     account_created_by: number | null
     createdAt: Date | null
@@ -7405,7 +7405,7 @@ export namespace Prisma {
     email_verified: number
     phone_verified: number
     nin_verified: number
-    has_subscribed: number
+    has_paid: number
     status: number
     account_created_by: number
     createdAt: number
@@ -7450,7 +7450,7 @@ export namespace Prisma {
     email_verified?: true
     phone_verified?: true
     nin_verified?: true
-    has_subscribed?: true
+    has_paid?: true
     status?: true
     account_created_by?: true
     createdAt?: true
@@ -7475,7 +7475,7 @@ export namespace Prisma {
     email_verified?: true
     phone_verified?: true
     nin_verified?: true
-    has_subscribed?: true
+    has_paid?: true
     status?: true
     account_created_by?: true
     createdAt?: true
@@ -7500,7 +7500,7 @@ export namespace Prisma {
     email_verified?: true
     phone_verified?: true
     nin_verified?: true
-    has_subscribed?: true
+    has_paid?: true
     status?: true
     account_created_by?: true
     createdAt?: true
@@ -7612,7 +7612,7 @@ export namespace Prisma {
     email_verified: boolean
     phone_verified: boolean
     nin_verified: boolean
-    has_subscribed: boolean
+    has_paid: boolean
     status: $Enums.Status
     account_created_by: number
     createdAt: Date
@@ -7656,7 +7656,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: boolean
     account_created_by?: boolean
     createdAt?: boolean
@@ -7690,14 +7690,14 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: boolean
     account_created_by?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FarmerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "phone_number" | "address" | "nin" | "profile_image" | "proof_of_address" | "bankId" | "account_number" | "account_name" | "countryId" | "stateId" | "lgaId" | "email_verified" | "phone_verified" | "nin_verified" | "has_subscribed" | "status" | "account_created_by" | "createdAt" | "updatedAt", ExtArgs["result"]["farmer"]>
+  export type FarmerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "phone_number" | "address" | "nin" | "profile_image" | "proof_of_address" | "bankId" | "account_number" | "account_name" | "countryId" | "stateId" | "lgaId" | "email_verified" | "phone_verified" | "nin_verified" | "has_paid" | "status" | "account_created_by" | "createdAt" | "updatedAt", ExtArgs["result"]["farmer"]>
   export type FarmerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bank?: boolean | BankDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -7736,7 +7736,7 @@ export namespace Prisma {
       email_verified: boolean
       phone_verified: boolean
       nin_verified: boolean
-      has_subscribed: boolean
+      has_paid: boolean
       status: $Enums.Status
       account_created_by: number
       createdAt: Date
@@ -8133,7 +8133,7 @@ export namespace Prisma {
     readonly email_verified: FieldRef<"Farmer", 'Boolean'>
     readonly phone_verified: FieldRef<"Farmer", 'Boolean'>
     readonly nin_verified: FieldRef<"Farmer", 'Boolean'>
-    readonly has_subscribed: FieldRef<"Farmer", 'Boolean'>
+    readonly has_paid: FieldRef<"Farmer", 'Boolean'>
     readonly status: FieldRef<"Farmer", 'Status'>
     readonly account_created_by: FieldRef<"Farmer", 'Int'>
     readonly createdAt: FieldRef<"Farmer", 'DateTime'>
@@ -13627,7 +13627,7 @@ export namespace Prisma {
     email_verified: 'email_verified',
     phone_verified: 'phone_verified',
     nin_verified: 'nin_verified',
-    has_subscribed: 'has_subscribed',
+    has_paid: 'has_paid',
     status: 'status',
     account_created_by: 'account_created_by',
     createdAt: 'createdAt',
@@ -14349,7 +14349,7 @@ export namespace Prisma {
     email_verified?: BoolFilter<"Farmer"> | boolean
     phone_verified?: BoolFilter<"Farmer"> | boolean
     nin_verified?: BoolFilter<"Farmer"> | boolean
-    has_subscribed?: BoolFilter<"Farmer"> | boolean
+    has_paid?: BoolFilter<"Farmer"> | boolean
     status?: EnumStatusFilter<"Farmer"> | $Enums.Status
     account_created_by?: IntFilter<"Farmer"> | number
     createdAt?: DateTimeFilter<"Farmer"> | Date | string
@@ -14380,7 +14380,7 @@ export namespace Prisma {
     email_verified?: SortOrder
     phone_verified?: SortOrder
     nin_verified?: SortOrder
-    has_subscribed?: SortOrder
+    has_paid?: SortOrder
     status?: SortOrder
     account_created_by?: SortOrder
     createdAt?: SortOrder
@@ -14415,7 +14415,7 @@ export namespace Prisma {
     email_verified?: BoolFilter<"Farmer"> | boolean
     phone_verified?: BoolFilter<"Farmer"> | boolean
     nin_verified?: BoolFilter<"Farmer"> | boolean
-    has_subscribed?: BoolFilter<"Farmer"> | boolean
+    has_paid?: BoolFilter<"Farmer"> | boolean
     status?: EnumStatusFilter<"Farmer"> | $Enums.Status
     account_created_by?: IntFilter<"Farmer"> | number
     createdAt?: DateTimeFilter<"Farmer"> | Date | string
@@ -14446,7 +14446,7 @@ export namespace Prisma {
     email_verified?: SortOrder
     phone_verified?: SortOrder
     nin_verified?: SortOrder
-    has_subscribed?: SortOrder
+    has_paid?: SortOrder
     status?: SortOrder
     account_created_by?: SortOrder
     createdAt?: SortOrder
@@ -14479,7 +14479,7 @@ export namespace Prisma {
     email_verified?: BoolWithAggregatesFilter<"Farmer"> | boolean
     phone_verified?: BoolWithAggregatesFilter<"Farmer"> | boolean
     nin_verified?: BoolWithAggregatesFilter<"Farmer"> | boolean
-    has_subscribed?: BoolWithAggregatesFilter<"Farmer"> | boolean
+    has_paid?: BoolWithAggregatesFilter<"Farmer"> | boolean
     status?: EnumStatusWithAggregatesFilter<"Farmer"> | $Enums.Status
     account_created_by?: IntWithAggregatesFilter<"Farmer"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Farmer"> | Date | string
@@ -15283,7 +15283,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -15314,7 +15314,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -15336,7 +15336,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15367,7 +15367,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15394,7 +15394,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -15414,7 +15414,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15439,7 +15439,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16396,7 +16396,7 @@ export namespace Prisma {
     email_verified?: SortOrder
     phone_verified?: SortOrder
     nin_verified?: SortOrder
-    has_subscribed?: SortOrder
+    has_paid?: SortOrder
     status?: SortOrder
     account_created_by?: SortOrder
     createdAt?: SortOrder
@@ -16430,7 +16430,7 @@ export namespace Prisma {
     email_verified?: SortOrder
     phone_verified?: SortOrder
     nin_verified?: SortOrder
-    has_subscribed?: SortOrder
+    has_paid?: SortOrder
     status?: SortOrder
     account_created_by?: SortOrder
     createdAt?: SortOrder
@@ -16455,7 +16455,7 @@ export namespace Prisma {
     email_verified?: SortOrder
     phone_verified?: SortOrder
     nin_verified?: SortOrder
-    has_subscribed?: SortOrder
+    has_paid?: SortOrder
     status?: SortOrder
     account_created_by?: SortOrder
     createdAt?: SortOrder
@@ -18305,7 +18305,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -18334,7 +18334,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -18457,7 +18457,7 @@ export namespace Prisma {
     email_verified?: BoolFilter<"Farmer"> | boolean
     phone_verified?: BoolFilter<"Farmer"> | boolean
     nin_verified?: BoolFilter<"Farmer"> | boolean
-    has_subscribed?: BoolFilter<"Farmer"> | boolean
+    has_paid?: BoolFilter<"Farmer"> | boolean
     status?: EnumStatusFilter<"Farmer"> | $Enums.Status
     account_created_by?: IntFilter<"Farmer"> | number
     createdAt?: DateTimeFilter<"Farmer"> | Date | string
@@ -18583,7 +18583,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -18612,7 +18612,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -18813,7 +18813,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -18842,7 +18842,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19291,7 +19291,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19320,7 +19320,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19368,7 +19368,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19398,7 +19398,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19435,7 +19435,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19465,7 +19465,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19486,7 +19486,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19516,7 +19516,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19584,7 +19584,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19614,7 +19614,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19787,7 +19787,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -19892,7 +19892,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19921,7 +19921,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19947,7 +19947,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19998,7 +19998,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -20101,7 +20101,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20130,7 +20130,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20156,7 +20156,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20199,7 +20199,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -20275,7 +20275,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20304,7 +20304,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20330,7 +20330,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20446,7 +20446,7 @@ export namespace Prisma {
     email_verified?: boolean
     phone_verified?: boolean
     nin_verified?: boolean
-    has_subscribed?: boolean
+    has_paid?: boolean
     status?: $Enums.Status
     account_created_by: number
     createdAt?: Date | string
@@ -20466,7 +20466,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20495,7 +20495,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20521,7 +20521,7 @@ export namespace Prisma {
     email_verified?: BoolFieldUpdateOperationsInput | boolean
     phone_verified?: BoolFieldUpdateOperationsInput | boolean
     nin_verified?: BoolFieldUpdateOperationsInput | boolean
-    has_subscribed?: BoolFieldUpdateOperationsInput | boolean
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     account_created_by?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
