@@ -6,6 +6,8 @@ import { verifynin } from '../../services/verification';
 import { uploadImage } from '../../utils/cloudinary';
 import fs from 'fs';
 import { sendSMS } from '../../utils/sendSMS';
+import { Config } from '../../config/config';
+import { extractReferenceFromRequest, initializePayment, verifyPayment } from '../../utils/paystack';
 
 const prisma = new PrismaClient();
 
@@ -386,4 +388,135 @@ export async function verify_code(request: Request, response: Response) {
 		console.error('Failed to verify code:', error);
 		return response.status(500).json({ message: 'Internal Server Error' });
 	}
+}
+
+export async function initialize_payment(request: Request, response: Response){
+	const admin_id = request.user?.id ?? null;
+ 	// require authenticated user (admin or LGA user) to create farmers
+	if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
+
+	const rules = [
+		body('farmer_id').notEmpty().withMessage('Farmer Id is required').bail().isInt().withMessage('Farmer Id must be an integer'),
+		body('amount').notEmpty().withMessage('Amount is required').isFloat().withMessage('Amount must be a float'),
+	];
+
+	await Promise.all(rules.map(r => r.run(request)));
+	const errors = validationResult(request);
+	if (!errors.isEmpty()) return response.status(422).json({ status: 'fail', errors: errors.array() });
+
+	const { farmer_id, amount } = request.body as any;
+
+    const lga_admin = await prisma.users.findUnique({ where: { id: admin_id } });
+    if(!lga_admin) {
+        return response.status(403).json({ message: 'Unauthorized User' });
+    }
+
+	const callback_url = Config.paystackDeliveryCallback;
+    if (!callback_url) {
+      return response
+        .status(400)
+        .json({ message: "Callback Can't be undefined" });
+    }
+
+    const amount_to_pay = amount * 100
+
+	const farmer = await prisma.farmer.findUnique({ where: { id: farmer_id } });
+    if(!farmer) {
+        return response.status(404).json({ message: 'Farmer not found' });
+    }
+
+	const phone_number = farmer.phone_number
+
+	try {
+		const paymentInfo = await initializePayment(
+			farmer.id,
+			phone_number,
+			amount_to_pay,
+			lga_admin.email,
+			callback_url,
+		);
+
+		return response.status(200).json({ data: paymentInfo });
+	} catch (error) {
+		console.error('initialize_payment error', error);
+
+		// If the utility threw a normalized error with status/details, use them
+		const errAny = error as any;
+		if (errAny && errAny.message && errAny.status) {
+			const statusCode = errAny.status === 500 ? 502 : errAny.status; // map paystack server errors to 502
+			return response.status(statusCode).json({ message: errAny.message, details: errAny.details });
+		}
+
+		// Missing configuration (message thrown by ensureConfig)
+		if (errAny && errAny.message && String(errAny.message).includes('PAYSTACK_API_KEY')) {
+			return response.status(500).json({ message: errAny.message });
+		}
+
+		return response.status(500).json({ message: 'Internal Server Error' });
+	}
+}
+
+export async function verify_payment(request: Request, response: Response){
+	try {
+		const reference = extractReferenceFromRequest(request);
+		if (typeof reference !== "string") {
+			return response.status(400).json({ message: 'Invalid reference' });
+		}
+
+		// verifyPayment returns unknown, narrow it to any (or a proper type/interface) before usage
+		const paymentDetails: any = await verifyPayment(reference);
+
+		// Safely access nested properties
+		const referenceDetails = paymentDetails.data.reference;
+		const paymentStatus = paymentDetails.data.status;
+		const email = paymentDetails.data.metadata.email;
+		const paidamount = paymentDetails.data.metadata.amount;
+		const phone_number = paymentDetails.data.metadata.phone_number;
+		const farmer_id = parseInt(paymentDetails.data.metadata.farmer_id);
+
+    	const price = (paidamount / 100).toString();
+
+		const checkfarmer = await prisma.farmer.findUnique({
+			where: { id: farmer_id },
+		});
+
+		if (!checkfarmer)
+		{
+			return response.status(404).json({ message: 'Farmer does not exist' });
+		}
+
+		const invoice = await prisma.invoice.findUnique({
+			where: { payment_reference: referenceDetails, farmerId: farmer_id},
+		});
+
+		if (invoice) {
+			return response.status(200).json({ message: "Payment was Successful", data:checkfarmer, payment:invoice });
+		}
+
+		const create_invoice = await prisma.invoice.create({
+			data: {
+				farmerId: farmer_id,
+				phone_number,
+				amount: Number(price),
+				has_paid:true,
+				payment_reference: referenceDetails,
+				status: 'Paid'
+			}
+		});
+
+		const farmer = await prisma.farmer.update({
+			where: { id: farmer_id },
+			data: { has_paid: true }
+		})
+
+		return response.status(200).json({ message: "Payment was Successful", data:farmer, payment:create_invoice });
+
+	} catch (error) {
+		console.error('verify_payment error', error);
+		return response.status(500).json({ message: 'Internal Server Error' });
+	}
+}
+
+function Float(price: string): any {
+	throw new Error('Function not implemented.');
 }

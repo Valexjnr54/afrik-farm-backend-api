@@ -144,10 +144,15 @@ model Bank {
 }
 
 model Invoice {
-  id       Int    @id @default(autoincrement())
-  farmer   Farmer @relation(fields: [farmerId], references: [id])
-  farmerId Int
-  amount   Float
+  id                Int      @id @default(autoincrement())
+  farmer            Farmer   @relation(fields: [farmerId], references: [id])
+  farmerId          Int
+  amount            Float
+  phone_number      String
+  has_paid          Boolean  @default(false)
+  payment_reference String?  @unique
+  status            Status   @default(Pending)
+  createdAt         DateTime @default(now())
 
   @@map("invoices")
 }
@@ -241,4 +246,5 @@ enum Status {
   Inactive
   Active
   Suspend
+  Paid
 }

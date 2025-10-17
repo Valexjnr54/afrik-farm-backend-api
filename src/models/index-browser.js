@@ -216,7 +216,12 @@ exports.Prisma.BankScalarFieldEnum = {
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
   farmerId: 'farmerId',
-  amount: 'amount'
+  amount: 'amount',
+  phone_number: 'phone_number',
+  has_paid: 'has_paid',
+  payment_reference: 'payment_reference',
+  status: 'status',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.FarmScalarFieldEnum = {
@@ -320,6 +325,11 @@ exports.Prisma.BankOrderByRelevanceFieldEnum = {
   code: 'code'
 };
 
+exports.Prisma.InvoiceOrderByRelevanceFieldEnum = {
+  phone_number: 'phone_number',
+  payment_reference: 'payment_reference'
+};
+
 exports.Prisma.FarmOrderByRelevanceFieldEnum = {
   name: 'name',
   location: 'location',
@@ -352,7 +362,8 @@ exports.Status = exports.$Enums.Status = {
   Approved: 'Approved',
   Inactive: 'Inactive',
   Active: 'Active',
-  Suspend: 'Suspend'
+  Suspend: 'Suspend',
+  Paid: 'Paid'
 };
 
 exports.ProductionType = exports.$Enums.ProductionType = {

@@ -125,7 +125,8 @@ export const Status: {
   Approved: 'Approved',
   Inactive: 'Inactive',
   Active: 'Active',
-  Suspend: 'Suspend'
+  Suspend: 'Suspend',
+  Paid: 'Paid'
 };
 
 export type Status = (typeof Status)[keyof typeof Status]
@@ -9564,18 +9565,33 @@ export namespace Prisma {
     id: number | null
     farmerId: number | null
     amount: number | null
+    phone_number: string | null
+    has_paid: boolean | null
+    payment_reference: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
   }
 
   export type InvoiceMaxAggregateOutputType = {
     id: number | null
     farmerId: number | null
     amount: number | null
+    phone_number: string | null
+    has_paid: boolean | null
+    payment_reference: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
   }
 
   export type InvoiceCountAggregateOutputType = {
     id: number
     farmerId: number
     amount: number
+    phone_number: number
+    has_paid: number
+    payment_reference: number
+    status: number
+    createdAt: number
     _all: number
   }
 
@@ -9596,18 +9612,33 @@ export namespace Prisma {
     id?: true
     farmerId?: true
     amount?: true
+    phone_number?: true
+    has_paid?: true
+    payment_reference?: true
+    status?: true
+    createdAt?: true
   }
 
   export type InvoiceMaxAggregateInputType = {
     id?: true
     farmerId?: true
     amount?: true
+    phone_number?: true
+    has_paid?: true
+    payment_reference?: true
+    status?: true
+    createdAt?: true
   }
 
   export type InvoiceCountAggregateInputType = {
     id?: true
     farmerId?: true
     amount?: true
+    phone_number?: true
+    has_paid?: true
+    payment_reference?: true
+    status?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -9701,6 +9732,11 @@ export namespace Prisma {
     id: number
     farmerId: number
     amount: number
+    phone_number: string
+    has_paid: boolean
+    payment_reference: string | null
+    status: $Enums.Status
+    createdAt: Date
     _count: InvoiceCountAggregateOutputType | null
     _avg: InvoiceAvgAggregateOutputType | null
     _sum: InvoiceSumAggregateOutputType | null
@@ -9726,6 +9762,11 @@ export namespace Prisma {
     id?: boolean
     farmerId?: boolean
     amount?: boolean
+    phone_number?: boolean
+    has_paid?: boolean
+    payment_reference?: boolean
+    status?: boolean
+    createdAt?: boolean
     farmer?: boolean | FarmerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
@@ -9735,9 +9776,14 @@ export namespace Prisma {
     id?: boolean
     farmerId?: boolean
     amount?: boolean
+    phone_number?: boolean
+    has_paid?: boolean
+    payment_reference?: boolean
+    status?: boolean
+    createdAt?: boolean
   }
 
-  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "farmerId" | "amount", ExtArgs["result"]["invoice"]>
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "farmerId" | "amount" | "phone_number" | "has_paid" | "payment_reference" | "status" | "createdAt", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     farmer?: boolean | FarmerDefaultArgs<ExtArgs>
   }
@@ -9751,6 +9797,11 @@ export namespace Prisma {
       id: number
       farmerId: number
       amount: number
+      phone_number: string
+      has_paid: boolean
+      payment_reference: string | null
+      status: $Enums.Status
+      createdAt: Date
     }, ExtArgs["result"]["invoice"]>
     composites: {}
   }
@@ -10124,6 +10175,11 @@ export namespace Prisma {
     readonly id: FieldRef<"Invoice", 'Int'>
     readonly farmerId: FieldRef<"Invoice", 'Int'>
     readonly amount: FieldRef<"Invoice", 'Float'>
+    readonly phone_number: FieldRef<"Invoice", 'String'>
+    readonly has_paid: FieldRef<"Invoice", 'Boolean'>
+    readonly payment_reference: FieldRef<"Invoice", 'String'>
+    readonly status: FieldRef<"Invoice", 'Status'>
+    readonly createdAt: FieldRef<"Invoice", 'DateTime'>
   }
     
 
@@ -13651,7 +13707,12 @@ export namespace Prisma {
   export const InvoiceScalarFieldEnum: {
     id: 'id',
     farmerId: 'farmerId',
-    amount: 'amount'
+    amount: 'amount',
+    phone_number: 'phone_number',
+    has_paid: 'has_paid',
+    payment_reference: 'payment_reference',
+    status: 'status',
+    createdAt: 'createdAt'
   };
 
   export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
@@ -13792,6 +13853,14 @@ export namespace Prisma {
   };
 
   export type BankOrderByRelevanceFieldEnum = (typeof BankOrderByRelevanceFieldEnum)[keyof typeof BankOrderByRelevanceFieldEnum]
+
+
+  export const InvoiceOrderByRelevanceFieldEnum: {
+    phone_number: 'phone_number',
+    payment_reference: 'payment_reference'
+  };
+
+  export type InvoiceOrderByRelevanceFieldEnum = (typeof InvoiceOrderByRelevanceFieldEnum)[keyof typeof InvoiceOrderByRelevanceFieldEnum]
 
 
   export const FarmOrderByRelevanceFieldEnum: {
@@ -14551,6 +14620,11 @@ export namespace Prisma {
     id?: IntFilter<"Invoice"> | number
     farmerId?: IntFilter<"Invoice"> | number
     amount?: FloatFilter<"Invoice"> | number
+    phone_number?: StringFilter<"Invoice"> | string
+    has_paid?: BoolFilter<"Invoice"> | boolean
+    payment_reference?: StringNullableFilter<"Invoice"> | string | null
+    status?: EnumStatusFilter<"Invoice"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Invoice"> | Date | string
     farmer?: XOR<FarmerScalarRelationFilter, FarmerWhereInput>
   }
 
@@ -14558,23 +14632,39 @@ export namespace Prisma {
     id?: SortOrder
     farmerId?: SortOrder
     amount?: SortOrder
+    phone_number?: SortOrder
+    has_paid?: SortOrder
+    payment_reference?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
     farmer?: FarmerOrderByWithRelationInput
+    _relevance?: InvoiceOrderByRelevanceInput
   }
 
   export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    payment_reference?: string
     AND?: InvoiceWhereInput | InvoiceWhereInput[]
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     farmerId?: IntFilter<"Invoice"> | number
     amount?: FloatFilter<"Invoice"> | number
+    phone_number?: StringFilter<"Invoice"> | string
+    has_paid?: BoolFilter<"Invoice"> | boolean
+    status?: EnumStatusFilter<"Invoice"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Invoice"> | Date | string
     farmer?: XOR<FarmerScalarRelationFilter, FarmerWhereInput>
-  }, "id">
+  }, "id" | "payment_reference">
 
   export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
     farmerId?: SortOrder
     amount?: SortOrder
+    phone_number?: SortOrder
+    has_paid?: SortOrder
+    payment_reference?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
     _count?: InvoiceCountOrderByAggregateInput
     _avg?: InvoiceAvgOrderByAggregateInput
     _max?: InvoiceMaxOrderByAggregateInput
@@ -14589,6 +14679,11 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Invoice"> | number
     farmerId?: IntWithAggregatesFilter<"Invoice"> | number
     amount?: FloatWithAggregatesFilter<"Invoice"> | number
+    phone_number?: StringWithAggregatesFilter<"Invoice"> | string
+    has_paid?: BoolWithAggregatesFilter<"Invoice"> | boolean
+    payment_reference?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    status?: EnumStatusWithAggregatesFilter<"Invoice"> | $Enums.Status
+    createdAt?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
   }
 
   export type FarmWhereInput = {
@@ -15505,6 +15600,11 @@ export namespace Prisma {
 
   export type InvoiceCreateInput = {
     amount: number
+    phone_number: string
+    has_paid?: boolean
+    payment_reference?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
     farmer: FarmerCreateNestedOneWithoutInovicesInput
   }
 
@@ -15512,10 +15612,20 @@ export namespace Prisma {
     id?: number
     farmerId: number
     amount: number
+    phone_number: string
+    has_paid?: boolean
+    payment_reference?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
   }
 
   export type InvoiceUpdateInput = {
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     farmer?: FarmerUpdateOneRequiredWithoutInovicesNestedInput
   }
 
@@ -15523,22 +15633,42 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     farmerId?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvoiceCreateManyInput = {
     id?: number
     farmerId: number
     amount: number
+    phone_number: string
+    has_paid?: boolean
+    payment_reference?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
   }
 
   export type InvoiceUpdateManyMutationInput = {
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvoiceUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     farmerId?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FarmCreateInput = {
@@ -16525,10 +16655,21 @@ export namespace Prisma {
     isNot?: FarmerWhereInput
   }
 
+  export type InvoiceOrderByRelevanceInput = {
+    fields: InvoiceOrderByRelevanceFieldEnum | InvoiceOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     farmerId?: SortOrder
     amount?: SortOrder
+    phone_number?: SortOrder
+    has_paid?: SortOrder
+    payment_reference?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type InvoiceAvgOrderByAggregateInput = {
@@ -16541,12 +16682,22 @@ export namespace Prisma {
     id?: SortOrder
     farmerId?: SortOrder
     amount?: SortOrder
+    phone_number?: SortOrder
+    has_paid?: SortOrder
+    payment_reference?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type InvoiceMinOrderByAggregateInput = {
     id?: SortOrder
     farmerId?: SortOrder
     amount?: SortOrder
+    phone_number?: SortOrder
+    has_paid?: SortOrder
+    payment_reference?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type InvoiceSumOrderByAggregateInput = {
@@ -19027,11 +19178,21 @@ export namespace Prisma {
 
   export type InvoiceCreateWithoutFarmerInput = {
     amount: number
+    phone_number: string
+    has_paid?: boolean
+    payment_reference?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
   }
 
   export type InvoiceUncheckedCreateWithoutFarmerInput = {
     id?: number
     amount: number
+    phone_number: string
+    has_paid?: boolean
+    payment_reference?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
   }
 
   export type InvoiceCreateOrConnectWithoutFarmerInput = {
@@ -19238,6 +19399,11 @@ export namespace Prisma {
     id?: IntFilter<"Invoice"> | number
     farmerId?: IntFilter<"Invoice"> | number
     amount?: FloatFilter<"Invoice"> | number
+    phone_number?: StringFilter<"Invoice"> | string
+    has_paid?: BoolFilter<"Invoice"> | boolean
+    payment_reference?: StringNullableFilter<"Invoice"> | string | null
+    status?: EnumStatusFilter<"Invoice"> | $Enums.Status
+    createdAt?: DateTimeFilter<"Invoice"> | Date | string
   }
 
   export type FarmUpsertWithWhereUniqueWithoutFarmerInput = {
@@ -20340,6 +20506,11 @@ export namespace Prisma {
   export type InvoiceCreateManyFarmerInput = {
     id?: number
     amount: number
+    phone_number: string
+    has_paid?: boolean
+    payment_reference?: string | null
+    status?: $Enums.Status
+    createdAt?: Date | string
   }
 
   export type FarmCreateManyFarmerInput = {
@@ -20362,16 +20533,31 @@ export namespace Prisma {
 
   export type InvoiceUpdateWithoutFarmerInput = {
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvoiceUncheckedUpdateWithoutFarmerInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InvoiceUncheckedUpdateManyWithoutFarmerInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
+    phone_number?: StringFieldUpdateOperationsInput | string
+    has_paid?: BoolFieldUpdateOperationsInput | boolean
+    payment_reference?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FarmUpdateWithoutFarmerInput = {

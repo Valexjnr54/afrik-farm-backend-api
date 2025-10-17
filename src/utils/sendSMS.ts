@@ -21,7 +21,7 @@ function normalizePhoneNumber(phone: string): string {
 }
 
 export async function sendSMS(phoneNumber: string, message: string): Promise<void> {
-  const termiiApiKey = process.env.TERMII_API_KEY || 'TLQvkk7mJcru5ajmXjD6BuEwrBPead7GNyltdUz9RZHpOEC9zfxlwbA6BqHjpn';
+  const termiiApiKey = process.env.TERMII_API_KEY || 'TLnKEIpJKGxysuOGyHgecmc5p24lmOeEC9TbqRLNdIMXzpHU367qUu8aoe9E1R';
   if (!termiiApiKey) {
     // Avoid embedding secrets in source; require env var to be provided.
     console.error('TERMII_API_KEY is not set in environment.');
