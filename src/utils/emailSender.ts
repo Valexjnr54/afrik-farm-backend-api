@@ -5,8 +5,8 @@ const ejs = require('ejs');
 const MAIL_DEBUG = process.env.MAIL_DEBUG === 'true';
 
 // Helper: Send via SendGrid HTTP API when configured
-const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'no-reply@@eyzmo.com';
-const SENDGRID_FROM_NAME = process.env.SENDGRID_FROM_NAME || 'Afrik Farm';
+const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'support@eyzmo.com';
+const SENDGRID_FROM_NAME = process.env.SENDGRID_FROM_NAME || 'Eyzmo';
 
 async function sendViaSendGrid(_from: { email: string; name?: string } | null, to: string, subject: string, html: string) {
   const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
