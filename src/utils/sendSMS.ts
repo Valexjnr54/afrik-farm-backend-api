@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const termiiEndpoint = process.env.TERMII_ENDPOINT || 'https://api.ng.termii.com/api/sms/send';
+const termiiApiKey = process.env.TERMII_API_KEY;
+const termiiEndpoint = process.env.TERMII_ENDPOINT || 'https://v3.api.termii.com/api/sms/send';
 
 function normalizePhoneNumber(phone: string): string {
   const digitsOnly = phone.replace(/\D/g, '');
@@ -21,12 +22,12 @@ function normalizePhoneNumber(phone: string): string {
 }
 
 export async function sendSMS(phoneNumber: string, message: string): Promise<void> {
-  const termiiApiKey = process.env.TERMII_API_KEY || 'TLnKEIpJKGxysuOGyHgecmc5p24lmOeEC9TbqRLNdIMXzpHU367qUu8aoe9E1R';
   if (!termiiApiKey) {
-    // Avoid embedding secrets in source; require env var to be provided.
     console.error('TERMII_API_KEY is not set in environment.');
     throw new Error('TERMII_API_KEY is required to send SMS.');
   }
+
+  const termiiSender = process.env.TERMII_SENDER_NAME || 'AfrikFarm';
 
   const formattedNumber = normalizePhoneNumber(phoneNumber);
 
@@ -37,9 +38,9 @@ export async function sendSMS(phoneNumber: string, message: string): Promise<voi
         api_key: termiiApiKey,
         to: formattedNumber,
         sms: message,
-        from: 'N-Alert',
+        from: termiiSender,
         type: 'plain',
-        channel: 'dnd',
+        channel: 'generic',
       },
       {
         headers: {
@@ -48,16 +49,22 @@ export async function sendSMS(phoneNumber: string, message: string): Promise<voi
       }
     );
 
-    // console.log('SMS sent successfully:', response.data);
+    console.log('SMS sent successfully:', response.data);
   } catch (error: unknown) {
-    // runtime check for axios errors — don't rely on axios type exports to be present
     const errAny = error as any;
     if (errAny && errAny.isAxiosError) {
-      console.error('Error sending SMS:', errAny.response?.data ?? errAny.message);
-      throw new Error(`Failed to send SMS: ${JSON.stringify(errAny.response?.data ?? errAny.message)}`);
-    } else {
-      console.error('Unknown error while sending SMS:', error);
-      throw error;
+      const respData = errAny.response?.data;
+      console.error('Error sending SMS:', respData ?? errAny.message);
+
+      // If provider returned a structured error, include it in the thrown message
+      if (respData) {
+        throw new Error(`Failed to send SMS: ${JSON.stringify(respData)}`);
+      }
+
+      throw new Error(`Failed to send SMS: ${errAny.message}`);
     }
+
+    console.error('Unknown error while sending SMS:', error);
+    throw error instanceof Error ? error : new Error(String(error));
   }
 }

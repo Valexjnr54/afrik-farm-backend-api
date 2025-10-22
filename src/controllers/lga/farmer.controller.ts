@@ -98,7 +98,7 @@ export async function listFarmers(request: Request, response: Response) {
 }
 
 export async function getFarmer(request: Request, response: Response) {
-	const id = parseInt(request.params.id, 10);
+	const id: number = parseInt(request.query.farmer_id as string, 10);
 	if (!id) return response.status(400).json({ message: 'Farmer id required' });
 	try {
 		const farmer = await prisma.farmer.findUnique({ where: { id } });
@@ -330,7 +330,23 @@ export async function send_verification_code(request: Request, response: Respons
 		return response.status(200).json({ message: 'Verification code sent successfully' });
 	}catch(error){
 		console.error('Error sending verification code:', error);
-		return response.status(500).json({ message: 'Failed to send verification code', error });
+
+		const errAny = error as any;
+		// If the error originates from the SMS provider (Termii), surface a 502 with provider details
+		if (errAny && errAny.message && String(errAny.message).toLowerCase().includes('failed to send sms')) {
+			// extract provider payload if present
+			let details: any = null;
+
+			try {
+				details = JSON.parse(String(errAny.message).replace(/^Failed to send SMS: ?/, ''));
+			} catch (e) {
+				// not JSON, keep raw message
+				details = errAny.message;
+			}
+			return response.status(502).json({ message: 'Failed to send verification code (SMS provider)', details });
+		}
+
+		return response.status(500).json({ message: 'Failed to send verification code', error: (errAny && errAny.message) ? errAny.message : error });
 	}
 }
 

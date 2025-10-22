@@ -4,6 +4,7 @@ import { userAuthenticateJWT } from "../../middlewares/userAuthenticationMiddlew
 import { dashboard } from '../../controllers/lga/dashboard.controller';
 import { createFarmer, deleteFarmer, getFarmer, initialize_payment, listFarmers, profile_imageUpload, proof_of_addressUpload, send_verification_code, updateFarmer, verify_code, verify_payment, verifyNIN } from "../../controllers/lga/farmer.controller";
 import { upload } from "../../middlewares/multerMiddleware";
+import { createFarm, deleteFarm, getFarm, listFarms, listFarmsByFarmer, updateFarm } from "../../controllers/lga/farm.controller";
 
 export const lgaRouter = express.Router();
 
@@ -26,3 +27,10 @@ lgaRouter.post('/upload-profile-image', upload.single('profile_image'), profile_
 lgaRouter.post('/upload-proof-of-address', upload.single('proof_of_address'), proof_of_addressUpload);
 lgaRouter.post('/initialize-payment', initialize_payment);
 lgaRouter.get('/verify-payment', verify_payment);
+
+lgaRouter.post('/create-farm', createFarm);
+lgaRouter.get('/farms', listFarms);
+lgaRouter.get('/get-farm', getFarm);
+lgaRouter.put('/update-farm', updateFarm);  
+lgaRouter.delete('/delete-farm', deleteFarm);
+lgaRouter.get('/farmers-farm', listFarmsByFarmer);
