@@ -4,9 +4,16 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// generator client {
+//   provider = "prisma-client-js"
+//   output   = "../src/models"
+// }
+
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/models"
+  provider        = "prisma-client-js"
+  output          = "../dist/models"
+  previewFeatures = ["relationJoins"]
+  binaryTargets   = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "rhel-openssl-3.0.x"]
 }
 
 datasource db {

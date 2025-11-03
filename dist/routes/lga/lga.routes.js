@@ -10,6 +10,7 @@ const userAuthenticationMiddleware_1 = require("../../middlewares/userAuthentica
 const dashboard_controller_1 = require("../../controllers/lga/dashboard.controller");
 const farmer_controller_1 = require("../../controllers/lga/farmer.controller");
 const multerMiddleware_1 = require("../../middlewares/multerMiddleware");
+const farm_controller_1 = require("../../controllers/lga/farm.controller");
 exports.lgaRouter = express_1.default.Router();
 exports.lgaRouter.use(userAuthenticationMiddleware_1.userAuthenticateJWT, roleMiddleware_1.lgaOnly);
 // Define LGA-specific routes here
@@ -26,3 +27,11 @@ exports.lgaRouter.post('/send-code', farmer_controller_1.send_verification_code)
 exports.lgaRouter.post('/verify-code', farmer_controller_1.verify_code);
 exports.lgaRouter.post('/upload-profile-image', multerMiddleware_1.upload.single('profile_image'), farmer_controller_1.profile_imageUpload);
 exports.lgaRouter.post('/upload-proof-of-address', multerMiddleware_1.upload.single('proof_of_address'), farmer_controller_1.proof_of_addressUpload);
+exports.lgaRouter.post('/initialize-payment', farmer_controller_1.initialize_payment);
+exports.lgaRouter.get('/verify-payment', farmer_controller_1.verify_payment);
+exports.lgaRouter.post('/create-farm', farm_controller_1.createFarm);
+exports.lgaRouter.get('/farms', farm_controller_1.listFarms);
+exports.lgaRouter.get('/get-farm', farm_controller_1.getFarm);
+exports.lgaRouter.put('/update-farm', farm_controller_1.updateFarm);
+exports.lgaRouter.delete('/delete-farm', farm_controller_1.deleteFarm);
+exports.lgaRouter.get('/farmers-farm', farm_controller_1.listFarmsByFarmer);

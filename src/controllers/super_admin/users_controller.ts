@@ -1,8 +1,8 @@
 // src/controllers/authController.ts
 import { Request, Response } from "express";
 import { PrismaClient } from "../../models";
-import crypto from 'crypto';
-import * as argon2 from 'argon2';
+import { nanoid } from 'nanoid';
+import bcrypt from 'bcrypt';
 import { body, validationResult } from "express-validator";
 import { sendVerificationEmail, sendWelcomeEmail } from "../../utils/emailSender";
 
@@ -13,7 +13,8 @@ function generateVerificationCode(): string {
 }
 
 function generateTempPassword(): string {
-  return crypto.randomBytes(5).toString('hex'); // 10 characters
+  // Use nanoid to generate a 10-character URL-friendly temporary password
+  return nanoid(10);
 }
 
 export async function createUser(request: Request, response: Response) {
@@ -58,7 +59,7 @@ export async function createUser(request: Request, response: Response) {
     }
 
     const tempPassword = generateTempPassword();
-    const hashedPassword = await argon2.hash(tempPassword);
+  const hashedPassword = await bcrypt.hash(tempPassword, 10);
     const verificationCode = generateVerificationCode();
     const expiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 

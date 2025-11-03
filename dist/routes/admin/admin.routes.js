@@ -13,6 +13,7 @@ const lga_routes_1 = __importDefault(require("./lga.routes"));
 const country_controller_1 = require("../../controllers/super_admin/country_controller");
 const state_controller_1 = require("../../controllers/super_admin/state_controller");
 const bank_controller_1 = __importDefault(require("../../controllers/super_admin/bank_controller"));
+const lga_controller_1 = require("../../controllers/super_admin/lga_controller");
 exports.adminRouter = express_1.default.Router();
 exports.adminRouter.use(authenticationMiddleware_1.authenticateJWT, adminMiddleware_1.adminOnly);
 // User Management
@@ -29,5 +30,9 @@ exports.adminRouter.get('/states', state_controller_1.listStates);
 exports.adminRouter.get('/state/:id', state_controller_1.getState);
 exports.adminRouter.delete('/state/:id', state_controller_1.deleteState);
 exports.adminRouter.use('/lgas', lga_routes_1.default);
+exports.adminRouter.post('/create-lga', lga_controller_1.createLga);
+exports.adminRouter.get('/lgas', lga_controller_1.listLgas);
+exports.adminRouter.get('/lga/:id', lga_controller_1.getLga);
+exports.adminRouter.delete('/lga/:id', lga_controller_1.deleteLga);
 // Banks
 exports.adminRouter.post('/banks/bulk', bank_controller_1.default.validateBulkBanks, bank_controller_1.default.bulkCreateBanks);

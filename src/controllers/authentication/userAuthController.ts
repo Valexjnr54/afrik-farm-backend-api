@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '../../models';
 import { Config } from '../../config/config';
-import * as argon2 from 'argon2';
+import bcrypt from 'bcrypt';
 import { body, validationResult } from 'express-validator';
 
 const prisma = new PrismaClient();
@@ -38,13 +38,15 @@ export async function loginUser(request: Request, response: Response) {
         return response.status(401).json({ error: 'Invalid email/username or password' });
       }
 
-      if (!user.password.startsWith('$argon2')) {
-        console.error('Password format is invalid:', user.password);
-        return response.status(400).json({ message: 'Invalid password format in database' });
-      }
+    // Verify the password (support legacy argon2 hashes and bcrypt)
+    let passwordMatch = false;
+    if (!user.password) {
+      response.status(401).json({ error: 'Invalid email or password' });
+      return;
+    }
 
-    // Verify the password
-    const passwordMatch = await argon2.verify(user.password, password);
+    // Use bcrypt for verification only. Legacy argon2 support removed.
+    passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
       response.status(401).json({ error: 'Invalid email or password' });
@@ -201,7 +203,7 @@ export async function changeUserTemporalPassword(request: Request, response: Res
       return response.status(404).json({ status: "fail", message: "User not found." });
     }
 
-    const hashedPassword = await argon2.hash(request.body.newPassword);
+  const hashedPassword = await bcrypt.hash(request.body.newPassword, 10);
 
     const user = await prisma.users.update({
       where: { id: user_id },
@@ -273,12 +275,12 @@ export async function changeUserPassword(request: Request, response: Response) {
       return response.status(404).json({ status: "fail", message: "User not found." });
     }
 
-    const isMatch = await argon2.verify(user.password, currentPassword);
+  const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       return response.status(400).json({ status: "fail", message: "Incorrect current password." });
     }
 
-    const hashedPassword = await argon2.hash(newPassword);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     await prisma.users.update({
       where: { id: userId },

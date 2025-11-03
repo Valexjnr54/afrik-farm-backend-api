@@ -14,4 +14,7 @@ exports.Config = {
     // fallbacks / sandbox keys
     premblyTestSecretKey: process.env.PREMBLY_SECRET_KEY,
     premblyTestAppID: process.env.PREMBLY_APP_ID,
+    paystackSecret: process.env.PAYSTACK_API_KEY,
+    paystackBaseURL: process.env.PAYSTACK_BASE_URL,
+    paystackDeliveryCallback: process.env.PAYSTACK_CALLBACK,
 };

@@ -13,12 +13,16 @@ exports.profile_imageUpload = profile_imageUpload;
 exports.proof_of_addressUpload = proof_of_addressUpload;
 exports.send_verification_code = send_verification_code;
 exports.verify_code = verify_code;
+exports.initialize_payment = initialize_payment;
+exports.verify_payment = verify_payment;
 const models_1 = require("../../models");
 const express_validator_1 = require("express-validator");
 const verification_1 = require("../../services/verification");
 const cloudinary_1 = require("../../utils/cloudinary");
 const fs_1 = __importDefault(require("fs"));
 const sendSMS_1 = require("../../utils/sendSMS");
+const config_1 = require("../../config/config");
+const paystack_1 = require("../../utils/paystack");
 const prisma = new models_1.PrismaClient();
 function generateVerificationCode() {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -101,7 +105,7 @@ async function listFarmers(request, response) {
     }
 }
 async function getFarmer(request, response) {
-    const id = parseInt(request.params.id, 10);
+    const id = parseInt(request.query.farmer_id, 10);
     if (!id)
         return response.status(400).json({ message: 'Farmer id required' });
     try {
@@ -332,7 +336,21 @@ async function send_verification_code(request, response) {
     }
     catch (error) {
         console.error('Error sending verification code:', error);
-        return response.status(500).json({ message: 'Failed to send verification code', error });
+        const errAny = error;
+        // If the error originates from the SMS provider (Termii), surface a 502 with provider details
+        if (errAny && errAny.message && String(errAny.message).toLowerCase().includes('failed to send sms')) {
+            // extract provider payload if present
+            let details = null;
+            try {
+                details = JSON.parse(String(errAny.message).replace(/^Failed to send SMS: ?/, ''));
+            }
+            catch (e) {
+                // not JSON, keep raw message
+                details = errAny.message;
+            }
+            return response.status(502).json({ message: 'Failed to send verification code (SMS provider)', details });
+        }
+        return response.status(500).json({ message: 'Failed to send verification code', error: (errAny && errAny.message) ? errAny.message : error });
     }
 }
 async function verify_code(request, response) {
@@ -380,4 +398,105 @@ async function verify_code(request, response) {
         console.error('Failed to verify code:', error);
         return response.status(500).json({ message: 'Internal Server Error' });
     }
+}
+async function initialize_payment(request, response) {
+    const admin_id = request.user?.id ?? null;
+    // require authenticated user (admin or LGA user) to create farmers
+    if (!admin_id)
+        return response.status(403).json({ message: 'Unauthorized User' });
+    const rules = [
+        (0, express_validator_1.body)('farmer_id').notEmpty().withMessage('Farmer Id is required').bail().isInt().withMessage('Farmer Id must be an integer'),
+        (0, express_validator_1.body)('amount').notEmpty().withMessage('Amount is required').isFloat().withMessage('Amount must be a float'),
+    ];
+    await Promise.all(rules.map(r => r.run(request)));
+    const errors = (0, express_validator_1.validationResult)(request);
+    if (!errors.isEmpty())
+        return response.status(422).json({ status: 'fail', errors: errors.array() });
+    const { farmer_id, amount } = request.body;
+    const lga_admin = await prisma.users.findUnique({ where: { id: admin_id } });
+    if (!lga_admin) {
+        return response.status(403).json({ message: 'Unauthorized User' });
+    }
+    const callback_url = config_1.Config.paystackDeliveryCallback;
+    if (!callback_url) {
+        return response
+            .status(400)
+            .json({ message: "Callback Can't be undefined" });
+    }
+    const amount_to_pay = amount * 100;
+    const farmer = await prisma.farmer.findUnique({ where: { id: farmer_id } });
+    if (!farmer) {
+        return response.status(404).json({ message: 'Farmer not found' });
+    }
+    const phone_number = farmer.phone_number;
+    try {
+        const paymentInfo = await (0, paystack_1.initializePayment)(farmer.id, phone_number, amount_to_pay, lga_admin.email, callback_url);
+        return response.status(200).json({ data: paymentInfo });
+    }
+    catch (error) {
+        console.error('initialize_payment error', error);
+        // If the utility threw a normalized error with status/details, use them
+        const errAny = error;
+        if (errAny && errAny.message && errAny.status) {
+            const statusCode = errAny.status === 500 ? 502 : errAny.status; // map paystack server errors to 502
+            return response.status(statusCode).json({ message: errAny.message, details: errAny.details });
+        }
+        // Missing configuration (message thrown by ensureConfig)
+        if (errAny && errAny.message && String(errAny.message).includes('PAYSTACK_API_KEY')) {
+            return response.status(500).json({ message: errAny.message });
+        }
+        return response.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+async function verify_payment(request, response) {
+    try {
+        const reference = (0, paystack_1.extractReferenceFromRequest)(request);
+        if (typeof reference !== "string") {
+            return response.status(400).json({ message: 'Invalid reference' });
+        }
+        // verifyPayment returns unknown, narrow it to any (or a proper type/interface) before usage
+        const paymentDetails = await (0, paystack_1.verifyPayment)(reference);
+        // Safely access nested properties
+        const referenceDetails = paymentDetails.data.reference;
+        const paymentStatus = paymentDetails.data.status;
+        const email = paymentDetails.data.metadata.email;
+        const paidamount = paymentDetails.data.metadata.amount;
+        const phone_number = paymentDetails.data.metadata.phone_number;
+        const farmer_id = parseInt(paymentDetails.data.metadata.farmer_id);
+        const price = (paidamount / 100).toString();
+        const checkfarmer = await prisma.farmer.findUnique({
+            where: { id: farmer_id },
+        });
+        if (!checkfarmer) {
+            return response.status(404).json({ message: 'Farmer does not exist' });
+        }
+        const invoice = await prisma.invoice.findUnique({
+            where: { payment_reference: referenceDetails, farmerId: farmer_id },
+        });
+        if (invoice) {
+            return response.status(200).json({ message: "Payment was Successful", data: checkfarmer, payment: invoice });
+        }
+        const create_invoice = await prisma.invoice.create({
+            data: {
+                farmerId: farmer_id,
+                phone_number,
+                amount: Number(price),
+                has_paid: true,
+                payment_reference: referenceDetails,
+                status: 'Paid'
+            }
+        });
+        const farmer = await prisma.farmer.update({
+            where: { id: farmer_id },
+            data: { has_paid: true }
+        });
+        return response.status(200).json({ message: "Payment was Successful", data: farmer, payment: create_invoice });
+    }
+    catch (error) {
+        console.error('verify_payment error', error);
+        return response.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+function Float(price) {
+    throw new Error('Function not implemented.');
 }
