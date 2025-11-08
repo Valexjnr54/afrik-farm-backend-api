@@ -89,7 +89,7 @@ You will be required to change your password after first login.
 `;
 
     await sendWelcomeEmail(email, 'Welcome to Afrik Farm – Your Journey Starts Here! 🚀', newUser, tempPassword);
-    await sendVerificationEmail(email, 'Your User Access & Email Verification', verificationCode, newUser);
+    // await sendVerificationEmail(email, 'Your User Access & Email Verification', verificationCode, newUser);
 
     return response.status(201).json({ message: 'User created and verification email sent', newUser });
   } catch (error) {

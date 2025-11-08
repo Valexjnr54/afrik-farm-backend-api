@@ -7,7 +7,7 @@ import { optional } from 'zod';
 const prisma = new PrismaClient();
 
 export async function createFarm(request: Request, response: Response) {
-  const admin_id = request.user?.id ?? null;
+  const admin_id = request.admin.adminId?? null;
   if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
 
   const rules = [
@@ -60,23 +60,21 @@ export async function createFarm(request: Request, response: Response) {
 }
 
 export async function listFarms(request: Request, response: Response) {
-  const admin_id = request.user?.id ?? null;
-  if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
-  try {
-    const lgaId = request.user?.lgaId ?? (request.query.lga_id ? parseInt(request.query.lga_id as string, 10) : undefined);
-    const where = lgaId ? { farmer: { lgaId } } : undefined;
-    const farms = await prisma.farm.findMany({ where, orderBy: { createdAt: 'desc' } });
-    return response.status(200).json({ message: 'Farms fetched', data: farms });
-  } catch (error) {
-    console.error('listFarms error', error);
-    return response.status(500).json({ message: 'Internal Server Error' });
-  }
+    const admin_id = request.admin.adminId?? null;
+    if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
+    try {
+        const farms = await prisma.farm.findMany({ orderBy: { createdAt: 'desc' } });
+        return response.status(200).json({ message: 'Farms fetched', data: farms });
+    } catch (error) {
+        console.error('listFarms error', error);
+        return response.status(500).json({ message: 'Internal Server Error' });
+    }
 }
 
 export async function getFarm(request: Request, response: Response) {
   const id: number = parseInt(request.query.farm_id as string, 10)
   if (!id) return response.status(400).json({ message: 'Farm id required' });
-  const admin_id = request.user?.id ?? null;
+  const admin_id = request.admin.adminId?? null;
   if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
   try {
     const farm = await prisma.farm.findUnique({ where: { id } });
@@ -91,9 +89,8 @@ export async function getFarm(request: Request, response: Response) {
 export async function updateFarm(request: Request, response: Response) {
   const id: number = parseInt(request.query.farm_id as string, 10)
   if (!id) return response.status(400).json({ message: 'Farm id required' });
-  const admin_id = request.user?.id ?? null;
+  const admin_id = request.admin.adminId?? null;
   if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
-
   const rules = [
     body('location').optional().isString().trim(),
     body('farmerId').optional().bail().isInt().withMessage('farmerId must be an integer'),
@@ -146,7 +143,7 @@ export async function updateFarm(request: Request, response: Response) {
 export async function deleteFarm(request: Request, response: Response) {
   const id: number = parseInt(request.query.farm_id as string, 10)
   if (!id) return response.status(400).json({ message: 'Farm id required' });
-  const admin_id = request.user?.id ?? null;
+  const admin_id = request.admin.adminId?? null;
   if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
   try {
     const farm = await prisma.farm.findUnique({ where: { id } });
@@ -163,7 +160,7 @@ export async function listFarmsByFarmer(request: Request, response: Response) {
   try {
     const farmerId: number = parseInt(request.query.farmer_id as string, 10);
     if (!farmerId) return response.status(400).json({ message: 'Farmer id required' });
-    const admin_id = request.user?.id ?? null;
+    const admin_id = request.admin.adminId?? null;
     if (!admin_id) return response.status(403).json({ message: 'Unauthorized User' });
     const farms = await prisma.farm.findMany({
       where: { farmerId }

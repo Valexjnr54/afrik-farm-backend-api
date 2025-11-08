@@ -59,6 +59,9 @@ async function createFarm(request, response) {
     }
 }
 async function listFarms(request, response) {
+    const admin_id = request.user?.id ?? null;
+    if (!admin_id)
+        return response.status(403).json({ message: 'Unauthorized User' });
     try {
         const lgaId = request.user?.lgaId ?? (request.query.lga_id ? parseInt(request.query.lga_id, 10) : undefined);
         const where = lgaId ? { farmer: { lgaId } } : undefined;
@@ -74,6 +77,9 @@ async function getFarm(request, response) {
     const id = parseInt(request.query.farm_id, 10);
     if (!id)
         return response.status(400).json({ message: 'Farm id required' });
+    const admin_id = request.user?.id ?? null;
+    if (!admin_id)
+        return response.status(403).json({ message: 'Unauthorized User' });
     try {
         const farm = await prisma.farm.findUnique({ where: { id } });
         if (!farm)
@@ -89,6 +95,9 @@ async function updateFarm(request, response) {
     const id = parseInt(request.query.farm_id, 10);
     if (!id)
         return response.status(400).json({ message: 'Farm id required' });
+    const admin_id = request.user?.id ?? null;
+    if (!admin_id)
+        return response.status(403).json({ message: 'Unauthorized User' });
     const rules = [
         (0, express_validator_1.body)('location').optional().isString().trim(),
         (0, express_validator_1.body)('farmerId').optional().bail().isInt().withMessage('farmerId must be an integer'),
@@ -140,6 +149,9 @@ async function deleteFarm(request, response) {
     const id = parseInt(request.query.farm_id, 10);
     if (!id)
         return response.status(400).json({ message: 'Farm id required' });
+    const admin_id = request.user?.id ?? null;
+    if (!admin_id)
+        return response.status(403).json({ message: 'Unauthorized User' });
     try {
         const farm = await prisma.farm.findUnique({ where: { id } });
         if (!farm)

@@ -82,7 +82,7 @@ Email Verification Code: ${verificationCode} (expires in 10 mins)
 You will be required to change your password after first login.
 `;
         await (0, emailSender_1.sendWelcomeEmail)(email, 'Welcome to Afrik Farm – Your Journey Starts Here! 🚀', newUser, tempPassword);
-        await (0, emailSender_1.sendVerificationEmail)(email, 'Your User Access & Email Verification', verificationCode, newUser);
+        // await sendVerificationEmail(email, 'Your User Access & Email Verification', verificationCode, newUser);
         return response.status(201).json({ message: 'User created and verification email sent', newUser });
     }
     catch (error) {
