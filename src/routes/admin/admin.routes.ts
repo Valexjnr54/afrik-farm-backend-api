@@ -3,7 +3,7 @@ import { adminOnly } from "../../middlewares/adminMiddleware";
 import { authenticateJWT } from "../../middlewares/authenticationMiddleware";
 import { upload } from "../../middlewares/multerMiddleware";
 import { uploadCSV } from "../../middlewares/uploadCSVMiddleware";
-import { createUser } from "../../controllers/super_admin/users_controller";
+import { allUser, createUser, deleteUser, singleUser } from "../../controllers/super_admin/users_controller";
 import stateRoutes from './state.routes';
 import lgaRoutes from './lga.routes';
 import { createCountry, deleteCountry, getCountry, listCountries } from "../../controllers/super_admin/country_controller";
@@ -23,6 +23,9 @@ adminRouter.get('/dashboard', getSummary);
 
 // User Management
 adminRouter.post('/create-user', createUser);
+adminRouter.get('/list-users',  allUser);
+adminRouter.get('/single-user', singleUser);
+adminRouter.delete('/delete-user', deleteUser);
 
 // Location management
 adminRouter.post('/create-country', createCountry);

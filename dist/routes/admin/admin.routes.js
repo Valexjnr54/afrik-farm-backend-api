@@ -24,6 +24,9 @@ exports.adminRouter.use(authenticationMiddleware_1.authenticateJWT, adminMiddlew
 exports.adminRouter.get('/dashboard', dashboard_controller_1.getSummary);
 // User Management
 exports.adminRouter.post('/create-user', users_controller_1.createUser);
+exports.adminRouter.get('/list-users', users_controller_1.allUser);
+exports.adminRouter.get('/single-user', users_controller_1.singleUser);
+exports.adminRouter.delete('/delete-user', users_controller_1.deleteUser);
 // Location management
 exports.adminRouter.post('/create-country', country_controller_1.createCountry);
 exports.adminRouter.get('/countries', country_controller_1.listCountries);
