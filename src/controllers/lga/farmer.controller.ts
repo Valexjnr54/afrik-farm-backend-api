@@ -24,7 +24,6 @@ export async function createFarmer(request: Request, response: Response) {
 		body('fullname').notEmpty().withMessage('fullname is required').bail().isString().trim().isLength({ min: 2 }),
 		body('email').optional().isEmail().withMessage('Invalid email'),
 		body('phone_number').notEmpty().withMessage('phone_number is required').bail().isString().trim(),
-		body('phone_verified').notEmpty().isBoolean().withMessage('Phone verified must be a boolean'),
 		body('nin_verified').notEmpty().isBoolean().withMessage('NIN verified must be a boolean'),
 		body('nin').notEmpty().withMessage('nin is required').bail().isString().trim(),
 		body('address').notEmpty().withMessage('address is required').bail().isString().trim(),
@@ -39,7 +38,7 @@ export async function createFarmer(request: Request, response: Response) {
 	const errors = validationResult(request);
 	if (!errors.isEmpty()) return response.status(422).json({ status: 'fail', errors: errors.array() });
 
-	const { fullname, email, phone_number, phone_verified, nin_verified, nin, address, bankId, account_number, account_name, profile_image, proof_of_address } = request.body as any;
+	const { fullname, email, phone_number, nin_verified, nin, address, bankId, account_number, account_name, profile_image, proof_of_address } = request.body as any;
 
     const lga_admin = await prisma.users.findUnique({ where: { id: admin_id } });
     if(!lga_admin) {
@@ -54,7 +53,6 @@ export async function createFarmer(request: Request, response: Response) {
 			fullname: fullname.trim(),
 			email: email ? String(email).trim() : undefined,
 			phone_number: phone_number.trim(),
-			phone_verified: Boolean(phone_verified),
 			nin_verified: Boolean(nin_verified),
 			nin: nin.trim(),
 			address: address.trim(),
