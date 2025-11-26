@@ -36,7 +36,6 @@ async function createFarmer(request, response) {
         (0, express_validator_1.body)('fullname').notEmpty().withMessage('fullname is required').bail().isString().trim().isLength({ min: 2 }),
         (0, express_validator_1.body)('email').optional().isEmail().withMessage('Invalid email'),
         (0, express_validator_1.body)('phone_number').notEmpty().withMessage('phone_number is required').bail().isString().trim(),
-        (0, express_validator_1.body)('phone_verified').notEmpty().isBoolean().withMessage('Phone verified must be a boolean'),
         (0, express_validator_1.body)('nin_verified').notEmpty().isBoolean().withMessage('NIN verified must be a boolean'),
         (0, express_validator_1.body)('nin').notEmpty().withMessage('nin is required').bail().isString().trim(),
         (0, express_validator_1.body)('address').notEmpty().withMessage('address is required').bail().isString().trim(),
@@ -50,25 +49,52 @@ async function createFarmer(request, response) {
     const errors = (0, express_validator_1.validationResult)(request);
     if (!errors.isEmpty())
         return response.status(422).json({ status: 'fail', errors: errors.array() });
-    const { fullname, email, phone_number, phone_verified, nin_verified, nin, address, bankId, account_number, account_name, profile_image, proof_of_address } = request.body;
+    const { fullname, email, phone_number, nin_verified, nin, address, bankId, account_number, account_name, profile_image, proof_of_address } = request.body;
     const lga_admin = await prisma.users.findUnique({ where: { id: admin_id } });
     if (!lga_admin) {
         return response.status(403).json({ message: 'Unauthorized User' });
     }
     try {
-        const existing = await prisma.farmer.findFirst({ where: { OR: [{ email }, { phone_number }, { nin }] } });
-        if (existing)
-            return response.status(400).json({ message: 'Farmer with same email/phone/nin already exists' });
+        // Normalize incoming values to avoid accidental mismatches
+        const phoneNorm = phone_number ? String(phone_number).trim() : undefined;
+        const ninNorm = nin ? String(nin).trim() : undefined;
+        const accNorm = account_number ? String(account_number).trim() : undefined;
+        const emailNorm = email ? String(email).trim() : undefined;
+        // Build OR conditions only for provided fields
+        const orConditions = [];
+        if (emailNorm)
+            orConditions.push({ email: emailNorm });
+        if (phoneNorm)
+            orConditions.push({ phone_number: phoneNorm });
+        if (ninNorm)
+            orConditions.push({ nin: ninNorm });
+        if (accNorm)
+            orConditions.push({ account_number: accNorm });
+        if (orConditions.length > 0) {
+            const existing = await prisma.farmer.findFirst({ where: { OR: orConditions } });
+            if (existing) {
+                const conflicts = [];
+                if (phoneNorm && existing.phone_number === phoneNorm)
+                    conflicts.push('phone number');
+                if (ninNorm && existing.nin === ninNorm)
+                    conflicts.push('nin');
+                if (accNorm && existing.account_number === accNorm)
+                    conflicts.push('account number');
+                if (emailNorm && existing.email === emailNorm)
+                    conflicts.push('email');
+                const conflictMsg = conflicts.length > 0 ? conflicts.join(', ') : 'phone number, nin or account number';
+                return response.status(400).json({ message: `A farmer with the same ${conflictMsg} already exists` });
+            }
+        }
         const data = {
-            fullname: fullname.trim(),
-            email: email ? String(email).trim() : undefined,
-            phone_number: phone_number.trim(),
-            phone_verified: Boolean(phone_verified),
+            fullname: fullname ? String(fullname).trim() : '',
+            email: emailNorm,
+            phone_number: phoneNorm,
             nin_verified: Boolean(nin_verified),
-            nin: nin.trim(),
-            address: address.trim(),
+            nin: ninNorm,
+            address: address ? String(address).trim() : undefined,
             bankId: Number(bankId),
-            account_number,
+            account_number: accNorm,
             account_name,
             profile_image: profile_image ? String(profile_image).trim() : undefined,
             proof_of_address: proof_of_address ? String(proof_of_address).trim() : undefined,

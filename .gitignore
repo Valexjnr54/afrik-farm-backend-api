@@ -6,4 +6,4 @@ node_modules
 Archive.zip
 dist.zip
 *.zip
-dist
+dist/

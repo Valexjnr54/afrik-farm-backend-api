@@ -46,25 +46,49 @@ export async function createFarmer(request: Request, response: Response) {
     }
 
 	try {
-		const existing = await prisma.farmer.findFirst({ where: { OR: [ { email }, { phone_number }, { nin } ] } });
-		if (existing) return response.status(400).json({ message: 'Farmer with same email/phone/nin already exists' });
+		// Normalize incoming values to avoid accidental mismatches
+		const phoneNorm = phone_number ? String(phone_number).trim() : undefined;
+		const ninNorm = nin ? String(nin).trim() : undefined;
+		const accNorm = account_number ? String(account_number).trim() : undefined;
+		const emailNorm = email ? String(email).trim() : undefined;
+
+		// Build OR conditions only for provided fields
+		const orConditions: any[] = [];
+		if (emailNorm) orConditions.push({ email: emailNorm });
+		if (phoneNorm) orConditions.push({ phone_number: phoneNorm });
+		if (ninNorm) orConditions.push({ nin: ninNorm });
+		if (accNorm) orConditions.push({ account_number: accNorm });
+
+		if (orConditions.length > 0) {
+			const existing = await prisma.farmer.findFirst({ where: { OR: orConditions } });
+			if (existing) {
+				const conflicts: string[] = [];
+				if (phoneNorm && existing.phone_number === phoneNorm) conflicts.push('phone number');
+				if (ninNorm && existing.nin === ninNorm) conflicts.push('nin');
+				if (accNorm && existing.account_number === accNorm) conflicts.push('account number');
+				if (emailNorm && existing.email === emailNorm) conflicts.push('email');
+
+				const conflictMsg = conflicts.length > 0 ? conflicts.join(', ') : 'phone number, nin or account number';
+				return response.status(400).json({ message: `A farmer with the same ${conflictMsg} already exists` });
+			}
+		}
 
 		const data: any = {
-			fullname: fullname.trim(),
-			email: email ? String(email).trim() : undefined,
-			phone_number: phone_number.trim(),
+			fullname: fullname ? String(fullname).trim() : '',
+			email: emailNorm,
+			phone_number: phoneNorm,
 			nin_verified: Boolean(nin_verified),
-			nin: nin.trim(),
-			address: address.trim(),
+			nin: ninNorm,
+			address: address ? String(address).trim() : undefined,
 			bankId: Number(bankId),
-            account_number,
-            account_name,
+			account_number: accNorm,
+			account_name,
 			profile_image: profile_image ? String(profile_image).trim() : undefined,
 			proof_of_address: proof_of_address ? String(proof_of_address).trim() : undefined,
 			account_created_by: lga_admin.id,
-            countryId : lga_admin.countryId,
-            stateId : lga_admin.stateId,
-            lgaId : lga_admin.lgaId
+			countryId : lga_admin.countryId,
+			stateId : lga_admin.stateId,
+			lgaId : lga_admin.lgaId
 		};
 
 		const farmer = await prisma.farmer.create({ data });

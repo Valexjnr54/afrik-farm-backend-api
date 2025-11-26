@@ -8,6 +8,9 @@ import { createFarm, deleteFarm, getFarm, listFarms, listFarmsByFarmer, updateFa
 
 export const lgaRouter = express.Router();
 
+// Public webhook endpoint: verify-payment must be callable without authentication
+lgaRouter.get('/verify-payment', verify_payment);
+
 lgaRouter.use(userAuthenticateJWT, lgaOnly);
 
 // Define LGA-specific routes here
@@ -25,8 +28,8 @@ lgaRouter.post('/send-code', send_verification_code);
 lgaRouter.post('/verify-code', verify_code);
 lgaRouter.post('/upload-profile-image', upload.single('profile_image'), profile_imageUpload);
 lgaRouter.post('/upload-proof-of-address', upload.single('proof_of_address'), proof_of_addressUpload);
+
 lgaRouter.post('/initialize-payment', initialize_payment);
-lgaRouter.get('/verify-payment', verify_payment);
 
 lgaRouter.post('/create-farm', createFarm);
 lgaRouter.get('/farms', listFarms);

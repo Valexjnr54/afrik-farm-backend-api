@@ -55,7 +55,7 @@ async function fetchAccountName(request, response) {
         if (!account_name) {
             return response.status(400).json({ message: 'Unable to resolve account name' });
         }
-        return response.status(200).json({ message: 'Vendor account details updated', data: account_name });
+        return response.status(200).json({ message: 'User account details updated', data: psBody });
     }
     catch (error) {
         console.error(error?.response?.data || error);

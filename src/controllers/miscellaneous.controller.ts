@@ -62,7 +62,7 @@ export async function fetchAccountName(request: Request, response: Response) {
     }
   
 
-    return response.status(200).json({ message: 'Vendor account details updated', data: account_name });
+    return response.status(200).json({ message: 'User account details updated', data: psBody });
   } catch (error: any) {
     console.error(error?.response?.data || error);
     return response.status(500).json({ message: 'Internal Server Error' });
